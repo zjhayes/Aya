@@ -7,14 +7,18 @@ public class EnemyController : MonoBehaviour
 {
     [SerializeField]
     private float lookRadius = 10f;
+    [SerializeField]
+    private float lookSpeed = 5f;
 
     Transform target;
     NavMeshAgent agent;
+    CharacterCombat combat;
 
     void Start()
     {
         target = PlayerManager.instance.Player.transform; // Track player's location.
         agent = GetComponent<NavMeshAgent>();
+        combat = GetComponent<CharacterCombat>();
     }
 
     void Update()
@@ -25,7 +29,27 @@ public class EnemyController : MonoBehaviour
         {
             // Chase player.
             agent.SetDestination(target.position);
+
+            // If enemy is in range...
+            if(distance <= agent.stoppingDistance)
+            {
+                FaceTarget();
+
+                // Attack target.
+                CharacterStats targetStats = target.GetComponent<CharacterStats>();
+                if(targetStats != null)
+                {
+                    combat.Attack(targetStats);
+                }
+            }
         }
+    }
+
+    private void FaceTarget()
+    {
+        Vector3 direction = (target.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * lookSpeed);
     }
 
     private void OnDrawGizmosSelected() 
