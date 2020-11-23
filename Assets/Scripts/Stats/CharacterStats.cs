@@ -23,15 +23,7 @@ public class CharacterStats : MonoBehaviour
     {
         currentHealth = maxHealth;
     }
-
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.T))
-        {
-            TakeDamage(10);
-        }
-    }
-
+    
     public void TakeDamage(int damage)
     {
         // Apply armor buff, clamp negative numbers.

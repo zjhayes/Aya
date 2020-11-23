@@ -15,6 +15,9 @@ public class EquipmentManager : MonoBehaviour
         }
 
         instance = this;
+
+        // Set equipment controls.
+        InputManager.instance.Controls.Interact.UnequiptAll.performed += ctx => UnequipAll();
     }
     #endregion
     
@@ -40,15 +43,6 @@ public class EquipmentManager : MonoBehaviour
         currentMeshes = new SkinnedMeshRenderer[numSlots];
 
         EquipDefaultItems();
-    }
-
-    void Update()
-    {
-        // Upequip all items with 'U'.
-        if(Input.GetKeyDown(KeyCode.U))
-        {
-            UnequipAll();
-        }
     }
 
     public void Equip(Equipment newItem)

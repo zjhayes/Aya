@@ -1,15 +1,16 @@
 ﻿using UnityEngine.EventSystems;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerMotor))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     private LayerMask movementMask;
-    [SerializeField]
+
     private Interactable focus;
     private Camera cam;
-    PlayerMotor motor;
+    private PlayerMotor motor;
 
     void Start()
     {
@@ -17,7 +18,26 @@ public class PlayerController : MonoBehaviour
         motor = GetComponent<PlayerMotor>();
     }
 
-    void Update()
+    void Awake() 
+    {
+        // Set player controls.
+        InputManager.instance.Controls.Interact.Attune.performed += ctx => Attune();
+        InputManager.instance.Controls.Movement.Walk.performed += ctx => Move(ctx.ReadValue<Vector2>());
+        InputManager.instance.Controls.Interact.LeftClick.performed += ctx => OnLeftMouseClick();
+        InputManager.instance.Controls.Interact.RightClick.performed += ctx => OnRightMouseClick();
+    }
+
+    void Move(Vector2 direction)
+    {
+        Debug.Log("Player wants to move " + direction);
+    }
+
+    public void Attune()
+    {
+        Debug.Log("Attuned.");
+    }
+
+    void OnLeftMouseClick()
     {
         // Return if mouse hovering over UI.
         if(EventSystem.current.IsPointerOverGameObject())
@@ -25,20 +45,8 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if(Input.GetMouseButtonDown(0))
-        {
-            OnLeftMouseClick();
-        }
-
-        if(Input.GetMouseButtonDown(1))
-        {
-            OnRightMouseClick();
-        }
-    }
-
-    void OnLeftMouseClick()
-    {
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        Vector3 mousePosition = InputManager.instance.Controls.Interact.MousePosition.ReadValue<Vector2>();
+        Ray ray = cam.ScreenPointToRay(mousePosition);
         RaycastHit hit;
 
         int maskRange = 100;
@@ -53,7 +61,14 @@ public class PlayerController : MonoBehaviour
 
     void OnRightMouseClick()
     {
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        // Return if mouse hovering over UI.
+        if(EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+
+        Vector3 mousePosition = InputManager.instance.Controls.Interact.MousePosition.ReadValue<Vector2>();
+        Ray ray = cam.ScreenPointToRay(mousePosition);
         RaycastHit hit;
 
         int maskRange = 100;

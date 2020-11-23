@@ -10,6 +10,11 @@ public class PlayerManager : MonoBehaviour
 
         void Awake() 
         {
+            if(instance != null)
+            {
+                Debug.LogWarning("More than one instance of PlayerManager found.");
+                return;
+            }
             instance = this;
         }
     #endregion

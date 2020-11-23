@@ -9,7 +9,7 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     private Vector3 offset;
     [SerializeField]
-    private float pitch = 2f;
+    private float pitch = 1.5f;
     [SerializeField]
     private float yawSpeed = 100f;
     [SerializeField]
@@ -21,20 +21,49 @@ public class CameraController : MonoBehaviour
 
     private float currentYaw = 0f;
     private float currentZoom = 10f;
-  
+
+    void Awake() 
+    {
+        // Set camera controls.
+        InputManager.instance.Controls.Camera.Zoom.performed += ctx => Zoom(ctx.ReadValue<float>());
+        InputManager.instance.Controls.Camera.Yaw.performed += ctx => Yaw(ctx.ReadValue<Vector2>());
+    }
+
 
     void Update()
     {
-        currentZoom -= Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
-        currentZoom = Mathf.Clamp(currentZoom, minZoom, maxZoom);
-
-        currentYaw -= Input.GetAxis("Horizontal") * yawSpeed * Time.deltaTime;
+        ZoomInput();
+        YawInput();
     }
 
     void LateUpdate()
     {
+        // Update camera position.
         transform.position = target.position - offset * currentZoom;
         transform.LookAt(target.position + Vector3.up * pitch);
         transform.RotateAround(target.position, Vector3.up, currentYaw);
     }
-}
+
+    private void Zoom(float amount)
+    {
+        //Debug.Log(amount);
+        //currentZoom -= amount * zoomSpeed;
+        //currentZoom = Mathf.Clamp(currentZoom, minZoom, maxZoom);
+    }
+
+    private void Yaw(Vector2 amount)
+    {
+        //Debug.Log(amount);
+    }
+
+    private void ZoomInput()
+    {
+        //currentZoom -= input.GetAxis(InputAction.CAMERA_VERTICAL) * zoomSpeed;
+        //currentZoom = Mathf.Clamp(currentZoom, minZoom, maxZoom);
+    }
+
+    private void YawInput()
+    {
+        //currentYaw -= input.GetAxis(InputAction.CAMERA_HORIZONTAL) * yawSpeed * Time.deltaTime;
+    }
+}   
