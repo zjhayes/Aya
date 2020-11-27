@@ -54,7 +54,6 @@ public class PlayerController : MonoBehaviour
         if(Physics.Raycast(ray, out hit, maskRange, movementMask))
         {
             motor.MoveToPoint(hit.point);
-            
             RemoveFocus();
         }
     }

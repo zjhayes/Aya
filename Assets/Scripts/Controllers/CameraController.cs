@@ -46,14 +46,14 @@ public class CameraController : MonoBehaviour
 
     private void Zoom(float amount)
     {
-        //Debug.Log(amount);
+        Debug.Log("ZOOM " + amount);
         //currentZoom -= amount * zoomSpeed;
         //currentZoom = Mathf.Clamp(currentZoom, minZoom, maxZoom);
     }
 
     private void Yaw(Vector2 amount)
     {
-        //Debug.Log(amount);
+        Debug.Log("YAW " + amount);
     }
 
     private void ZoomInput()

@@ -15,9 +15,6 @@ public class EquipmentManager : MonoBehaviour
         }
 
         instance = this;
-
-        // Set equipment controls.
-        InputManager.instance.Controls.Interact.UnequiptAll.performed += ctx => UnequipAll();
     }
     #endregion
     
@@ -41,6 +38,9 @@ public class EquipmentManager : MonoBehaviour
         int numSlots = System.Enum.GetNames(typeof(EquipmentSlot)).Length;
         currentEquipment = new Equipment[numSlots];
         currentMeshes = new SkinnedMeshRenderer[numSlots];
+
+        // Set equipment controls.
+        InputManager.instance.Controls.Interact.UnequiptAll.performed += ctx => UnequipAll();
 
         EquipDefaultItems();
     }
