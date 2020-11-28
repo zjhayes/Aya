@@ -1,6 +1,5 @@
 ﻿using UnityEngine.EventSystems;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerMotor))]
 public class PlayerController : MonoBehaviour
@@ -22,14 +21,8 @@ public class PlayerController : MonoBehaviour
     {
         // Set player controls.
         InputManager.instance.Controls.Interact.Attune.performed += ctx => Attune();
-        InputManager.instance.Controls.Movement.Walk.performed += ctx => Move(ctx.ReadValue<Vector2>());
         InputManager.instance.Controls.Interact.LeftClick.performed += ctx => OnLeftMouseClick();
         InputManager.instance.Controls.Interact.RightClick.performed += ctx => OnRightMouseClick();
-    }
-
-    void Move(Vector2 direction)
-    {
-        Debug.Log("Player wants to move " + direction);
     }
 
     public void Attune()

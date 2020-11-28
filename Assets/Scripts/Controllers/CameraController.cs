@@ -1,69 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(CinemachineFreeLook))]
 public class CameraController : MonoBehaviour
 {
     [SerializeField]
-    private Transform target;
+    [Range(0f, 10f)] 
+    private float LookSpeed = 1f;
     [SerializeField]
-    private Vector3 offset;
-    [SerializeField]
-    private float pitch = 1.5f;
-    [SerializeField]
-    private float yawSpeed = 100f;
-    [SerializeField]
-    private float zoomSpeed = 4f;
-    [SerializeField]
-    private float minZoom = 5f;
-    [SerializeField]
-    private float maxZoom = 15f;
+    private bool InvertY = false;
+    private CinemachineFreeLook freeLookComponent;
 
-    private float currentYaw = 0f;
-    private float currentZoom = 10f;
-
-    void Awake() 
+    void Start() 
     {
-        // Set camera controls.
-        InputManager.instance.Controls.Camera.Zoom.performed += ctx => Zoom(ctx.ReadValue<float>());
-        InputManager.instance.Controls.Camera.Yaw.performed += ctx => Yaw(ctx.ReadValue<Vector2>());
+        freeLookComponent = GetComponent<CinemachineFreeLook>();
     }
-
 
     void Update()
     {
-        ZoomInput();
-        YawInput();
-    }
+        float yRotation = InputManager.instance.Controls.Camera.Pitch.ReadValue<float>();
+        float xRotation = InputManager.instance.Controls.Camera.Yaw.ReadValue<float>();
 
-    void LateUpdate()
-    {
-        // Update camera position.
-        transform.position = target.position - offset * currentZoom;
-        transform.LookAt(target.position + Vector3.up * pitch);
-        transform.RotateAround(target.position, Vector3.up, currentYaw);
-    }
+        yRotation = InvertY ? -yRotation : yRotation;
+        // This is because X axis is only contains between -180 and 180 instead of 0 and 1 like the Y axis.
+        xRotation = xRotation * 180f;
 
-    private void Zoom(float amount)
-    {
-        Debug.Log("ZOOM " + amount);
-        //currentZoom -= amount * zoomSpeed;
-        //currentZoom = Mathf.Clamp(currentZoom, minZoom, maxZoom);
-    }
-
-    private void Yaw(Vector2 amount)
-    {
-        Debug.Log("YAW " + amount);
-    }
-
-    private void ZoomInput()
-    {
-        //currentZoom -= input.GetAxis(InputAction.CAMERA_VERTICAL) * zoomSpeed;
-        //currentZoom = Mathf.Clamp(currentZoom, minZoom, maxZoom);
-    }
-
-    private void YawInput()
-    {
-        //currentYaw -= input.GetAxis(InputAction.CAMERA_HORIZONTAL) * yawSpeed * Time.deltaTime;
+        //Adjust axis values using look speed and Time.deltaTime so the look doesn't go faster if there is more FPS.
+        freeLookComponent.m_XAxis.Value += xRotation * LookSpeed * Time.deltaTime;
+        freeLookComponent.m_YAxis.Value += yRotation * LookSpeed * Time.deltaTime;
     }
 }   
