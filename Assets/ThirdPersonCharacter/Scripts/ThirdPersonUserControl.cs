@@ -33,10 +33,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
             // get the third person character ( this should never be null due to require component )
             m_Character = GetComponent<ThirdPersonCharacter>();
-        }
 
-        void Awake() 
-        {
             // Set player controls. 
             InputManager.instance.Controls.Movement.Move.performed += ctx => Move(ctx.ReadValue<Vector2>());
             InputManager.instance.Controls.Movement.Jump.performed += ctx => Jump();
