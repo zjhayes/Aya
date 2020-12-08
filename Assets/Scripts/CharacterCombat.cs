@@ -23,7 +23,6 @@ public class CharacterCombat : MonoBehaviour
     void Update() 
     {
         attackCooldown -= Time.deltaTime;
-        attackCooldown = Mathf.Clamp(attackCooldown, 0f, int.MinValue);
     }
 
     public void Attack(CharacterStats targetStats)

@@ -50,7 +50,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
         public void Jump()
         {
-            Debug.Log("Jumped");
             if(!m_Jump)
             {
                 m_Jump = true;

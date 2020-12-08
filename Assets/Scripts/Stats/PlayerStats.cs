@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerStats : CharacterStats
 {
-    // Start is called before the first frame update
     void Start()
     {
         EquipmentManager.instance.onEquipmentChanged += OnEquipmentChanged;
@@ -29,5 +28,11 @@ public class PlayerStats : CharacterStats
             Armor.RemoveModifier(oldItem.ArmorModifier);
             Damage.RemoveModifier(oldItem.DamageModifier);
         }
+    }
+
+    public override void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
+        PlayerManager.instance.DamageTaken(damage, Health);
     }
 }

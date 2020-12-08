@@ -3,12 +3,18 @@
 public class CharacterStats : MonoBehaviour
 {
     public int maxHealth = 100;
-    public int currentHealth { get; private set; }
+    public int currentHealth;
     [SerializeField]
     private Stat damage;
     [SerializeField]
     private Stat armor;
 
+    public int Health
+    {
+        get { return currentHealth; }
+        set { currentHealth = value; }
+    }
+    
     public Stat Damage
     {
         get { return damage; }
@@ -24,7 +30,7 @@ public class CharacterStats : MonoBehaviour
         currentHealth = maxHealth;
     }
     
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
         // Apply armor buff, clamp negative numbers.
         damage -= armor.Value;

@@ -22,6 +22,9 @@ public class PlayerManager : MonoBehaviour
     [SerializeField]
     private GameObject player;
 
+    public delegate void OnHealthChanged(int newHealth);
+    public OnHealthChanged onHealthChanged;
+
     public GameObject Player 
     {
         get { return player; }
@@ -30,5 +33,11 @@ public class PlayerManager : MonoBehaviour
     public void KillPlayer()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void DamageTaken(int damage, int currentHealth)
+    {
+        // Trigger onHealthChanged event.
+        onHealthChanged.Invoke(currentHealth);
     }
 }
