@@ -17,8 +17,13 @@ public class BasicAction : IAction
         done = true;
     }
 
-    public bool IsDone()
+    public virtual bool IsDone()
     {
         return done;
+    }
+
+    public virtual void Cancel()
+    {
+        done = true;
     }
 }

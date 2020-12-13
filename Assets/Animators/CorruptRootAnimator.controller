@@ -58,7 +58,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: isAggroed
+    m_ConditionEvent: isAlert
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1323215678033184310}
@@ -194,7 +194,7 @@ AnimatorController:
   m_Name: CorruptRootAnimator
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: isAggroed
+  - m_Name: isAlert
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -333,7 +333,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: isAggroed
+    m_ConditionEvent: isAlert
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -3472509266133906561}
