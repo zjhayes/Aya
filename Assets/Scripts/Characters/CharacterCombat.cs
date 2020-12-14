@@ -6,7 +6,7 @@ using UnityEngine;
 public class CharacterCombat : MonoBehaviour
 {
     [SerializeField]
-    private float attackSpeed = 1f;
+    private float attackSpeed = 0.4f;
     [SerializeField]
     private float attackDelay = .6f;
     private float attackCooldown = 0f;
@@ -29,6 +29,10 @@ public class CharacterCombat : MonoBehaviour
     {
         if(attackCooldown <= 0f)
         {
+
+            //DelayedAction damageAfterDelay = new DelayedAction(DoDamage, idleDelay);
+            //ActionManager.instance.Add(damageAfterDelay);
+
             StartCoroutine(DoDamage(targetStats, attackDelay));
 
             if(OnAttack != null)
