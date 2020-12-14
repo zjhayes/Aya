@@ -2000,7 +2000,32 @@ PrefabInstance:
     - target: {fileID: 3001484945445844425, guid: 2c73e1e34d65c43ae8d1e64eeadb43b0,
         type: 3}
       propertyPath: m_BindingMode
-      value: 5
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3001484945445844425, guid: 2c73e1e34d65c43ae8d1e64eeadb43b0,
+        type: 3}
+      propertyPath: m_YAxisRecentering.m_enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3001484945445844425, guid: 2c73e1e34d65c43ae8d1e64eeadb43b0,
+        type: 3}
+      propertyPath: m_YAxisRecentering.m_WaitTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3001484945445844425, guid: 2c73e1e34d65c43ae8d1e64eeadb43b0,
+        type: 3}
+      propertyPath: m_RecenterToTargetHeading.m_enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3001484945445844425, guid: 2c73e1e34d65c43ae8d1e64eeadb43b0,
+        type: 3}
+      propertyPath: m_YAxisRecentering.m_RecenteringTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3001484945445844425, guid: 2c73e1e34d65c43ae8d1e64eeadb43b0,
+        type: 3}
+      propertyPath: m_RecenterToTargetHeading.m_RecenteringTime
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3001484945445844426, guid: 2c73e1e34d65c43ae8d1e64eeadb43b0,
         type: 3}
@@ -2065,12 +2090,12 @@ PrefabInstance:
     - target: {fileID: 3001484946252881955, guid: 2c73e1e34d65c43ae8d1e64eeadb43b0,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.24364054
+      value: -0.24364056
       objectReference: {fileID: 0}
     - target: {fileID: 3001484946252881955, guid: 2c73e1e34d65c43ae8d1e64eeadb43b0,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.05485164
+      value: 0.054851644
       objectReference: {fileID: 0}
     - target: {fileID: 3001484946252881955, guid: 2c73e1e34d65c43ae8d1e64eeadb43b0,
         type: 3}
@@ -2878,6 +2903,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: c4f223091473f471f8b209dec19e4967, type: 2}
+    - target: {fileID: 4459685467775951383, guid: 54b37e91c9c3b403484dd9217c461391,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5999669081402042664, guid: 54b37e91c9c3b403484dd9217c461391,
         type: 3}
       propertyPath: m_Enabled
@@ -4005,9 +4035,9 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1576802218}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1607711263 stripped
+--- !u!1 &1583995313 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 7789085638230209263, guid: 54b37e91c9c3b403484dd9217c461391,
+  m_CorrespondingSourceObject: {fileID: 4459685467775951383, guid: 54b37e91c9c3b403484dd9217c461391,
     type: 3}
   m_PrefabInstance: {fileID: 1070469326}
   m_PrefabAsset: {fileID: 0}
@@ -4135,16 +4165,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a1e360ffcddd438b8096e845b614dd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  materials:
-  - {fileID: 2100000, guid: 3ae89c77a3cee4156bc61350d700141a, type: 2}
-  - {fileID: 2100000, guid: 3ae89c77a3cee4156bc61350d700141a, type: 2}
-  - {fileID: 2100000, guid: 88244dd2b4ea24215a0d28233c10c038, type: 2}
-  - {fileID: 2100000, guid: 8b58e24b41d7f441f8a8f84fc3908baf, type: 2}
-  - {fileID: 2100000, guid: 414fb481226f844608d6e5e90a2567f3, type: 2}
-  - {fileID: 2100000, guid: 35eab20e5d68a416caf2442f4e9d9c12, type: 2}
-  graphics:
-  - {fileID: 1722749353}
-  - {fileID: 1607711263}
+  leafMaterials: []
+  leafGraphics: []
+  eyeGraphics: {fileID: 1583995313}
+  blinkRate: 30
 --- !u!1001 &1666847025
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4214,12 +4238,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69bd8802c7c911948ac3cf16cfad287f, type: 3}
---- !u!1 &1722749353 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5872341771405273264, guid: 54b37e91c9c3b403484dd9217c461391,
-    type: 3}
-  m_PrefabInstance: {fileID: 1070469326}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1733948375
 GameObject:
   m_ObjectHideFlags: 0

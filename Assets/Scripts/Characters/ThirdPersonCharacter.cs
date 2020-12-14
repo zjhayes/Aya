@@ -28,7 +28,10 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		Vector3 m_CapsuleCenter;
 		CapsuleCollider m_Capsule;
 		bool m_Crouching;
+		private bool isMoving;
 
+		public delegate void OnMovementChanged(bool isAlert);
+		public OnMovementChanged onMovementChanged;
 
 		void Start()
 		{
@@ -40,12 +43,13 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 			m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 			m_OrigGroundCheckDistance = m_GroundCheckDistance;
+
+			isMoving = false;
 		}
 
 
 		public void Move(Vector3 move, bool crouch, bool jump)
 		{
-
 			// convert the world relative moveInput vector into a local-relative
 			// turn amount and forward amount required to head in the desired
 			// direction.
@@ -56,6 +60,17 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			m_TurnAmount = Mathf.Atan2(move.x, move.z);
 			m_ForwardAmount = move.z;
 
+			if(isMoving && m_ForwardAmount == 0) // Stopped.
+			{
+				isMoving = false;
+				onMovementChanged.Invoke(false);
+			}
+			else if(!isMoving && m_ForwardAmount > 0) // Started moving.
+			{
+				isMoving = true;
+				onMovementChanged.Invoke(true);
+			}
+			
 			ApplyExtraTurnRotation();
 
 			// control and velocity handling is different when grounded and airborne:
