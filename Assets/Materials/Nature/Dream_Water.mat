@@ -21,7 +21,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_CFD6D642:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 9f1909d95587cd442b62112b425fc2aa, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -85,7 +85,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_989A1C37: 0.5
+    - Vector1_989A1C37: 0.75
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -126,7 +126,7 @@ Material:
     - _ZWrite: 1
     - __dirty: 1
     - _edgeFoamAmount: 5
-    - _edgeFoamCutoff: 4.8
+    - _edgeFoamCutoff: 12
     - _fakeSpecular: 0.3
     - _waterDepth: 9.91
     - _waterSmoothness: 0
