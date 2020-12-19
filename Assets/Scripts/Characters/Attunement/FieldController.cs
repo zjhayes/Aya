@@ -12,10 +12,16 @@ public class FieldController : MonoBehaviour
     [SerializeField]
     private float scaleRate = 0.5f;
     [SerializeField]
+    private float startAlpha = 1.0f;
+    [SerializeField]
+    private float endAlpha = 0.0f;
+    [SerializeField]
     private float fadeRate = 0.5f;
 
     private TransformUtility objectScaler;
     private RendererUtility fader;
+    private GradualAction scale;
+    private GradualAction fade;
 
     void Start()
     {
@@ -26,17 +32,26 @@ public class FieldController : MonoBehaviour
         Fade();
     }
 
+    void Update()
+    {
+        // Destroy when all actions are complete.
+        if(scale.IsDone() && fade.IsDone())
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
     private void Scale()
     {
         // Update size of object gradually based on scale rate.
-        GradualAction scale = new GradualAction(objectScaler.UpdateLocalScale, startSize, endSize, scaleRate);
+        scale = new GradualAction(objectScaler.UpdateLocalScale, startSize, endSize, scaleRate);
         ActionManager.instance.Add(scale);
     }
 
     private void Fade()
     {
         // Update alpha of object gradually based on fade rate.
-        GradualAction fade = new GradualAction(fader.UpdateAlpha, 1.0f, 0.0f, fadeRate);
+        fade = new GradualAction(fader.UpdateAlpha, startAlpha, endAlpha, fadeRate);
         ActionManager.instance.Add(fade);
     }
 }

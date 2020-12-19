@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class RendererUtility : MonoBehaviour
+public class RendererUtility
 {
     private Renderer renderer;
     
