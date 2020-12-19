@@ -25,16 +25,18 @@ public class CorruptRootController : MonoBehaviour
     private CharacterCombat combat;
     private Awareness awareness;
     private DelayedAction previousAction;
+    private TransformUtility objectScaler;
 
     void Start()
     {
         animator = GetComponent<Animator>();
         combat = GetComponent<CharacterCombat>();
         awareness = GetComponent<Awareness>();
+        objectScaler = new TransformUtility(transform);
 
         awareness.onAwarenessChanged += OnAwarenessChanged;
 
-        UpdateMeshSize(idleSize);
+        objectScaler.UpdateLocalScale(idleSize);
     }
 
     void Update()
@@ -82,19 +84,14 @@ public class CorruptRootController : MonoBehaviour
 
     private void Shrink()
     {
-        GradualAction shrink = new GradualAction(UpdateMeshSize, transform.localScale.y, idleSize, sizeChangeRate);
+        GradualAction shrink = new GradualAction(objectScaler.UpdateLocalScale, transform.localScale.y, idleSize, sizeChangeRate);
         ActionManager.instance.Add(shrink);
     }
 
     private void Grow()
     {
-        GradualAction grow = new GradualAction(UpdateMeshSize, transform.localScale.y, alertSize, sizeChangeRate);
+        GradualAction grow = new GradualAction(objectScaler.UpdateLocalScale, transform.localScale.y, alertSize, sizeChangeRate);
         ActionManager.instance.Add(grow);
-    }
-
-    private void UpdateMeshSize(float newScale)
-    {
-        transform.localScale = new Vector3(newScale, newScale, newScale);
     }
 
     private void AttackTarget()
