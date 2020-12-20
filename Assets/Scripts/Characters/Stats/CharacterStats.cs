@@ -9,6 +9,9 @@ public class CharacterStats : MonoBehaviour
     [SerializeField]
     private Stat armor;
 
+    public delegate void OnDeath();
+    public OnDeath onDeath;
+
     public int Health
     {
         get { return currentHealth; }
@@ -49,5 +52,10 @@ public class CharacterStats : MonoBehaviour
     {
         // This method is meant to be overwritten.
         Debug.Log(transform.name + " died.");
+
+        if(onDeath != null)
+        {
+            onDeath.Invoke();
+        }
     }
 }

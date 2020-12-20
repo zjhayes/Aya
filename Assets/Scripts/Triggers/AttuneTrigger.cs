@@ -1,11 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class AttuneTrigger : MonoBehaviour
 {
     void OnTriggerEnter(Collider other) 
     {
-        Debug.Log("Attuned with " + other.transform.name);
+        // Attune with attuneable objects.
+        if(other.GetComponent<Attunable>() != null)
+        {
+            other.GetComponent<Attunable>().Attune();
+        }
     }
 }

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterCombat))]
+[RequireComponent(typeof(CharacterStats))]
 [RequireComponent(typeof(Awareness))]
+[RequireComponent(typeof(Attunable))]
 public class CorruptRootController : MonoBehaviour
 {
     [SerializeField]
@@ -23,7 +25,9 @@ public class CorruptRootController : MonoBehaviour
     private Transform target;
     private UnityEngine.AI.NavMeshAgent agent;
     private CharacterCombat combat;
+    private CharacterStats stats;
     private Awareness awareness;
+    private Attunable attunable;
     private DelayedAction previousAction;
     private TransformUtility objectScaler;
 
@@ -31,10 +35,14 @@ public class CorruptRootController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         combat = GetComponent<CharacterCombat>();
+        stats = GetComponent<CharacterStats>();
         awareness = GetComponent<Awareness>();
+        attunable = GetComponent<Attunable>();
         objectScaler = new TransformUtility(transform);
 
         awareness.onAwarenessChanged += OnAwarenessChanged;
+        attunable.onAttuned += Attune;
+        stats.onDeath += Die;
 
         objectScaler.UpdateLocalScale(idleSize);
     }
@@ -102,6 +110,19 @@ public class CorruptRootController : MonoBehaviour
         {
             combat.Attack(targetStats);
         }
+    }
+    
+    private void Attune()
+    {
+        // Cause damage on attunement.
+        stats.TakeDamage(1);
+    }
+
+    private void Die()
+    {
+        animator.SetTrigger("isDead");
+        awareness.IsAlert = false;
+        awareness.Enabled = false;
     }
 
     private void OnDrawGizmosSelected() 
