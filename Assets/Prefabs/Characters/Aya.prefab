@@ -12,9 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a1e360ffcddd438b8096e845b614dd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leafMaterials: []
-  leafGraphics: []
-  eyeGraphics: {fileID: 4459685467775951383}
+  materials:
+  - {fileID: 2100000, guid: 3ae89c77a3cee4156bc61350d700141a, type: 2}
+  - {fileID: 2100000, guid: 3ae89c77a3cee4156bc61350d700141a, type: 2}
+  - {fileID: 2100000, guid: 88244dd2b4ea24215a0d28233c10c038, type: 2}
+  - {fileID: 2100000, guid: 8b58e24b41d7f441f8a8f84fc3908baf, type: 2}
+  - {fileID: 2100000, guid: 414fb481226f844608d6e5e90a2567f3, type: 2}
+  - {fileID: 2100000, guid: 35eab20e5d68a416caf2442f4e9d9c12, type: 2}
+  graphics:
+  - {fileID: 5872341771405273264}
+  - {fileID: 7789085638230209263}
+  eyes: {fileID: 4459685467775951383}
   blinkRate: 30
 --- !u!1 &5999669081402042670
 GameObject:
@@ -31,6 +39,7 @@ GameObject:
   - component: {fileID: 5999669081402042664}
   - component: {fileID: 5999669081402042665}
   - component: {fileID: 1070469330}
+  - component: {fileID: 1070469335}
   m_Layer: 0
   m_Name: Aya
   m_TagString: Player
@@ -152,6 +161,21 @@ MonoBehaviour:
     baseValue: 0
   armor:
     baseValue: 0
+--- !u!114 &1070469335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5999669081402042670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 216a4f247eadd49c1bde85d086c38998, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attunementFieldPrefab: {fileID: 7728316272543125870, guid: 40b48f2998d1b44fb80a6e824b33b29f,
+    type: 3}
+  fieldOffset: {x: 0, y: 1, z: 0}
 --- !u!1001 &5999669080263286201
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -264,9 +288,21 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5999669080263286201}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7789085638230209263 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4565382436463193942, guid: e8f5e1d9fc0904cbc86bd202165a6eaf,
+    type: 3}
+  m_PrefabInstance: {fileID: 5999669080263286201}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4459685467775951383 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1251746226605572178, guid: e8f5e1d9fc0904cbc86bd202165a6eaf,
+    type: 3}
+  m_PrefabInstance: {fileID: 5999669080263286201}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5872341771405273264 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -9061905972004358903, guid: e8f5e1d9fc0904cbc86bd202165a6eaf,
     type: 3}
   m_PrefabInstance: {fileID: 5999669080263286201}
   m_PrefabAsset: {fileID: 0}
