@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startSize: 0.1
-  endSize: 5
+  endSize: 3
   scaleRate: 1
   startAlpha: 0.75
   endAlpha: 0

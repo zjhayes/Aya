@@ -13,11 +13,13 @@ public class CharacterCombat : MonoBehaviour
 
     public event System.Action OnAttack;
 
-    private CharacterStats myStats;
+    private CharacterStats stats;
+    private CharacterStats targetStats;
+    private DelayedAction previousAttack;
 
     void Start() 
     {
-        myStats = GetComponent<CharacterStats>();
+        stats = GetComponent<CharacterStats>();
     }
 
     void Update() 
@@ -27,13 +29,12 @@ public class CharacterCombat : MonoBehaviour
 
     public void Attack(CharacterStats targetStats)
     {
+        this.targetStats = targetStats;
+
         if(attackCooldown <= 0f)
         {
-
-            //DelayedAction damageAfterDelay = new DelayedAction(DoDamage, idleDelay);
-            //ActionManager.instance.Add(damageAfterDelay);
-
-            StartCoroutine(DoDamage(targetStats, attackDelay));
+            DelayedAction delayedAttack = new DelayedAction(DoDamage, attackDelay);
+            ActionManager.instance.Add(delayedAttack);
 
             if(OnAttack != null)
             {
@@ -41,13 +42,23 @@ public class CharacterCombat : MonoBehaviour
             }
 
             attackCooldown = 1f / attackSpeed;
+            this.previousAttack = delayedAttack;
         }
     }
 
-    IEnumerator DoDamage(CharacterStats stats, float delay)
+    // Cancelling attack prevents target from taking damage
+    // if an attack is pending.
+    // Cancelling attack does not cancel the animation,
+    public void CancelAttack()
     {
-        yield return new WaitForSeconds(delay);
+        if(previousAttack != null)
+        {
+            previousAttack.Cancel();
+        }
+    }
 
-        stats.TakeDamage(myStats.Damage.Value);
+    void DoDamage()
+    {
+        targetStats.TakeDamage(stats.Damage.Value);
     }
 }

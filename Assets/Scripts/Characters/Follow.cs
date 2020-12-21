@@ -25,8 +25,18 @@ public class Follow : MonoBehaviour
 
     private void FaceTarget()
     {
-        Vector3 direction = (awareness.Target.position - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        Quaternion lookRotation = LookRotationToTarget();
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * lookSpeed);
+    }
+
+    public Quaternion LookRotationToTarget()
+    {
+        if(awareness.Target == null) 
+        { 
+            Debug.LogError(transform.name + " does not have a target.");
+            return new Quaternion(); 
+        }
+        Vector3 direction = (awareness.Target.position - transform.position).normalized;
+        return Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
     }
 }

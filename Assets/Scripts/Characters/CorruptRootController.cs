@@ -22,7 +22,6 @@ public class CorruptRootController : MonoBehaviour
     private float sizeChangeRate = 3f; // Rate mesh changes size on state change.
 
     private Animator animator;
-    private Transform target;
     private UnityEngine.AI.NavMeshAgent agent;
     private CharacterCombat combat;
     private CharacterStats stats;
@@ -49,14 +48,15 @@ public class CorruptRootController : MonoBehaviour
 
     void Update()
     {
-        if(awareness.IsAlert)
+        if(!awareness.IsAlert || !TargetIsInRange())
         {
-            float distance = Vector3.Distance(awareness.Target.position, transform.position);
-            // If target is in attack range...
-            if(distance <= attackRadius)
-            {
-                AttackTarget();
-            }
+             // Should not be able to attack,
+             // cancel current attacks.
+            combat.CancelAttack();
+        }
+        else
+        {
+            AttackTarget();
         }
     }
 
@@ -106,7 +106,7 @@ public class CorruptRootController : MonoBehaviour
     {
         animator.SetTrigger("triggerAttack");
         CharacterStats targetStats = awareness.Target.GetComponent<CharacterStats>();
-        if(targetStats != null)
+        if(targetStats != null && TargetIsInRange())
         {
             combat.Attack(targetStats);
         }
@@ -123,6 +123,17 @@ public class CorruptRootController : MonoBehaviour
         animator.SetTrigger("isDead");
         awareness.IsAlert = false;
         awareness.Enabled = false;
+        combat.CancelAttack();
+    }
+
+    private bool TargetIsInRange()
+    {
+        float distance = Vector3.Distance(awareness.Target.position, transform.position);
+        if(distance <= attackRadius)
+        {
+            return true;
+        }
+        return false;
     }
 
     private void OnDrawGizmosSelected() 
