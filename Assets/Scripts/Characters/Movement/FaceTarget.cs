@@ -1,29 +1,29 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(Awareness))]
-public class Follow : MonoBehaviour
+public class FaceTarget
 {
-    [SerializeField]
-    private bool faceTarget = true;
-    [SerializeField]
+    private Transform transform;
+    private Transform target;
     private float lookSpeed = 5f;
 
-    private Awareness awareness;
-
-    void Start()
-    {
-        awareness = GetComponent<Awareness>();
+    public Transform Target 
+    { 
+        get { return target; } 
+        set { this.target = value; }
     }
 
-    void Update()
+    public FaceTarget(Transform transform)
     {
-        if(awareness.IsAlert && faceTarget)
-        {
-            FaceTarget();
-        }
+        this.transform = transform;
     }
 
-    private void FaceTarget()
+    public float LookSpeed
+    {
+        get { return lookSpeed; }
+        set { this.lookSpeed = value; }
+    }
+
+    public void Look()
     {
         Quaternion lookRotation = LookRotationToTarget();
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * lookSpeed);
@@ -31,12 +31,12 @@ public class Follow : MonoBehaviour
 
     public Quaternion LookRotationToTarget()
     {
-        if(awareness.Target == null) 
+        if(target == null) 
         { 
             Debug.LogError(transform.name + " does not have a target.");
             return new Quaternion(); 
         }
-        Vector3 direction = (awareness.Target.position - transform.position).normalized;
+        Vector3 direction = (target.position - transform.position).normalized;
         return Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
     }
 }
