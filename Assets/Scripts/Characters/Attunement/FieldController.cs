@@ -23,6 +23,12 @@ public class FieldController : MonoBehaviour
     private GradualAction scale;
     private GradualAction fade;
 
+    public float EndSize
+    {
+        get { return endSize; }
+        set { this.endSize = value; }
+    }
+
     void Start()
     {
         objectScaler = new TransformUtility(transform);
