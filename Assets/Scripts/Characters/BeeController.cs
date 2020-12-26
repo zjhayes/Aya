@@ -21,7 +21,10 @@ public class BeeController : MonoBehaviour
     void Update()
     {
         Vector3 destination = new Vector3(target.position.x + followOffset.x, target.position.y + followOffset.y, target.position.z + followOffset.z);
-        agent.SetDestination(destination);
+        if(destination != Vector3.zero)
+        {
+            agent.SetDestination(destination);
+        }
         facing.Look();
     }
 }
