@@ -253,7 +253,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""0295ab99-2d7a-41cf-a413-98e5a51d78c0"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""path"": ""<Gamepad>/leftStickPress"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -453,6 +453,14 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""ChangeView"",
+                    ""type"": ""Button"",
+                    ""id"": ""d8f10700-1d8e-44bc-847e-a302f6c26dcd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -554,6 +562,28 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""action"": ""Pitch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ca866210-0adf-446f-a26b-310919f14d76"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""ChangeView"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8bd6e894-96ed-4d4b-964e-dda2a98907d2"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""ChangeView"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -609,6 +639,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         m_Camera_Look456 = m_Camera.FindAction("Look456", throwIfNotFound: true);
         m_Camera_Yaw = m_Camera.FindAction("Yaw", throwIfNotFound: true);
         m_Camera_Pitch = m_Camera.FindAction("Pitch", throwIfNotFound: true);
+        m_Camera_ChangeView = m_Camera.FindAction("ChangeView", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -816,6 +847,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Camera_Look456;
     private readonly InputAction m_Camera_Yaw;
     private readonly InputAction m_Camera_Pitch;
+    private readonly InputAction m_Camera_ChangeView;
     public struct CameraActions
     {
         private @PlayerInput m_Wrapper;
@@ -823,6 +855,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         public InputAction @Look456 => m_Wrapper.m_Camera_Look456;
         public InputAction @Yaw => m_Wrapper.m_Camera_Yaw;
         public InputAction @Pitch => m_Wrapper.m_Camera_Pitch;
+        public InputAction @ChangeView => m_Wrapper.m_Camera_ChangeView;
         public InputActionMap Get() { return m_Wrapper.m_Camera; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -841,6 +874,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Pitch.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnPitch;
                 @Pitch.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnPitch;
                 @Pitch.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnPitch;
+                @ChangeView.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnChangeView;
+                @ChangeView.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnChangeView;
+                @ChangeView.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnChangeView;
             }
             m_Wrapper.m_CameraActionsCallbackInterface = instance;
             if (instance != null)
@@ -854,6 +890,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Pitch.started += instance.OnPitch;
                 @Pitch.performed += instance.OnPitch;
                 @Pitch.canceled += instance.OnPitch;
+                @ChangeView.started += instance.OnChangeView;
+                @ChangeView.performed += instance.OnChangeView;
+                @ChangeView.canceled += instance.OnChangeView;
             }
         }
     }
@@ -900,5 +939,6 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         void OnLook456(InputAction.CallbackContext context);
         void OnYaw(InputAction.CallbackContext context);
         void OnPitch(InputAction.CallbackContext context);
+        void OnChangeView(InputAction.CallbackContext context);
     }
 }

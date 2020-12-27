@@ -240,7 +240,7 @@
                 {
                     "name": "",
                     "id": "0295ab99-2d7a-41cf-a413-98e5a51d78c0",
-                    "path": "<Gamepad>/buttonNorth",
+                    "path": "<Gamepad>/leftStickPress",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -440,6 +440,14 @@
                     "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "ChangeView",
+                    "type": "Button",
+                    "id": "d8f10700-1d8e-44bc-847e-a302f6c26dcd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -539,6 +547,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Pitch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ca866210-0adf-446f-a26b-310919f14d76",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "ChangeView",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8bd6e894-96ed-4d4b-964e-dda2a98907d2",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "ChangeView",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
