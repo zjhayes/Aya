@@ -10,15 +10,18 @@ public class PlayerAbilities : MonoBehaviour
     [SerializeField]
     private Vector3 fieldOffset;
     [SerializeField]
-    private float chargeAmount = 0.5f;
+    private float chargeAmount = 0.6f;
     [SerializeField]
     private float maxCharge = 2.0f;
-
+    [SerializeField]
+    private float attunementDelay = 0.5f;
+    [SerializeField]
     private float animationChangeRate = 0.25f;
 
     private Animator animator;
     private bool isCharging = false;
     private float charge = 0.0f;
+    private float attunementCooldown = 0f;
 
     void Start()
     {
@@ -29,6 +32,8 @@ public class PlayerAbilities : MonoBehaviour
 
     void Update()
     {
+        attunementCooldown -= Time.deltaTime;
+
         if(isCharging && charge <= maxCharge)
         {
             charge += chargeAmount * Time.deltaTime;
@@ -37,17 +42,20 @@ public class PlayerAbilities : MonoBehaviour
 
     private void Attune()
     {
-        // Create attunement field at player's position, factoring offset, no rotation.
-        Vector3 position = new Vector3(transform.position.x + fieldOffset.x, transform.position.y + fieldOffset.y, transform.position.z + fieldOffset.z);
-        GameObject field = (GameObject) Instantiate(attunementFieldPrefab, position, Quaternion.identity);
-        field.GetComponent<FieldController>().EndSize += charge; // Update field size.
-        //animator.SetTrigger("Attune"); // Trigger attune animation.
-        ResetCharge();
+        if(isCharging)
+        {
+            // Create attunement field at player's position, factoring offset, no rotation.
+            Vector3 position = new Vector3(transform.position.x + fieldOffset.x, transform.position.y + fieldOffset.y, transform.position.z + fieldOffset.z);
+            GameObject field = (GameObject) Instantiate(attunementFieldPrefab, position, Quaternion.identity);
+            field.GetComponent<FieldController>().EndSize += charge; // Update field size.
+            ResetCharge();
+            attunementCooldown = attunementDelay;
+        }
     }
 
     private void Charge()
     {
-        if(isCharging == false)
+        if(isCharging == false && attunementCooldown <= 0f)
         {
             isCharging = true;
             //Enable charging animation.

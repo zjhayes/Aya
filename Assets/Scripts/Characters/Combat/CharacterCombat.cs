@@ -8,7 +8,7 @@ public class CharacterCombat : MonoBehaviour
     [SerializeField]
     private float attackSpeed = 0.4f;
     [SerializeField]
-    private float attackDelay = .6f;
+    private float attackDelay = 0.6f;
     private float attackCooldown = 0f;
 
     public event System.Action OnAttack;
