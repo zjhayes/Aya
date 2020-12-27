@@ -176,7 +176,7 @@ MonoBehaviour:
   attunementFieldPrefab: {fileID: 7728316272543125870, guid: 40b48f2998d1b44fb80a6e824b33b29f,
     type: 3}
   fieldOffset: {x: 0, y: 1, z: 0}
-  chargeAmount: 0.5
+  chargeAmount: 1
   maxCharge: 2
   attunementDelay: 2
   animationChangeRate: 0.25

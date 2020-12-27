@@ -34,9 +34,16 @@ public class PlayerAbilities : MonoBehaviour
     {
         attunementCooldown -= Time.deltaTime;
 
-        if(isCharging && charge <= maxCharge)
+        if(isCharging)
         {
-            charge += chargeAmount * Time.deltaTime;
+            if(charge <= maxCharge)
+            {
+                charge += chargeAmount * Time.deltaTime;
+            }
+            else
+            {
+                Attune(); // Force attune when reached max charge.
+            }
         }
     }
 
