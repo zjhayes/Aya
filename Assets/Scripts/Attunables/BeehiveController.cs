@@ -16,7 +16,6 @@ public class BeehiveController : MonoBehaviour
     {
         attunable = GetComponent<Attunable>();
         attunable.onAttuned += Attune;
-        Debug.Log("Started");
     }
 
     private void Attune()
