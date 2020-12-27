@@ -10,7 +10,7 @@ public class PlayerAbilities : MonoBehaviour
     [SerializeField]
     private Vector3 fieldOffset;
     [SerializeField]
-    private float chargeAmount = 0.6f;
+    private float chargeAmount = 1.0f;
     [SerializeField]
     private float maxCharge = 2.0f;
     [SerializeField]
