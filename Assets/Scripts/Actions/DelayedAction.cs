@@ -3,10 +3,12 @@ using UnityEngine;
 
 public class DelayedAction : BasicAction
 {
+    private float delay;
     private float currentTime;
 
     public DelayedAction(Action action, float delay) : base(action)
     {
+        this.delay = delay;
         this.currentTime = delay;
     }
 
@@ -19,5 +21,10 @@ public class DelayedAction : BasicAction
             action();
             done = true;
         }
+    }
+
+    public void Reset()
+    {
+        currentTime = delay;
     }
 }

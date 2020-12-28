@@ -15,6 +15,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		[SerializeField] float m_MoveSpeedMultiplier = 1f;
 		[SerializeField] float m_AnimSpeedMultiplier = 1f;
 		[SerializeField] float m_GroundCheckDistance = 0.5f;
+		[SerializeField] float inAirSpeed = 10.0f;
 
 		Rigidbody m_Rigidbody;
 		Animator m_Animator;
@@ -47,6 +48,14 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			isMoving = false;
 		}
 
+		private void Update()
+		{
+			if (!m_IsGrounded)
+			{
+				// Allow in-air movement.
+				transform.Translate(Vector3.forward * m_ForwardAmount * inAirSpeed * Time.deltaTime);
+			}
+		}
 
 		public void Move(Vector3 move, bool crouch, bool jump)
 		{

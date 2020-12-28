@@ -13,15 +13,23 @@ public class CameraController : MonoBehaviour
     private float LookSpeed = 1f;
     [SerializeField]
     private bool InvertY = false;
+    [SerializeField]
+    private float zoomRate = 0.5f;
+    [SerializeField]
+    private List<int> zoomLevels;
+    [SerializeField]
+    private int startingIndex;
     private CinemachineFreeLook freeLookComponent;
     private ThirdPersonCharacter playerController;
     const int NUMBER_OF_RIGS = 3;
-    private int[] ZOOM_LEVELS = new int[]{20,40,80};
-    private int zoomLevel = 0;
+    private int zoomLevelIndex;
+
+    CinemachineComposer comp;
 
     void Start() 
     {
         freeLookComponent = GetComponent<CinemachineFreeLook>();
+        zoomLevelIndex = startingIndex;
         
         // Listen for when player starts and stops moving.
         PlayerManager.instance.Player.GetComponent<ThirdPersonCharacter>().onMovementChanged += EnableCameraCentering;
@@ -46,15 +54,19 @@ public class CameraController : MonoBehaviour
 
     private void ToggleView()
     {
-        zoomLevel++;
-        if(zoomLevel >= ZOOM_LEVELS.Length)
+        int currentFOV = zoomLevels[zoomLevelIndex];
+        zoomLevelIndex++;
+        if(zoomLevelIndex >= zoomLevels.Count)
         {
-            zoomLevel = 0;
+            zoomLevelIndex = 0;
         }
-        UpdateFieldOfView(ZOOM_LEVELS[zoomLevel]);
+
+        // Update camera's field of view gradually based on zoom rate.
+        GradualAction zoom = new GradualAction(UpdateFieldOfView, currentFOV, zoomLevels[zoomLevelIndex], zoomRate);
+        ActionManager.instance.Add(zoom);
     }
 
-    private void UpdateFieldOfView(int zoom)
+    private void UpdateFieldOfView(float zoom)
     {
         // Apply new field of view to each camera rig.
         for (int i = 0; i < NUMBER_OF_RIGS; ++i)
