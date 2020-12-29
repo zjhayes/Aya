@@ -19,11 +19,6 @@ public class MushroomController : MonoBehaviour
     public delegate void OnChargeUpdated(bool isCharged);
     public OnChargeUpdated onChargeUpdated;
 
-    public void Hello()
-    {
-        Debug.Log("Hello");
-    }
-
     void Start()
     {
         animator = GetComponent<Animator>();
