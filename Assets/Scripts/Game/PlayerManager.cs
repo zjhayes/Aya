@@ -21,23 +21,25 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField]
     private GameObject player;
-
-    public delegate void OnHealthChanged(int newHealth);
-    public OnHealthChanged onHealthChanged;
+    private PlayerStats stats;
 
     public GameObject Player 
     {
         get { return player; }
     }
 
+    public PlayerStats Stats
+    {
+        get { return stats; }
+    }
+
+    void Start()
+    {
+        stats = player.GetComponent<PlayerStats>();
+    }
+
     public void KillPlayer()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
-    public void DamageTaken(int damage, int currentHealth)
-    {
-        // Trigger onHealthChanged event.
-        onHealthChanged.Invoke(currentHealth);
     }
 }

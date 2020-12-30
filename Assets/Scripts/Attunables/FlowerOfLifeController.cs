@@ -4,6 +4,8 @@
 [RequireComponent(typeof(Attunable))]
 public class FlowerOfLifeController : MonoBehaviour
 {
+    [SerializeField]
+    int healingAmount = 100;
     private Animator animator;
     private Attunable attunable;
     
@@ -20,8 +22,8 @@ public class FlowerOfLifeController : MonoBehaviour
         if(animator.GetBool("IsPollinated"))
         {
             animator.SetTrigger("Attune");
+            PlayerManager.instance.Stats.Heal(healingAmount);
+            // Check point
         }
-        // Heal
-        // Save
     }
 }

@@ -29,10 +29,4 @@ public class PlayerStats : CharacterStats
             Damage.RemoveModifier(oldItem.DamageModifier);
         }
     }
-
-    public override void TakeDamage(int damage)
-    {
-        base.TakeDamage(damage);
-        PlayerManager.instance.DamageTaken(damage, Health);
-    }
 }

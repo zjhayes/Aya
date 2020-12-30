@@ -2,15 +2,20 @@
 
 public class CharacterStats : MonoBehaviour
 {
-    public int maxHealth = 100;
-    public int currentHealth;
+    [SerializeField]
+    private int maxHealth = 100;
     [SerializeField]
     private Stat damage;
     [SerializeField]
     private Stat armor;
 
+    private int currentHealth;
+
     public delegate void OnDeath();
     public OnDeath onDeath;
+
+    public delegate void OnHealthChanged();
+    public OnHealthChanged onHealthChanged;
 
     public int Health
     {
@@ -31,6 +36,7 @@ public class CharacterStats : MonoBehaviour
     void Awake()
     {
         currentHealth = maxHealth;
+        InvokeOnHealthChanged();
     }
     
     public virtual void TakeDamage(int damage)
@@ -40,12 +46,21 @@ public class CharacterStats : MonoBehaviour
         damage = Mathf.Clamp(damage, 0, int.MaxValue);
 
         currentHealth -= damage;
-        Debug.Log(transform.name + " takes " + damage + " damage.");
+        InvokeOnHealthChanged();
         
         if(currentHealth <= 0)
         {
             Die();
         }
+    }
+
+    public virtual void Heal(int amount)
+    {
+        Debug.Log("Amount: " + amount);
+        currentHealth += amount;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        Debug.Log("New: " + currentHealth);
+        InvokeOnHealthChanged();
     }
 
     public virtual void Die()
@@ -56,6 +71,14 @@ public class CharacterStats : MonoBehaviour
         if(onDeath != null)
         {
             onDeath.Invoke();
+        }
+    }
+
+    private void InvokeOnHealthChanged()
+    {
+        if(onHealthChanged != null)
+        {
+            onHealthChanged.Invoke();
         }
     }
 }

@@ -18,7 +18,7 @@ public class PlayerGfxController : MonoBehaviour
 
     void Start()
     {
-        PlayerManager.instance.onHealthChanged += OnHealthChanged;
+        PlayerManager.instance.Player.GetComponent<PlayerStats>().onHealthChanged += OnHealthChanged;
         materialIndex = graphics.Length;
     }
 
@@ -29,8 +29,9 @@ public class PlayerGfxController : MonoBehaviour
         UpdateBlink(isBlinking);
     }
 
-    private void OnHealthChanged(int newHealth)
+    private void OnHealthChanged()
     {
+        int newHealth = PlayerManager.instance.Stats.Health;
         // Cancel if there is no material for current health index.
         if(newHealth > materials.Length || newHealth < 0)
         {
