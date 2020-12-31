@@ -2,6 +2,7 @@
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Attunable))]
+[RequireComponent(typeof(Checkpoint))]
 public class FlowerOfLifeController : MonoBehaviour
 {
     [SerializeField]
@@ -22,8 +23,9 @@ public class FlowerOfLifeController : MonoBehaviour
         if(animator.GetBool("IsPollinated"))
         {
             animator.SetTrigger("Attune");
+            // Heal player and set checkpoint.
             PlayerManager.instance.Stats.Heal(healingAmount);
-            // Check point
+            PlayerManager.instance.Checkpoint = GetComponent<Checkpoint>();
         }
     }
 }

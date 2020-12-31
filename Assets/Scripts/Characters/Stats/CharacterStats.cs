@@ -56,10 +56,8 @@ public class CharacterStats : MonoBehaviour
 
     public virtual void Heal(int amount)
     {
-        Debug.Log("Amount: " + amount);
         currentHealth += amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-        Debug.Log("New: " + currentHealth);
         InvokeOnHealthChanged();
     }
 
