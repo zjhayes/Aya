@@ -8,8 +8,12 @@ public class BeeKeeper : MonoBehaviour
     private Camera camera;
     [SerializeField]
     private GameObject beePrefab;
+    [SerializeField]
+    private GameObject beeTarget;
+    [SerializeField]
+    private float targetDistance = 5.0f;
 
-    private List<GameObject> bees;
+    private Queue<GameObject> bees;
     private bool isAiming;
 
     void Start()
@@ -19,18 +23,21 @@ public class BeeKeeper : MonoBehaviour
         InputManager.instance.Controls.Camera.Aim.started += ctx => isAiming = true;
         InputManager.instance.Controls.Camera.Aim.canceled += ctx => isAiming = false;
 
-        bees = new List<GameObject>();
+        bees = new Queue<GameObject>();
     }
 
     public void SpawnBee(Vector3 startPosition)
     {
         GameObject bee = Instantiate(beePrefab, startPosition, Quaternion.identity);
-        bees.Add(bee);
+        bees.Enqueue(bee);
     }
 
     private void ReleaseBee()
     {
+        if(bees.Count == 0) { return; } // No bees. 
+
         Vector3 targetPoint;
+        Transform playerTransform = PlayerManager.instance.Player.transform;
 
         if(isAiming)
         {
@@ -38,11 +45,15 @@ public class BeeKeeper : MonoBehaviour
         }
         else
         {
-            Transform playerTransform = PlayerManager.instance.Player.transform;
-            targetPoint = playerTransform.position + playerTransform.forward;
+            // Get position in front of player.
+            targetPoint = playerTransform.position + playerTransform.forward * targetDistance;
         }
-        // New target
+
+        GameObject target = Instantiate(beeTarget, targetPoint, playerTransform.rotation);
         
+        // Release bee to target.
+        GameObject bee = bees.Dequeue();
+        bee.GetComponent<TargetManager>().Target = target.transform;
     }
 
     private Vector3 GetTargetPosition()

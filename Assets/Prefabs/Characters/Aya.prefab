@@ -196,6 +196,9 @@ MonoBehaviour:
   camera: {fileID: 0}
   beePrefab: {fileID: 4302037524924521040, guid: 44fbbd0bb853c4bf6b9684e65378d470,
     type: 3}
+  beeTarget: {fileID: 2193037464565871235, guid: cc2957d87e3c048799ec461a05c817d2,
+    type: 3}
+  targetDistance: 5
 --- !u!1001 &5999669080263286201
 PrefabInstance:
   m_ObjectHideFlags: 0
