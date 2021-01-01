@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(Awareness))]
+[RequireComponent(typeof(TargetManager))]
 public class Follow : MonoBehaviour
 {
     [SerializeField]
@@ -8,21 +8,24 @@ public class Follow : MonoBehaviour
     [SerializeField]
     private float lookSpeed = 5f;
 
-    private Awareness awareness;
+    private Awareness awareness; // Optional
+    private TargetManager targetManager;
     private FaceTarget facing;
 
     void Start()
     {
         awareness = GetComponent<Awareness>();
-        facing =  new FaceTarget(transform);
+        targetManager = GetComponent<TargetManager>();
+
+        //facing =  new FaceTarget(transform);
     }
 
     void Update()
     {
         if(awareness.IsAlert && faceTarget)
         {
-            facing.Target = awareness.Target;
-            facing.Look();
+            //facing.Target = targetManager.Target;
+            //facing.Look();
         }
     }
 }

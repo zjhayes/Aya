@@ -264,7 +264,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""5256ce47-ac9d-4300-a399-7a2b93d4d9f9"",
-                    ""path"": ""<Keyboard>/shift"",
+                    ""path"": ""<Keyboard>/c"",
                     ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",
@@ -325,6 +325,14 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""name"": ""RightClick"",
                     ""type"": ""Button"",
                     ""id"": ""061565d8-7820-4a20-99d6-bac40fb80f17"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""d1f5e907-740d-43ff-beb9-dd7da8fc6e7a"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -396,6 +404,28 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""action"": ""RightClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3efed338-2d79-42d8-afa4-810e5d5be85c"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e77b69c6-b54b-4dba-95e8-5d07b26a44de"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -458,6 +488,14 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""name"": ""ChangeView"",
                     ""type"": ""Button"",
                     ""id"": ""d8f10700-1d8e-44bc-847e-a302f6c26dcd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Aim"",
+                    ""type"": ""Button"",
+                    ""id"": ""4cb00e35-fcb8-4614-aca1-12d053bedad9"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -566,7 +604,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""ca866210-0adf-446f-a26b-310919f14d76"",
-                    ""path"": ""<Keyboard>/c"",
+                    ""path"": ""<Keyboard>/v"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",
@@ -582,6 +620,28 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""ChangeView"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""03bcee60-c11f-4e48-a21b-8b25ea70b2bf"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""df3c4833-ba79-4943-ae1e-c505a7966f27"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Aim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -631,6 +691,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         m_Interact_LeftClick = m_Interact.FindAction("LeftClick", throwIfNotFound: true);
         m_Interact_MousePosition = m_Interact.FindAction("MousePosition", throwIfNotFound: true);
         m_Interact_RightClick = m_Interact.FindAction("RightClick", throwIfNotFound: true);
+        m_Interact_Shoot = m_Interact.FindAction("Shoot", throwIfNotFound: true);
         // HUD
         m_HUD = asset.FindActionMap("HUD", throwIfNotFound: true);
         m_HUD_Inventory = m_HUD.FindAction("Inventory", throwIfNotFound: true);
@@ -640,6 +701,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         m_Camera_Yaw = m_Camera.FindAction("Yaw", throwIfNotFound: true);
         m_Camera_Pitch = m_Camera.FindAction("Pitch", throwIfNotFound: true);
         m_Camera_ChangeView = m_Camera.FindAction("ChangeView", throwIfNotFound: true);
+        m_Camera_Aim = m_Camera.FindAction("Aim", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -751,6 +813,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Interact_LeftClick;
     private readonly InputAction m_Interact_MousePosition;
     private readonly InputAction m_Interact_RightClick;
+    private readonly InputAction m_Interact_Shoot;
     public struct InteractActions
     {
         private @PlayerInput m_Wrapper;
@@ -760,6 +823,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         public InputAction @LeftClick => m_Wrapper.m_Interact_LeftClick;
         public InputAction @MousePosition => m_Wrapper.m_Interact_MousePosition;
         public InputAction @RightClick => m_Wrapper.m_Interact_RightClick;
+        public InputAction @Shoot => m_Wrapper.m_Interact_Shoot;
         public InputActionMap Get() { return m_Wrapper.m_Interact; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -784,6 +848,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @RightClick.started -= m_Wrapper.m_InteractActionsCallbackInterface.OnRightClick;
                 @RightClick.performed -= m_Wrapper.m_InteractActionsCallbackInterface.OnRightClick;
                 @RightClick.canceled -= m_Wrapper.m_InteractActionsCallbackInterface.OnRightClick;
+                @Shoot.started -= m_Wrapper.m_InteractActionsCallbackInterface.OnShoot;
+                @Shoot.performed -= m_Wrapper.m_InteractActionsCallbackInterface.OnShoot;
+                @Shoot.canceled -= m_Wrapper.m_InteractActionsCallbackInterface.OnShoot;
             }
             m_Wrapper.m_InteractActionsCallbackInterface = instance;
             if (instance != null)
@@ -803,6 +870,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @RightClick.started += instance.OnRightClick;
                 @RightClick.performed += instance.OnRightClick;
                 @RightClick.canceled += instance.OnRightClick;
+                @Shoot.started += instance.OnShoot;
+                @Shoot.performed += instance.OnShoot;
+                @Shoot.canceled += instance.OnShoot;
             }
         }
     }
@@ -848,6 +918,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Camera_Yaw;
     private readonly InputAction m_Camera_Pitch;
     private readonly InputAction m_Camera_ChangeView;
+    private readonly InputAction m_Camera_Aim;
     public struct CameraActions
     {
         private @PlayerInput m_Wrapper;
@@ -856,6 +927,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         public InputAction @Yaw => m_Wrapper.m_Camera_Yaw;
         public InputAction @Pitch => m_Wrapper.m_Camera_Pitch;
         public InputAction @ChangeView => m_Wrapper.m_Camera_ChangeView;
+        public InputAction @Aim => m_Wrapper.m_Camera_Aim;
         public InputActionMap Get() { return m_Wrapper.m_Camera; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -877,6 +949,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @ChangeView.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnChangeView;
                 @ChangeView.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnChangeView;
                 @ChangeView.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnChangeView;
+                @Aim.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnAim;
+                @Aim.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnAim;
+                @Aim.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnAim;
             }
             m_Wrapper.m_CameraActionsCallbackInterface = instance;
             if (instance != null)
@@ -893,6 +968,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @ChangeView.started += instance.OnChangeView;
                 @ChangeView.performed += instance.OnChangeView;
                 @ChangeView.canceled += instance.OnChangeView;
+                @Aim.started += instance.OnAim;
+                @Aim.performed += instance.OnAim;
+                @Aim.canceled += instance.OnAim;
             }
         }
     }
@@ -929,6 +1007,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         void OnLeftClick(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
         void OnRightClick(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
     }
     public interface IHUDActions
     {
@@ -940,5 +1019,6 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         void OnYaw(InputAction.CallbackContext context);
         void OnPitch(InputAction.CallbackContext context);
         void OnChangeView(InputAction.CallbackContext context);
+        void OnAim(InputAction.CallbackContext context);
     }
 }

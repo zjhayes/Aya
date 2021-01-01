@@ -1,26 +1,21 @@
 ﻿using UnityEngine;
 
-public class FaceTarget
+[RequireComponent(typeof(TargetManager))]
+public class FaceTarget : MonoBehaviour
 {
-    private Transform transform;
-    private Transform target;
+    [SerializeField]
     private float lookSpeed = 5f;
 
-    public Transform Target 
-    { 
-        get { return target; } 
-        set { this.target = value; }
+    private TargetManager targetManager;
+
+    void Start()
+    {
+        targetManager = GetComponent<TargetManager>();
     }
 
-    public FaceTarget(Transform transform)
+    void Update()
     {
-        this.transform = transform;
-    }
-
-    public float LookSpeed
-    {
-        get { return lookSpeed; }
-        set { this.lookSpeed = value; }
+        Look();
     }
 
     public void Look()
@@ -29,14 +24,14 @@ public class FaceTarget
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * lookSpeed);
     }
 
-    public Quaternion LookRotationToTarget()
+    private Quaternion LookRotationToTarget()
     {
-        if(target == null) 
+        if(targetManager.Target == null) 
         { 
             Debug.LogError(transform.name + " does not have a target.");
             return new Quaternion(); 
         }
-        Vector3 direction = (target.position - transform.position).normalized;
+        Vector3 direction = (targetManager.Target.position - transform.position).normalized;
         return Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
     }
 }

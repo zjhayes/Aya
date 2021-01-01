@@ -36,6 +36,8 @@ public class CameraController : MonoBehaviour
         freeLookComponent.m_CommonLens = false;
         
         InputManager.instance.Controls.Camera.ChangeView.performed += ctx => ToggleView();
+        InputManager.instance.Controls.Camera.Aim.started += ctx => Aim();
+        InputManager.instance.Controls.Camera.Aim.canceled += ctx => UnAim();
     }
 
     void Update()
@@ -79,5 +81,15 @@ public class CameraController : MonoBehaviour
     {
         freeLookComponent.m_YAxisRecentering.m_enabled = enable;
         freeLookComponent.m_RecenterToTargetHeading.m_enabled = enable;
+    }
+
+    private void Aim()
+    {
+        Debug.Log("Aiming");
+    }
+
+    private void UnAim()
+    {
+        Debug.Log("UnAiming");
     }
 }

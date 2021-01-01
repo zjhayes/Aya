@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 4302037524924521045}
   - component: {fileID: 4302037524924521046}
   - component: {fileID: 4302037524924521048}
+  - component: {fileID: 4443139216135348163}
+  - component: {fileID: 8882618298727698355}
   m_Layer: 0
   m_Name: Bee
   m_TagString: Untagged
@@ -119,6 +121,31 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4443139216135348163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4302037524924521040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3fa127d3e02047bcba185c06b7387f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+--- !u!114 &8882618298727698355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4302037524924521040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68451d30b90744cc68c9c4f74b521ba5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4302037524380789744
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -251,7 +251,7 @@
                 {
                     "name": "",
                     "id": "5256ce47-ac9d-4300-a399-7a2b93d4d9f9",
-                    "path": "<Keyboard>/shift",
+                    "path": "<Keyboard>/c",
                     "interactions": "Hold",
                     "processors": "",
                     "groups": "Keyboard & Mouse",
@@ -312,6 +312,14 @@
                     "name": "RightClick",
                     "type": "Button",
                     "id": "061565d8-7820-4a20-99d6-bac40fb80f17",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Shoot",
+                    "type": "Button",
+                    "id": "d1f5e907-740d-43ff-beb9-dd7da8fc6e7a",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -383,6 +391,28 @@
                     "action": "RightClick",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3efed338-2d79-42d8-afa4-810e5d5be85c",
+                    "path": "<Keyboard>/b",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e77b69c6-b54b-4dba-95e8-5d07b26a44de",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -445,6 +475,14 @@
                     "name": "ChangeView",
                     "type": "Button",
                     "id": "d8f10700-1d8e-44bc-847e-a302f6c26dcd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Aim",
+                    "type": "Button",
+                    "id": "4cb00e35-fcb8-4614-aca1-12d053bedad9",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -553,7 +591,7 @@
                 {
                     "name": "",
                     "id": "ca866210-0adf-446f-a26b-310919f14d76",
-                    "path": "<Keyboard>/c",
+                    "path": "<Keyboard>/v",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard & Mouse",
@@ -569,6 +607,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "ChangeView",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "03bcee60-c11f-4e48-a21b-8b25ea70b2bf",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "df3c4833-ba79-4943-ae1e-c505a7966f27",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Aim",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
