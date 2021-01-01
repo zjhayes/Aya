@@ -8,19 +8,12 @@ public class Awareness : MonoBehaviour
     private float lookRadius = 10f;
 
     private bool isAlert;
-    private bool enabled = true;
     private TargetManager targetManager;
 
     public bool IsAlert 
     { 
         get { return isAlert; }
         set { this.isAlert = value; }
-    }
-
-    public bool Enabled 
-    {
-        get { return enabled; }
-        set { this.enabled = value; }
     }
 
     public delegate void OnAwarenessChanged(bool isAlert);
@@ -40,7 +33,7 @@ public class Awareness : MonoBehaviour
             float distance = Vector3.Distance(targetManager.Target.position, transform.position);
             bool targetInView = (distance <= lookRadius);
             // Does alertness need to be updated?
-            if(enabled && targetInView != isAlert)
+            if(targetInView != isAlert)
             {
                 isAlert = targetInView;
                 if(onAwarenessChanged != null)

@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BeeHandler : MonoBehaviour
+public class BeeKeeper : MonoBehaviour
 {
     [SerializeField]
     private Camera camera;
+    [SerializeField]
+    private GameObject beePrefab;
 
     private List<GameObject> bees;
     private bool isAiming;
@@ -20,8 +22,9 @@ public class BeeHandler : MonoBehaviour
         bees = new List<GameObject>();
     }
 
-    public void AddBee(GameObject bee)
+    public void SpawnBee(Vector3 startPosition)
     {
+        GameObject bee = Instantiate(beePrefab, startPosition, Quaternion.identity);
         bees.Add(bee);
     }
 
@@ -36,9 +39,9 @@ public class BeeHandler : MonoBehaviour
         else
         {
             Transform playerTransform = PlayerManager.instance.Player.transform;
-            targetPoint = playerTransform.position + playerTransform.forward;//new Vector3(playerPosition.x, playerPosition.y, playerPosition.z);
+            targetPoint = playerTransform.position + playerTransform.forward;
         }
-
+        // New target
         
     }
 
@@ -52,6 +55,6 @@ public class BeeHandler : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
             return hit.point;
         else
-            return ray.GetPoint( 1000 );
+            return ray.GetPoint(1000);
     }
 }

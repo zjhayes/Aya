@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,29 +10,27 @@ public class CharacterCombat : MonoBehaviour
     private float attackSpeed = 0.4f;
     [SerializeField]
     private float attackDelay = 0.6f;
-    private float attackCooldown = 0f;
 
-    public event System.Action OnAttack;
+    public event Action OnAttack;
 
     private CharacterStats stats;
     private CharacterStats targetStats;
     private DelayedAction previousAttack;
+    private Cooldown cooldown;
 
     void Start() 
     {
         stats = GetComponent<CharacterStats>();
-    }
 
-    void Update() 
-    {
-        attackCooldown -= Time.deltaTime;
+        float attackCooldown = 1f / attackSpeed;
+        cooldown = new Cooldown(attackCooldown);
     }
 
     public void Attack(CharacterStats targetStats)
     {
         this.targetStats = targetStats;
 
-        if(attackCooldown <= 0f)
+        if(cooldown.IsReady)
         {
             DelayedAction delayedAttack = new DelayedAction(DoDamage, attackDelay);
             ActionManager.instance.Add(delayedAttack);
@@ -41,7 +40,7 @@ public class CharacterCombat : MonoBehaviour
                 OnAttack();
             }
 
-            attackCooldown = 1f / attackSpeed;
+            cooldown.Begin(); // Start cooldown.
             this.previousAttack = delayedAttack;
         }
     }

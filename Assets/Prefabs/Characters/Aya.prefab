@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 5999669081402042665}
   - component: {fileID: 1070469330}
   - component: {fileID: 1070469335}
+  - component: {fileID: 1070469329}
   m_Layer: 0
   m_Name: Aya
   m_TagString: Player
@@ -180,6 +181,21 @@ MonoBehaviour:
   maxCharge: 6
   attunementDelay: 2
   animationChangeRate: 0.25
+--- !u!114 &1070469329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5999669081402042670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd77b0f11773346b1afeda7769b676cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camera: {fileID: 0}
+  beePrefab: {fileID: 4302037524924521040, guid: 44fbbd0bb853c4bf6b9684e65378d470,
+    type: 3}
 --- !u!1001 &5999669080263286201
 PrefabInstance:
   m_ObjectHideFlags: 0

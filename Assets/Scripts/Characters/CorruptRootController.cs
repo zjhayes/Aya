@@ -133,7 +133,7 @@ public class CorruptRootController : MonoBehaviour
     {
         animator.SetTrigger("isDead");
         awareness.IsAlert = false;
-        awareness.Enabled = false;
+        awareness.enabled = false;
         combat.CancelAttack();
     }
 

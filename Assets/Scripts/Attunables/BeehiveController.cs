@@ -6,26 +6,31 @@ using UnityEngine;
 public class BeehiveController : MonoBehaviour
 {
     [SerializeField]
-    private GameObject beePrefab;
-    [SerializeField]
     private Vector3 spawnOffset;
+    [SerializeField]
+    private float spawnDelay = 5.0f;
 
     private Attunable attunable;
-    private BeeHandler beeHandler;
+    private BeeKeeper keeper;
+    private Cooldown cooldown;
 
     void Start()
     {
         attunable = GetComponent<Attunable>();
         attunable.onAttuned += Attune;
 
-        beeHandler = PlayerManager.instance.Player.GetComponent<BeeHandler>();
+        keeper = PlayerManager.instance.Player.GetComponent<BeeKeeper>();
+
+        cooldown = new Cooldown(spawnDelay);
     }
 
     private void Attune()
     {
-        Vector3 position = new Vector3(transform.position.x + spawnOffset.x, transform.position.y + spawnOffset.y, transform.position.z + spawnOffset.z);
-        GameObject bee = Instantiate(beePrefab, position, Quaternion.identity);
-        beeHandler.AddBee(bee);
-        // TODO: Cooldown
+        if(cooldown.IsReady)
+        {
+            Vector3 position = new Vector3(transform.position.x + spawnOffset.x, transform.position.y + spawnOffset.y, transform.position.z + spawnOffset.z);
+            keeper.SpawnBee(position);
+            cooldown.Begin();
+        }
     }
 }

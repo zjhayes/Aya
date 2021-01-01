@@ -21,19 +21,19 @@ public class PlayerAbilities : MonoBehaviour
     private Animator animator;
     private bool isCharging = false;
     private float charge = 0.0f;
-    private float attunementCooldown = 0f;
+    private Cooldown attunementCooldown;
 
     void Start()
     {
         this.animator = GetComponent<Animator>();
         InputManager.instance.Controls.Interact.Attune.started += ctx => Charge();
         InputManager.instance.Controls.Interact.Attune.canceled += ctx => Attune();
+
+        attunementCooldown = new Cooldown(attunementDelay);
     }
 
     void Update()
     {
-        attunementCooldown -= Time.deltaTime;
-
         if(isCharging)
         {
             if(charge <= maxCharge)
@@ -56,13 +56,13 @@ public class PlayerAbilities : MonoBehaviour
             GameObject field = (GameObject) Instantiate(attunementFieldPrefab, position, Quaternion.identity);
             field.GetComponent<FieldController>().EndSize += charge; // Update field size.
             ResetCharge();
-            attunementCooldown = attunementDelay;
+            attunementCooldown.Begin(); // Start cooldown.
         }
     }
 
     private void Charge()
     {
-        if(isCharging == false && attunementCooldown <= 0f)
+        if(isCharging == false && attunementCooldown.IsReady)
         {
             isCharging = true;
             //Enable charging animation.

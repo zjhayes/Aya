@@ -16,7 +16,7 @@ public class DelayedAction : BasicAction
     {
         // Countdown to action.
         currentTime -= Time.deltaTime;
-        if(currentTime < 0)
+        if(currentTime <= 0.0f)
         {
             action();
             done = true;
