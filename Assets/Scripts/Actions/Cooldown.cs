@@ -13,6 +13,10 @@ public class Cooldown
         get{ return isReady; }
     }
 
+    public delegate void OnCooldownReady();
+    public OnCooldownReady onCooldownReady;
+
+
     public Cooldown(float delay)
     {
         this.delay = delay;
@@ -27,6 +31,7 @@ public class Cooldown
             isReady = false;
             cooldownAction = new DelayedAction(End, delay);
             ActionManager.instance.Add(cooldownAction);
+            InvokeCooldownEvent();
         }
         else
         {
@@ -57,5 +62,13 @@ public class Cooldown
     private void End()
     {
         isReady = true;
+    }
+
+    private void InvokeCooldownEvent()
+    {
+        if(onCooldownReady != null)
+        {
+            onCooldownReady.Invoke();
+        }
     }
 }

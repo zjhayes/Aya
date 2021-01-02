@@ -8,6 +8,7 @@ TagManager:
   - Terrain
   - Enemy
   - NPC
+  - Beehive
   layers:
   - Default
   - TransparentFX

@@ -2406,7 +2406,7 @@ PrefabInstance:
     - target: {fileID: 3001484946252881955, guid: 2c73e1e34d65c43ae8d1e64eeadb43b0,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.24548087
+      value: -0.24548084
       objectReference: {fileID: 0}
     - target: {fileID: 3001484946252881955, guid: 2c73e1e34d65c43ae8d1e64eeadb43b0,
         type: 3}
@@ -3283,11 +3283,6 @@ PrefabInstance:
       propertyPath: camera
       value: 
       objectReference: {fileID: 1202898832}
-    - target: {fileID: 5999669081402042670, guid: 54b37e91c9c3b403484dd9217c461391,
-        type: 3}
-      propertyPath: m_Name
-      value: Aya
-      objectReference: {fileID: 0}
     - target: {fileID: 5999669081402043092, guid: 54b37e91c9c3b403484dd9217c461391,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5997,6 +5992,24 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2085000180}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2104877541 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2193037464565871235, guid: cc2957d87e3c048799ec461a05c817d2,
+    type: 3}
+  m_PrefabInstance: {fileID: 2563374242495429334}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2104877550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2104877541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b4bee237b664f5ab660286213726ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2118263501
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6073,6 +6086,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 585804949556696644, guid: 9be02a2d088014b1bbcb01af4b098d6b,
+        type: 3}
+      propertyPath: beeSwap
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1439990005443942097, guid: 9be02a2d088014b1bbcb01af4b098d6b,
         type: 3}
       propertyPath: m_LocalPosition.x

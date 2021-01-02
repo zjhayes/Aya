@@ -84,7 +84,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followOffset: {x: 0, y: 0, z: 0}
-  fadeRate: 0.5
+  fadeRate: 1
   meshes:
   - {fileID: 2217654222413337201}
   - {fileID: 433593992102944080}

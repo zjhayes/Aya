@@ -19,6 +19,11 @@ public class BeeController : MonoBehaviour
     private RendererUtility fader;
     private bool dismissed = false;
 
+    public bool IsDismissed
+    {
+        get{ return dismissed; }
+    }
+
     void Start()
     {
         targetManager = GetComponent<TargetManager>();
@@ -36,16 +41,15 @@ public class BeeController : MonoBehaviour
 
     void Update()
     {
-        if(!dismissed)
-        {
-            if(targetManager.Target == null) 
-            { 
-                // No target, destroy.
-                Dismiss();
-                agent.SetDestination(transform.position); // Stay in place.
-                return;
-            }
+        if(!dismissed && targetManager.Target == null) 
+        { 
+            // No target, return home.
+            Dismiss();
+            return;
+        }
 
+        if(targetManager.Target != null)
+        {
             Vector3 targetPosition = targetManager.Target.position;
             Vector3 destination = new Vector3(targetPosition.x + followOffset.x, targetPosition.y + followOffset.y, targetPosition.z + followOffset.z);
             if(destination != Vector3.zero)
@@ -56,10 +60,19 @@ public class BeeController : MonoBehaviour
 
     }
 
-    private void Dismiss()
+    public void Dismiss()
     {
         dismissed = true;
-        // Update alpha of object gradually based on fade rate, then destroy.
+        GameObject beehive = ObjectFinder.FindClosestObjectWithTag("Beehive", transform);
+        if(beehive != null) 
+        {
+            targetManager.Target = beehive.transform;
+        }
+    }
+
+    public void FadeToDestroy()
+    {
+        //Update alpha of object gradually based on fade rate, then destroy.
         GradualAction fade = new GradualAction(FadeOut, 100, 0, fadeRate);
         ActionManager.instance.Add(fade);
     }

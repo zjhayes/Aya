@@ -6,6 +6,8 @@ public class BeeInteractable : MonoBehaviour
 {
     [SerializeField]
     private bool autoTarget = true;
+    [SerializeField]
+    private bool beeSwap = false;
 
     private GameObject bee;
 
@@ -19,7 +21,10 @@ public class BeeInteractable : MonoBehaviour
 
     public void Interact(GameObject incomingBee)
     {
-        if(bee != null && bee != incomingBee) { return; } // Bee already present.
+        if(bee != null && bee != incomingBee && !beeSwap) 
+        {
+            return; // Bee already present.
+        }
         
         bee = incomingBee;
 
