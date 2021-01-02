@@ -1,15 +1,29 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class RendererUtility
 {
-    private Renderer renderer;
-    
-    public RendererUtility(Renderer renderer)
+    private List<Renderer> renderers;
+
+    public RendererUtility()
     {
-        this.renderer = renderer;
+        renderers = new List<Renderer>();
+    }
+
+    public void AddMesh(Renderer renderer)
+    {
+        renderers.Add(renderer);
     }
 
     public void UpdateAlpha(float newAlpha)
+    {
+        foreach(Renderer renderer in renderers)
+        {
+            UpdateAlpha(newAlpha, renderer);
+        }
+    }
+
+    private void UpdateAlpha(float newAlpha, Renderer renderer)
     {
         Color objectColor = new Color(0.0f, 0.0f, 0.0f, newAlpha); // Default to no color.
 

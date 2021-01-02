@@ -10,7 +10,7 @@ public class BeeTargetController : MonoBehaviour
     [SerializeField]
     private float moveRadius = 5.0f;
     [SerializeField]
-    private float destroyDelay = 10.0f;
+    private float destroyDelay = 5.0f;
     NavMeshAgent agent;
     private bool isWandering = false;
     DelayedAction destroyAfterDelay;
@@ -32,13 +32,11 @@ public class BeeTargetController : MonoBehaviour
         NavMesh.SamplePosition(randomDirection, out hit, moveRadius, 1);
         Vector3 movePosition = hit.position;
         agent.SetDestination(movePosition);
+        destroyAfterDelay.Reset(); // Restart countdown to object destroy.
     }
 
     private void DestroyAfterDelay()
     {
-        // If bee targeting this, destroy bee.
-        //Destroy(GetComponent<BeeInteraction>().Bee);
-
         // Destroy bee target.
         Destroy(gameObject);
     }

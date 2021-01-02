@@ -32,7 +32,8 @@ public class FieldController : MonoBehaviour
     void Start()
     {
         objectScaler = new TransformUtility(transform);
-        fader = new RendererUtility(GetComponent<Renderer>());
+        fader = new RendererUtility();
+        fader.AddMesh(GetComponent<Renderer>());
 
         Scale();
         Fade();

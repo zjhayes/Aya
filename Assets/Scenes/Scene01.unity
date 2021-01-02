@@ -6300,20 +6300,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 702741231484404331, guid: cc2957d87e3c048799ec461a05c817d2,
-        type: 3}
-      propertyPath: m_IsKinematic
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2193037464565871235, guid: cc2957d87e3c048799ec461a05c817d2,
         type: 3}
       propertyPath: m_Name
       value: BeeTarget
-      objectReference: {fileID: 0}
-    - target: {fileID: 4003354887330586552, guid: cc2957d87e3c048799ec461a05c817d2,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5376817254108393064, guid: cc2957d87e3c048799ec461a05c817d2,
         type: 3}
