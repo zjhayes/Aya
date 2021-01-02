@@ -5,7 +5,7 @@ public class TargetManager : MonoBehaviour
     [SerializeField]
     private Transform target;
 
-    public delegate void OnTargetChanged(Transform newTarget);
+    public delegate void OnTargetChanged();
     public OnTargetChanged onTargetChanged;
 
     public Transform Target
@@ -16,7 +16,7 @@ public class TargetManager : MonoBehaviour
             this.target = value;
             if(onTargetChanged != null)
             {
-                onTargetChanged.Invoke(target);
+                onTargetChanged.Invoke();
             }
         }
     }

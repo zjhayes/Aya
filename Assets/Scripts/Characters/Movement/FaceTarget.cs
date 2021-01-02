@@ -15,7 +15,10 @@ public class FaceTarget : MonoBehaviour
 
     void Update()
     {
-        Look();
+        if(targetManager.Target != null)
+        {
+            Look();
+        }
     }
 
     public void Look()

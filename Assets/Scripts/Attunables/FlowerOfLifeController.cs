@@ -3,6 +3,7 @@
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Attunable))]
 [RequireComponent(typeof(Checkpoint))]
+[RequireComponent(typeof(BeeInteraction))]
 public class FlowerOfLifeController : MonoBehaviour
 {
     [SerializeField]
@@ -16,6 +17,8 @@ public class FlowerOfLifeController : MonoBehaviour
 
         attunable = GetComponent<Attunable>();
         attunable.onAttuned += Attune;
+
+        GetComponent<BeeInteraction>().onBeeInteraction += Pollinate;
     }
 
     private void Attune()
@@ -27,5 +30,10 @@ public class FlowerOfLifeController : MonoBehaviour
             PlayerManager.instance.Stats.Heal(healingAmount);
             PlayerManager.instance.Checkpoint = GetComponent<Checkpoint>();
         }
+    }
+
+    private void Pollinate()
+    {
+        Debug.Log("Pollinated");
     }
 }
