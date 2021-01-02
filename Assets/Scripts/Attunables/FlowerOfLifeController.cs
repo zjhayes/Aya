@@ -3,7 +3,7 @@
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Attunable))]
 [RequireComponent(typeof(Checkpoint))]
-[RequireComponent(typeof(BeeInteraction))]
+[RequireComponent(typeof(BeeInteractable))]
 public class FlowerOfLifeController : MonoBehaviour
 {
     [SerializeField]
@@ -18,7 +18,7 @@ public class FlowerOfLifeController : MonoBehaviour
         attunable = GetComponent<Attunable>();
         attunable.onAttuned += Attune;
 
-        GetComponent<BeeInteraction>().onBeeInteraction += Pollinate;
+        GetComponent<BeeInteractable>().onBeeInteractable += Pollinate;
     }
 
     private void Attune()

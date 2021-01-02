@@ -2,15 +2,15 @@
 
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Rigidbody))]
-public class BeeInteraction : MonoBehaviour
+public class BeeInteractable : MonoBehaviour
 {
     [SerializeField]
     private bool autoTarget = true;
 
     private GameObject bee;
 
-    public delegate void OnBeeInteraction();
-    public OnBeeInteraction onBeeInteraction;
+    public delegate void OnBeeInteractable();
+    public OnBeeInteractable onBeeInteractable;
 
     public GameObject Bee
     {
@@ -23,9 +23,9 @@ public class BeeInteraction : MonoBehaviour
         
         bee = incomingBee;
 
-        if(onBeeInteraction != null)
+        if(onBeeInteractable != null)
         {
-            onBeeInteraction.Invoke();
+            onBeeInteractable.Invoke();
         }
 
         if(autoTarget)

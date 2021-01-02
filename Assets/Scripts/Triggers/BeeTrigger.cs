@@ -7,10 +7,10 @@ public class BeeTrigger : MonoBehaviour
     void OnTriggerEnter(Collider other) 
     {
         // Interact with valid object.
-        if(other.GetComponent<BeeInteraction>() != null)
+        if(other.GetComponent<BeeInteractable>() != null)
         {
             // Pass self to interaction.
-            other.GetComponent<BeeInteraction>().Interact(gameObject);
+            other.GetComponent<BeeInteractable>().Interact(gameObject);
         }
     }
 }

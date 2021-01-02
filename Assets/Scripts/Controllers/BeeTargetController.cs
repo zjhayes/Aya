@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(BeeInteraction))]
+[RequireComponent(typeof(BeeInteractable))]
 [RequireComponent(typeof(NavMeshAgent))]
 public class BeeTargetController : MonoBehaviour
 {
@@ -17,7 +17,7 @@ public class BeeTargetController : MonoBehaviour
 
     void Start()
     {
-        GetComponent<BeeInteraction>().onBeeInteraction += Wander;
+        GetComponent<BeeInteractable>().onBeeInteractable += Wander;
         agent = GetComponent<NavMeshAgent>();
 
         destroyAfterDelay = new DelayedAction(DestroyAfterDelay, destroyDelay);
