@@ -84,22 +84,6 @@ public class BeeController : MonoBehaviour
         }
     }
 
-    public void SetSpeed(float speed)
-    {
-        if(agent != null)
-        {
-            agent.speed = speed;
-        }
-    }
-
-    public void SetStoppingDistance(float distance)
-    {
-        if(agent != null)
-        {
-            agent.stoppingDistance = distance;
-        }
-    }
-
     public void FadeToDestroy()
     {
         //Update alpha of object gradually based on fade rate, then destroy.

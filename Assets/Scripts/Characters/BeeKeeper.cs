@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BeeKeeper : MonoBehaviour
 {
@@ -41,8 +42,8 @@ public class BeeKeeper : MonoBehaviour
     {
         // Set target to player, and add to keeper.
         bee.GetComponent<TargetManager>().SetToPlayer();
-        bee.GetComponent<BeeController>().SetStoppingDistance(2.0f);
-        bee.GetComponent<BeeController>().SetSpeed(3.5f);
+        bee.GetComponent<NavMeshAgent>().stoppingDistance = 2.5f;
+        bee.GetComponent<NavMeshAgent>().speed = 4f;
         bees.Enqueue(bee);
     }
 
@@ -69,8 +70,8 @@ public class BeeKeeper : MonoBehaviour
             
             // Release bee to target.
             GameObject bee = bees.Dequeue();
-            bee.GetComponent<BeeController>().SetStoppingDistance(0.0f);
-            bee.GetComponent<BeeController>().SetSpeed(2.0f);
+            bee.GetComponent<NavMeshAgent>().stoppingDistance = 0.0f;
+            bee.GetComponent<NavMeshAgent>().speed = 2.0f;
             bee.GetComponent<TargetManager>().Target = target.transform;
             
             releaseCooldown.Begin();

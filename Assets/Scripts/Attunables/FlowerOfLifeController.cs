@@ -23,6 +23,10 @@ public class FlowerOfLifeController : MonoBehaviour
 
         beeInteraction = GetComponent<BeeInteractable>();
         beeInteraction.onBeeInteractable += Pollinate;
+
+        // Set default pollination state.
+        animator.SetBool("IsPollinated", pollinated);
+        beeInteraction.IsEnabled = !pollinated;
     }
 
     private void Attune()
