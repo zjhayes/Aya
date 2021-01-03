@@ -34,7 +34,7 @@ public class BeehiveController : MonoBehaviour
         if(cooldown.IsReady && beeCapacity > 0)
         {
             Vector3 position = new Vector3(transform.position.x + spawnOffset.x, transform.position.y + spawnOffset.y, transform.position.z + spawnOffset.z);
-            keeper.SpawnBee(position);
+            keeper.SpawnBee(position, transform.rotation);
             beeCapacity--;
             cooldown.Begin();
         }

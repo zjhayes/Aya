@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   autoTarget: 0
+  beeSwap: 0
 --- !u!114 &9028927311059819271
 MonoBehaviour:
   m_ObjectHideFlags: 0

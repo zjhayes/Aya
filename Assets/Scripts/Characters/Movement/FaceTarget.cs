@@ -29,12 +29,22 @@ public class FaceTarget : MonoBehaviour
 
     private Quaternion LookRotationToTarget()
     {
-        if(targetManager.Target == null) 
+        Quaternion lookRotation = transform.rotation;
+
+        if(targetManager.Target != null) 
         { 
-            Debug.LogError(transform.name + " does not have a target.");
-            return new Quaternion(); 
+            Vector3 direction = (targetManager.Target.position - transform.position).normalized;
+            Vector3 rotation = new Vector3(direction.x, 0, direction.z);
+            if(rotation != Vector3.zero)
+            {
+                lookRotation = Quaternion.LookRotation(rotation);
+            }
         }
-        Vector3 direction = (targetManager.Target.position - transform.position).normalized;
-        return Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        else
+        {
+            Debug.LogError(transform.name + " does not have a target.");
+        }
+
+        return lookRotation;
     }
 }

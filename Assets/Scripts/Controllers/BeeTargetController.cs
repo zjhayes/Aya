@@ -13,14 +13,16 @@ public class BeeTargetController : MonoBehaviour
     private float destroyDelay = 10.0f;
     [SerializeField]
     private float autoWanderDelay = 3.0f;
-    NavMeshAgent agent;
+    private NavMeshAgent agent;
     private bool isWandering = false;
     private DelayedAction destroyAfterDelay;
     private Cooldown autoWanderCooldown;
+    private BeeInteractable beeInteract;
 
     void Start()
     {
-        GetComponent<BeeInteractable>().onBeeInteractable += Wander;
+        beeInteract = GetComponent<BeeInteractable>();
+        beeInteract.onBeeInteractable += Wander;
         agent = GetComponent<NavMeshAgent>();
 
         destroyAfterDelay = new DelayedAction(DestroyAfterDelay, destroyDelay);
@@ -43,6 +45,9 @@ public class BeeTargetController : MonoBehaviour
 
     private void DestroyAfterDelay()
     {
+        // If destroy action in progress, cancel.
+        if(!destroyAfterDelay.IsDone()) { destroyAfterDelay.Cancel(); }
+
         // End cooldown action.
         autoWanderCooldown.Cancel();
 

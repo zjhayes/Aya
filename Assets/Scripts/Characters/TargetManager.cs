@@ -14,15 +14,21 @@ public class TargetManager : MonoBehaviour
         set 
         { 
             this.target = value;
-            if(onTargetChanged != null)
-            {
-                onTargetChanged.Invoke();
-            }
+            InvokeOnTargetChanged();
         }
     }
 
     public void SetToPlayer()
     {
         target = PlayerManager.instance.Player.transform;
+        InvokeOnTargetChanged();
+    }
+
+    private void InvokeOnTargetChanged()
+    {
+        if(onTargetChanged != null)
+        {
+            onTargetChanged.Invoke();
+        }
     }
 }

@@ -12,9 +12,12 @@ public class BeeKeeper : MonoBehaviour
     private GameObject beeTarget;
     [SerializeField]
     private float targetDistance = 5.0f;
+    [SerializeField]
+    private float releaseDelay = 1.0f;
 
     private Queue<GameObject> bees;
-    private bool isAiming;
+    private Cooldown releaseCooldown;
+    private bool isAiming = false;
 
     void Start()
     {
@@ -24,11 +27,22 @@ public class BeeKeeper : MonoBehaviour
         InputManager.instance.Controls.Camera.Aim.canceled += ctx => isAiming = false;
 
         bees = new Queue<GameObject>();
+
+        releaseCooldown = new Cooldown(releaseDelay);
     }
 
-    public void SpawnBee(Vector3 startPosition)
+    public void SpawnBee(Vector3 startPosition, Quaternion startRotation)
     {
-        GameObject bee = Instantiate(beePrefab, startPosition, Quaternion.identity);
+        GameObject bee = Instantiate(beePrefab, startPosition, startRotation);
+        AddBee(bee);
+    }
+
+    public void AddBee(GameObject bee)
+    {
+        // Set target to player, and add to keeper.
+        bee.GetComponent<TargetManager>().SetToPlayer();
+        bee.GetComponent<BeeController>().SetStoppingDistance(2.0f);
+        bee.GetComponent<BeeController>().SetSpeed(3.5f);
         bees.Enqueue(bee);
     }
 
@@ -36,24 +50,31 @@ public class BeeKeeper : MonoBehaviour
     {
         if(bees.Count == 0) { return; } // No bees. 
 
-        Vector3 targetPoint;
-        Transform playerTransform = PlayerManager.instance.Player.transform;
-
-        if(isAiming)
+        if(releaseCooldown.IsReady)
         {
-            targetPoint = GetTargetPosition();
-        }
-        else
-        {
-            // Get position in front of player.
-            targetPoint = playerTransform.position + playerTransform.forward * targetDistance;
-        }
+            Vector3 targetPoint;
+            Transform playerTransform = PlayerManager.instance.Player.transform;
 
-        GameObject target = Instantiate(beeTarget, targetPoint, playerTransform.rotation);
-        
-        // Release bee to target.
-        GameObject bee = bees.Dequeue();
-        bee.GetComponent<TargetManager>().Target = target.transform;
+            if(isAiming)
+            {
+                targetPoint = GetTargetPosition();
+            }
+            else
+            {
+                // Get position in front of player.
+                targetPoint = playerTransform.position + playerTransform.forward * targetDistance;
+            }
+
+            GameObject target = Instantiate(beeTarget, targetPoint, playerTransform.rotation);
+            
+            // Release bee to target.
+            GameObject bee = bees.Dequeue();
+            bee.GetComponent<BeeController>().SetStoppingDistance(0.0f);
+            bee.GetComponent<BeeController>().SetSpeed(2.0f);
+            bee.GetComponent<TargetManager>().Target = target.transform;
+            
+            releaseCooldown.Begin();
+        }
     }
 
     private Vector3 GetTargetPosition()

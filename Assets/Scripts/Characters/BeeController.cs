@@ -5,6 +5,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(TargetManager))]
 [RequireComponent(typeof(Renderer))]
+[RequireComponent(typeof(Attunable))]
 public class BeeController : MonoBehaviour
 {
     [SerializeField]
@@ -17,6 +18,7 @@ public class BeeController : MonoBehaviour
     private TargetManager targetManager;
     private NavMeshAgent agent;
     private RendererUtility fader;
+    private Attunable attunable;
     private bool dismissed = false;
 
     public bool IsDismissed
@@ -27,7 +29,6 @@ public class BeeController : MonoBehaviour
     void Start()
     {
         targetManager = GetComponent<TargetManager>();
-        targetManager.SetToPlayer();
 
         agent = GetComponent<NavMeshAgent>();
 
@@ -37,6 +38,9 @@ public class BeeController : MonoBehaviour
         {
             fader.AddMesh(mesh.GetComponent<SkinnedMeshRenderer>());
         }
+
+        attunable = GetComponent<Attunable>();
+        attunable.onAttuned += Attune;
     }
 
     void Update()
@@ -57,27 +61,51 @@ public class BeeController : MonoBehaviour
                 agent.SetDestination(destination);
             }
         }
-
     }
 
-    public void Dismiss()
+    private void Attune()
+    {
+        // Add bee to player's bee keeper.
+        PlayerManager.instance.Player.GetComponent<BeeKeeper>().AddBee(gameObject);
+        dismissed = false;
+    }
+
+    private void Dismiss()
     {
         dismissed = true;
         GameObject beehive = ObjectFinder.FindClosestObjectWithTag("Beehive", transform);
         if(beehive != null) 
         {
+            // Send target to beehive.
             targetManager.Target = beehive.transform;
+        }
+    }
+
+    public void SetSpeed(float speed)
+    {
+        if(agent != null)
+        {
+            agent.speed = speed;
+        }
+    }
+
+    public void SetStoppingDistance(float distance)
+    {
+        if(agent != null)
+        {
+            agent.stoppingDistance = distance;
         }
     }
 
     public void FadeToDestroy()
     {
         //Update alpha of object gradually based on fade rate, then destroy.
-        GradualAction fade = new GradualAction(FadeOut, 100, 0, fadeRate);
+        GradualAction fade = new GradualAction(FadeOutOrDestroy, 100, 0, fadeRate);
         ActionManager.instance.Add(fade);
     }
 
-    private void FadeOut(float newAlpha)
+    // Changes alpha of character, destroys if alpha is 0.
+    private void FadeOutOrDestroy(float newAlpha)
     {
         fader.UpdateAlpha(newAlpha);
 
