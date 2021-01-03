@@ -8,11 +8,20 @@ public class BeeInteractable : MonoBehaviour
     private bool autoTarget = true;
     [SerializeField]
     private bool beeSwap = false;
+    [SerializeField]
+    private bool enabled = true;
 
     private GameObject bee;
 
+    public bool IsEnabled
+    {
+        get{ return enabled; }
+        set{ this.enabled = value; }
+    }
+
     public delegate void OnBeeInteractable();
     public OnBeeInteractable onBeeInteractable;
+
 
     public GameObject Bee
     {
@@ -21,9 +30,9 @@ public class BeeInteractable : MonoBehaviour
 
     public void Interact(GameObject incomingBee)
     {
-        if(bee != null && bee != incomingBee && !beeSwap) 
+        if(!enabled || (bee != null && bee != incomingBee && !beeSwap)) 
         {
-            return; // Bee already present.
+            return; // Iteraction disabled, or bee already present.
         }
         
         bee = incomingBee;

@@ -5686,6 +5686,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FlowerOfLife (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 9120524847392827620, guid: 2fda56c86f44d4050859f295942cad42,
+        type: 3}
+      propertyPath: pollinated
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2fda56c86f44d4050859f295942cad42, type: 3}
 --- !u!1001 &2052256110

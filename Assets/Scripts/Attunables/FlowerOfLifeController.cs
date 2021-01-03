@@ -8,8 +8,11 @@ public class FlowerOfLifeController : MonoBehaviour
 {
     [SerializeField]
     int healingAmount = 100;
+    [SerializeField]
+    private bool pollinated = false;
     private Animator animator;
     private Attunable attunable;
+    private BeeInteractable beeInteraction;
     
     void Start()
     {
@@ -18,7 +21,8 @@ public class FlowerOfLifeController : MonoBehaviour
         attunable = GetComponent<Attunable>();
         attunable.onAttuned += Attune;
 
-        GetComponent<BeeInteractable>().onBeeInteractable += Pollinate;
+        beeInteraction = GetComponent<BeeInteractable>();
+        beeInteraction.onBeeInteractable += Pollinate;
     }
 
     private void Attune()
@@ -34,6 +38,10 @@ public class FlowerOfLifeController : MonoBehaviour
 
     private void Pollinate()
     {
-        Debug.Log("Pollinated");
+        // Destroy bee, and stop further bee interactions.
+        beeInteraction.Bee.GetComponent<BeeController>().FadeToDestroy();
+        beeInteraction.IsEnabled = false;
+        pollinated = true;
+        animator.SetBool("IsPollinated", true);
     }
 }

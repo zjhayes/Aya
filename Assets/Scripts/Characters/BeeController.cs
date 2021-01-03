@@ -65,9 +65,12 @@ public class BeeController : MonoBehaviour
 
     private void Attune()
     {
-        // Add bee to player's bee keeper.
-        PlayerManager.instance.Player.GetComponent<BeeKeeper>().AddBee(gameObject);
-        dismissed = false;
+        // Only attune if non-dismissed bee following target.
+        if(!dismissed && GetComponent<TargetManager>().Target.GetComponent<BeeTargetController>())
+        {
+            // Add bee to player's bee keeper.
+            PlayerManager.instance.Player.GetComponent<BeeKeeper>().AddBee(gameObject);
+        }
     }
 
     private void Dismiss()
