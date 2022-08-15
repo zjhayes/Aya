@@ -11,7 +11,7 @@ public class Checkpoint : MonoBehaviour
 
     public void Restore()
     {
-        PlayerManager.instance.Stats.Heal(healingAmount);
-        PlayerManager.instance.Player.transform.position = location;
+        PlayerManager.Instance.Stats.Heal(healingAmount);
+        PlayerManager.Instance.Player.transform.position = location;
     }
 }

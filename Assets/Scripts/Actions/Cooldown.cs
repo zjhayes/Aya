@@ -30,7 +30,7 @@ public class Cooldown
             // Start new cooldown.
             isReady = false;
             cooldownAction = new DelayedAction(End, delay);
-            ActionManager.instance.Add(cooldownAction);
+            ActionManager.Instance.Add(cooldownAction);
             InvokeCooldownEvent();
         }
         else

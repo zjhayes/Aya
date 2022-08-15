@@ -35,8 +35,8 @@ public class FlowerOfLifeController : MonoBehaviour
         {
             animator.SetTrigger("Attune");
             // Heal player and set checkpoint.
-            PlayerManager.instance.Stats.Heal(healingAmount);
-            PlayerManager.instance.Checkpoint = GetComponent<Checkpoint>();
+            PlayerManager.Instance.Stats.Heal(healingAmount);
+            PlayerManager.Instance.Checkpoint = GetComponent<Checkpoint>();
         }
     }
 

@@ -3,22 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : Singleton<PlayerManager>
 {
-    #region Singleton
-        public static PlayerManager instance;
-
-        void Awake() 
-        {
-            if(instance != null)
-            {
-                Debug.LogWarning("More than one instance of PlayerManager found.");
-                return;
-            }
-            instance = this;
-        }
-    #endregion
-
     [SerializeField]
     private GameObject player;
     private PlayerStats stats;

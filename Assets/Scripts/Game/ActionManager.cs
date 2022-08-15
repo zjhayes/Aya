@@ -2,30 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActionManager : MonoBehaviour
+public class ActionManager : Singleton<ActionManager>
 {
-    #region Singleton
-    public static ActionManager instance;
-
-    void Awake() 
-    {
-        if(instance != null)
-        {
-            Debug.LogWarning("More than one instance of ActionManager found.");
-            return;
-        }
-
-        instance = this;
-        actions = new List<IAction>();
-        pendingActions = new List<IAction>();
-
-        CleanAll();
-    }
-    #endregion
-
     List<IAction> actions;
     List<IAction> pendingActions;
 
+    void Awake()
+    {
+        CleanAll();
+    }
+    
     void Update()
     {
         foreach(IAction action in actions)
@@ -65,5 +51,6 @@ public class ActionManager : MonoBehaviour
     public void CleanAll()
     {
         actions = new List<IAction>();
+        pendingActions = new List<IAction>();
     }
 }
