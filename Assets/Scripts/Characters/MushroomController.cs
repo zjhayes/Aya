@@ -33,7 +33,7 @@ public class MushroomController : MonoBehaviour
         if(isCharged)
         {
             // Get Rigidbody from collision object and bounce it.
-            Bounce(collision.gameObject.GetComponent<Rigidbody>());
+            //Bounce(collision.gameObject.GetComponent<Rigidbody>());
             isCharged = false;
             InvokeChargeUpdated();
         }
