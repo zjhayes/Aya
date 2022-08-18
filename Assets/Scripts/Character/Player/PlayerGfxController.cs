@@ -14,7 +14,12 @@ public class PlayerGfxController : MonoBehaviour
     [SerializeField]
     private GameObject eyes;
     [SerializeField]
-    private int blinkRate = 2;
+    private int blinkRate = 30; // Frequency of blinks.
+    [SerializeField]
+    private float blinkDelay = .1f; // Length of blinks/non-blinks.
+
+    DelayedAction blinkAction;
+    Boolean isBlinking = false;
 
     void Start()
     {
@@ -25,8 +30,12 @@ public class PlayerGfxController : MonoBehaviour
     void Update()
     {
         // Randomly blink.
-        Boolean isBlinking = (UnityEngine.Random.Range(0, blinkRate) == 0);
-        UpdateBlink(isBlinking);
+        if (blinkAction == null || blinkAction.IsDone())
+        {
+            isBlinking = (UnityEngine.Random.Range(0, blinkRate) == 0);
+            blinkAction = new DelayedAction(UpdateBlink, blinkDelay);
+            ActionManager.Instance.Add(blinkAction);
+        }
     }
 
     private void OnHealthChanged()
@@ -52,8 +61,9 @@ public class PlayerGfxController : MonoBehaviour
         }
     }
 
-    private void UpdateBlink(bool isBlinking)
+    private void UpdateBlink()
     {
+        Debug.Log("Update blink");
         eyes.SetActive(!isBlinking);
     }
 }

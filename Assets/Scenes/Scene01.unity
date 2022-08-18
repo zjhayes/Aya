@@ -1027,6 +1027,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2118263501}
   m_PrefabAsset: {fileID: 0}
+--- !u!137 &354283275 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 353200278080294904, guid: 54b37e91c9c3b403484dd9217c461391,
+    type: 3}
+  m_PrefabInstance: {fileID: 1070469326}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &387847553
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2247,17 +2253,17 @@ PrefabInstance:
     - target: {fileID: 3001484944865156172, guid: 2c73e1e34d65c43ae8d1e64eeadb43b0,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 57.02
+      value: 45.21
       objectReference: {fileID: 0}
     - target: {fileID: 3001484944865156172, guid: 2c73e1e34d65c43ae8d1e64eeadb43b0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 13.974
+      value: 14.674
       objectReference: {fileID: 0}
     - target: {fileID: 3001484944865156172, guid: 2c73e1e34d65c43ae8d1e64eeadb43b0,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 104.78
+      value: 47.48
       objectReference: {fileID: 0}
     - target: {fileID: 3001484944865156172, guid: 2c73e1e34d65c43ae8d1e64eeadb43b0,
         type: 3}
@@ -3353,6 +3359,14 @@ PrefabInstance:
       propertyPath: camera
       value: 
       objectReference: {fileID: 1202898832}
+    - target: {fileID: 1070469330, guid: 54b37e91c9c3b403484dd9217c461391, type: 3}
+      propertyPath: damage.baseValue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1666001224, guid: 54b37e91c9c3b403484dd9217c461391, type: 3}
+      propertyPath: blinkDelay
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 5999669081402043092, guid: 54b37e91c9c3b403484dd9217c461391,
         type: 3}
       propertyPath: m_RootOrder
@@ -3361,17 +3375,17 @@ PrefabInstance:
     - target: {fileID: 5999669081402043092, guid: 54b37e91c9c3b403484dd9217c461391,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 57.02
+      value: 45.21
       objectReference: {fileID: 0}
     - target: {fileID: 5999669081402043092, guid: 54b37e91c9c3b403484dd9217c461391,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11.474
+      value: 12.174
       objectReference: {fileID: 0}
     - target: {fileID: 5999669081402043092, guid: 54b37e91c9c3b403484dd9217c461391,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 107.78
+      value: 50.48
       objectReference: {fileID: 0}
     - target: {fileID: 5999669081402043092, guid: 54b37e91c9c3b403484dd9217c461391,
         type: 3}
@@ -4389,7 +4403,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 858620544}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1584231549
+--- !u!114 &1584231554
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4401,7 +4415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aef11cc2345a48369e0401fa2d9e52b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetMesh: {fileID: 0}
+  targetMesh: {fileID: 354283275}
   defaultEquipment: []
 --- !u!1001 &1610886875
 PrefabInstance:
