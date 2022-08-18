@@ -3,49 +3,60 @@
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Attunable))]
 [RequireComponent(typeof(Checkpoint))]
-[RequireComponent(typeof(BeeInteractable))]
 public class FlowerOfLifeController : MonoBehaviour
 {
     [SerializeField]
     int healingAmount = 100;
     [SerializeField]
-    private bool pollinated = false;
+    private bool bloomed = false;
     private Animator animator;
     private Attunable attunable;
-    private BeeInteractable beeInteraction;
+    Checkpoint checkpoint;
+
+    const string BLOOM_STATE = "IsPollinated";
+    const string ATTUNE_ANIMATION_TRIGGER = "Attune";
     
     void Start()
     {
         animator = GetComponent<Animator>();
+        checkpoint = GetComponent<Checkpoint>();
 
         attunable = GetComponent<Attunable>();
         attunable.onAttuned += Attune;
 
-        beeInteraction = GetComponent<BeeInteractable>();
-        beeInteraction.onBeeInteractable += Pollinate;
-
         // Set default pollination state.
-        animator.SetBool("IsPollinated", pollinated);
-        beeInteraction.IsEnabled = !pollinated;
+        UpdateBloomState();
     }
 
     private void Attune()
     {
-        if(animator.GetBool("IsPollinated"))
+        if(animator.GetBool(BLOOM_STATE))
         {
-            animator.SetTrigger("Attune");
-            // Heal player and set checkpoint.
+            animator.SetTrigger(ATTUNE_ANIMATION_TRIGGER);
+            // Heal player and set checkpoint. TODO: Release healing orbs instead.
             PlayerManager.Instance.Stats.Heal(healingAmount);
-            PlayerManager.Instance.Checkpoint = GetComponent<Checkpoint>();
+            SetAsCheckpoint();
         }
     }
 
-    private void Pollinate()
+    private void OnTriggerEnter(Collider other)
     {
-        // Destroy bee, and stop further bee interactions.
-        beeInteraction.Bee.GetComponent<BeeController>().FadeToDestroy();
-        beeInteraction.IsEnabled = false;
-        pollinated = true;
-        animator.SetBool("IsPollinated", true);
+        if(other.gameObject.tag == PlayerManager.Instance.Player.tag)
+        {
+            // Set bloom state, and player checkpoint.
+            bloomed = true;
+            UpdateBloomState();
+            SetAsCheckpoint();
+        }
+    }
+
+    private void SetAsCheckpoint()
+    {
+        PlayerManager.Instance.Checkpoint = checkpoint;
+    }
+
+    private void UpdateBloomState()
+    {
+        animator.SetBool(BLOOM_STATE, bloomed);
     }
 }

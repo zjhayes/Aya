@@ -72,8 +72,8 @@ public class CorruptRootController : MonoBehaviour
     {
         if(isAlert)
         {
+            if (previousAction != null) { previousAction.Cancel(); } // Stop previous action.
             Alert();
-            if(previousAction != null) { previousAction.Cancel(); } // Stop previous action.
         }
         else
         {
