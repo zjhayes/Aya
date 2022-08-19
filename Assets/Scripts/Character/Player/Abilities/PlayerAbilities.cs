@@ -12,69 +12,47 @@ public class PlayerAbilities : MonoBehaviour
     [SerializeField]
     private float chargeAmount = 1.0f;
     [SerializeField]
-    private float maxCharge = 2.0f;
-    [SerializeField]
-    private float attunementDelay = 0.5f;
+    private float maxCharge = 4.0f;
     [SerializeField]
     private float animationChangeRate = 0.25f;
 
     private Animator animator;
-    private bool isCharging = false;
     private float charge = 0.0f;
+    private bool cooldownReady = true;
     private Cooldown attunementCooldown;
 
     void Start()
     {
         this.animator = GetComponent<Animator>();
-        InputManager.Instance.Controls.Interact.Attune.started += ctx => Charge();
-        InputManager.Instance.Controls.Interact.Attune.canceled += ctx => Attune();
-
-        attunementCooldown = new Cooldown(attunementDelay);
+        InputManager.Instance.Controls.Interact.Attune.performed += ctx => Attune();
     }
 
     void Update()
     {
-        if(isCharging)
+        if(cooldownReady && charge <= maxCharge)
         {
-            if(charge <= maxCharge)
-            {
-                charge += chargeAmount * Time.deltaTime;
-            }
-            else
-            {
-                Attune(); // Force attune when reached max charge.
-            }
+            charge += chargeAmount * Time.deltaTime;
         }
     }
 
     private void Attune()
     {
-        if(isCharging)
+        if(cooldownReady)
         {
             // Create attunement field at player's position, factoring offset, no rotation.
             Vector3 position = new Vector3(transform.position.x + fieldOffset.x, transform.position.y + fieldOffset.y, transform.position.z + fieldOffset.z);
             GameObject field = (GameObject) Instantiate(attunementFieldPrefab, position, Quaternion.identity);
             field.GetComponent<FieldController>().EndSize += charge; // Update field size.
-            ResetCharge();
-            attunementCooldown.Begin(); // Start cooldown.
-        }
-    }
-
-    private void Charge()
-    {
-        if(isCharging == false && attunementCooldown.IsReady)
-        {
-            isCharging = true;
-            //Enable charging animation.
+            field.GetComponent<FieldController>().onFieldDestroyed += CooldownReady;
+            cooldownReady = false; // Cooldown lasts until current field is destroyed.
+            charge = 0.0f;
             animator.SetBool("IsCharging", true);
+            animator.SetBool("IsCharging", false);
         }
     }
 
-    private void ResetCharge()
+    private void CooldownReady()
     {
-        isCharging = false;
-        charge = 0.0f;
-        // Disable charge animation.
-        animator.SetBool("IsCharging", false);
+        cooldownReady = true;
     }
 }

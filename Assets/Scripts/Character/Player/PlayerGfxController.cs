@@ -63,7 +63,6 @@ public class PlayerGfxController : MonoBehaviour
 
     private void UpdateBlink()
     {
-        Debug.Log("Update blink");
         eyes.SetActive(!isBlinking);
     }
 }

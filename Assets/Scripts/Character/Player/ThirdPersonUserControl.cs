@@ -13,8 +13,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         private float m_Verticle = 0.0f;
         private float m_Horizontal = 0.0f;
         private bool m_Jump;                      // the world-relative desired move direction, calculated from the camForward and user input.
-        private bool m_Crouch;
-        private bool m_Run;
+        private bool isCrouching = false;
+        private bool isRunning = false;
 
         
         private void Start()
@@ -36,10 +36,9 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
             // Set player controls. 
             InputManager.Instance.Controls.Movement.Move.performed += ctx => Move(ctx.ReadValue<Vector2>());
-            InputManager.Instance.Controls.Movement.Jump.performed += ctx => Jump();
-            InputManager.Instance.Controls.Movement.Crouch.started += ctx => Crouch(true);
-            InputManager.Instance.Controls.Movement.Crouch.canceled += ctx => Crouch(false);
-            InputManager.Instance.Controls.Movement.Run.performed += ctx => ToggleRun();
+            InputManager.Instance.Controls.Movement.Jump.started += ctx => Jump();
+            InputManager.Instance.Controls.Movement.Crouch.started += ctx => ToggleCrouch();
+            InputManager.Instance.Controls.Movement.Run.started += ctx => ToggleRun();
         }
 
         void Move(Vector2 direction)
@@ -58,12 +57,22 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
         private void Crouch(bool crouch) 
         {
-            m_Crouch = crouch;
+            isCrouching = crouch;
+        }
+
+        private void ToggleCrouch()
+        {
+            Crouch(!isCrouching);
+        }
+
+        private void Run(bool run)
+        {
+            isRunning = run;
         }
 
         private void ToggleRun()
         {
-            m_Run = !m_Run;
+            Run(!isRunning);
         }
 
         // Fixed update is called in sync with physics.
@@ -83,10 +92,10 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             }
 
 			// walk speed multiplier
-	        if (m_Run) m_Move *= 2f;
+	        if (isRunning) m_Move *= 2f;
 
             // pass all parameters to the character control script
-            m_Character.Move(m_Move, m_Crouch, m_Jump);
+            m_Character.Move(m_Move, isCrouching, m_Jump);
             m_Jump = false;
         }
     }

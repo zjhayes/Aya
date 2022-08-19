@@ -23,6 +23,9 @@ public class FieldController : MonoBehaviour
     private GradualAction scale;
     private GradualAction fade;
 
+    public delegate void OnFieldDestroyed();
+    public OnFieldDestroyed onFieldDestroyed;
+
     public float EndSize
     {
         get { return endSize; }
@@ -44,6 +47,7 @@ public class FieldController : MonoBehaviour
         // Destroy when all actions are complete.
         if(scale.IsDone() && fade.IsDone())
         {
+            InvokeFieldDestroyedListener();
             Destroy(this.gameObject);
         }
     }
@@ -60,5 +64,13 @@ public class FieldController : MonoBehaviour
         // Update alpha of object gradually based on fade rate.
         fade = new GradualAction(fader.UpdateAlpha, startAlpha, endAlpha, fadeRate);
         ActionManager.Instance.Add(fade);
+    }
+
+    private void InvokeFieldDestroyedListener()
+    {
+        if (onFieldDestroyed != null)
+        {
+            onFieldDestroyed.Invoke();
+        }
     }
 }

@@ -2245,6 +2245,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3001484944865156163, guid: 2c73e1e34d65c43ae8d1e64eeadb43b0,
+        type: 3}
+      propertyPath: field of view
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 3001484944865156172, guid: 2c73e1e34d65c43ae8d1e64eeadb43b0,
         type: 3}
       propertyPath: m_RootOrder
@@ -2278,12 +2283,12 @@ PrefabInstance:
     - target: {fileID: 3001484944865156172, guid: 2c73e1e34d65c43ae8d1e64eeadb43b0,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -5.332661e-10
+      value: 5.332654e-10
       objectReference: {fileID: 0}
     - target: {fileID: 3001484944865156172, guid: 2c73e1e34d65c43ae8d1e64eeadb43b0,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -9.660152e-11
+      value: 9.6604634e-11
       objectReference: {fileID: 0}
     - target: {fileID: 3001484944865156172, guid: 2c73e1e34d65c43ae8d1e64eeadb43b0,
         type: 3}
@@ -2367,8 +2372,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3001484945445844425, guid: 2c73e1e34d65c43ae8d1e64eeadb43b0,
         type: 3}
+      propertyPath: m_Lens.GateFit
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3001484945445844425, guid: 2c73e1e34d65c43ae8d1e64eeadb43b0,
+        type: 3}
       propertyPath: m_Lens.m_SensorSize.x
-      value: 1.7776595
+      value: 2.6519337
+      objectReference: {fileID: 0}
+    - target: {fileID: 3001484945445844425, guid: 2c73e1e34d65c43ae8d1e64eeadb43b0,
+        type: 3}
+      propertyPath: m_XAxis.m_InvertInput
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3001484945445844425, guid: 2c73e1e34d65c43ae8d1e64eeadb43b0,
+        type: 3}
+      propertyPath: m_YAxis.m_InvertInput
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3001484945445844426, guid: 2c73e1e34d65c43ae8d1e64eeadb43b0,
         type: 3}
@@ -2423,7 +2443,7 @@ PrefabInstance:
     - target: {fileID: 3001484946001872078, guid: 2c73e1e34d65c43ae8d1e64eeadb43b0,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.24365081
+      value: -0.2436508
       objectReference: {fileID: 0}
     - target: {fileID: 3001484946001872078, guid: 2c73e1e34d65c43ae8d1e64eeadb43b0,
         type: 3}
@@ -2463,7 +2483,7 @@ PrefabInstance:
     - target: {fileID: 3001484946252881955, guid: 2c73e1e34d65c43ae8d1e64eeadb43b0,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.24548084
+      value: -0.24548085
       objectReference: {fileID: 0}
     - target: {fileID: 3001484946252881955, guid: 2c73e1e34d65c43ae8d1e64eeadb43b0,
         type: 3}
@@ -3359,13 +3379,14 @@ PrefabInstance:
       propertyPath: camera
       value: 
       objectReference: {fileID: 1202898832}
-    - target: {fileID: 1070469330, guid: 54b37e91c9c3b403484dd9217c461391, type: 3}
-      propertyPath: damage.baseValue
+    - target: {fileID: 1070469335, guid: 54b37e91c9c3b403484dd9217c461391, type: 3}
+      propertyPath: chargeAmount
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1666001224, guid: 54b37e91c9c3b403484dd9217c461391, type: 3}
-      propertyPath: blinkDelay
-      value: 0.1
+    - target: {fileID: 5999669081402042670, guid: 54b37e91c9c3b403484dd9217c461391,
+        type: 3}
+      propertyPath: m_Name
+      value: Aya
       objectReference: {fileID: 0}
     - target: {fileID: 5999669081402043092, guid: 54b37e91c9c3b403484dd9217c461391,
         type: 3}

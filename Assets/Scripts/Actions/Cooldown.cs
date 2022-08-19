@@ -4,7 +4,6 @@ using UnityEngine;
 public class Cooldown
 {
     private float delay;
-    private float cooldown = 0f;
     private DelayedAction cooldownAction;
     private bool isReady = true;
 
@@ -20,7 +19,6 @@ public class Cooldown
     public Cooldown(float delay)
     {
         this.delay = delay;
-        this.cooldown = delay;
     }
 
     public void Begin()

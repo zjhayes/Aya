@@ -11,7 +11,8 @@
                     "id": "dee9e687-319a-4742-acf4-aed7ec224c07",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Move",
@@ -19,7 +20,8 @@
                     "id": "55eccc37-2744-4fee-97f5-ddde7d66fac8",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Run",
@@ -27,7 +29,8 @@
                     "id": "a509668c-3d26-4897-a753-5f66777aeb62",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Crouch",
@@ -35,7 +38,8 @@
                     "id": "f8e00508-4232-47cf-98e1-bb1c60ddf102",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -229,7 +233,7 @@
                 {
                     "name": "",
                     "id": "9b4141c5-2f7e-41c6-b13d-f2740d85120e",
-                    "path": "<Keyboard>/r",
+                    "path": "<Keyboard>/shift",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard & Mouse",
@@ -251,7 +255,7 @@
                 {
                     "name": "",
                     "id": "5256ce47-ac9d-4300-a399-7a2b93d4d9f9",
-                    "path": "<Keyboard>/c",
+                    "path": "<Keyboard>/ctrl",
                     "interactions": "Hold",
                     "processors": "",
                     "groups": "Keyboard & Mouse",
@@ -282,7 +286,8 @@
                     "id": "a10c1d00-0df3-4b1c-8dd6-7db61359c876",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "UnequiptAll",
@@ -290,7 +295,8 @@
                     "id": "34dd4276-b051-4ef7-b1e2-f8190dbdb4ae",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "LeftClick",
@@ -298,7 +304,8 @@
                     "id": "ed8912b8-fd6c-49b0-846f-d6792257ac2a",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "MousePosition",
@@ -306,7 +313,8 @@
                     "id": "5736f65b-60e4-4187-b7e1-d9a107876d45",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "RightClick",
@@ -314,7 +322,8 @@
                     "id": "061565d8-7820-4a20-99d6-bac40fb80f17",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Shoot",
@@ -322,7 +331,8 @@
                     "id": "d1f5e907-740d-43ff-beb9-dd7da8fc6e7a",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -426,7 +436,8 @@
                     "id": "ad8b3065-4b1f-41c8-8189-0c43d4694627",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -453,7 +464,8 @@
                     "id": "ece492a6-a90a-4db9-affb-3bbf8cf73734",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Yaw",
@@ -461,7 +473,8 @@
                     "id": "23e93aff-0d77-4fd9-9b17-0a165923b2cf",
                     "expectedControlType": "Axis",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Pitch",
@@ -469,7 +482,8 @@
                     "id": "bb5513c0-06a8-480b-aa2f-de8c9f928fc8",
                     "expectedControlType": "Axis",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "ChangeView",
@@ -477,7 +491,8 @@
                     "id": "d8f10700-1d8e-44bc-847e-a302f6c26dcd",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Aim",
@@ -485,7 +500,17 @@
                     "id": "4cb00e35-fcb8-4614-aca1-12d053bedad9",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "EnablePlayerControl",
+                    "type": "Button",
+                    "id": "eeef8149-2e81-4b20-84e1-575bc37629dd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -613,7 +638,7 @@
                 {
                     "name": "",
                     "id": "03bcee60-c11f-4e48-a21b-8b25ea70b2bf",
-                    "path": "<Keyboard>/shift",
+                    "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard & Mouse",
@@ -629,6 +654,17 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a2f1509e-3153-462f-8e1d-8e55d913d44f",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "EnablePlayerControl",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

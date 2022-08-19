@@ -23,6 +23,7 @@ public class CameraController : MonoBehaviour
     private ThirdPersonCharacter playerController;
     const int NUMBER_OF_RIGS = 3;
     private int zoomLevelIndex;
+    private bool playerControlled = false;
 
     CinemachineComposer comp;
 
@@ -32,15 +33,30 @@ public class CameraController : MonoBehaviour
         zoomLevelIndex = startingIndex;
         
         // Listen for when player starts and stops moving.
-        PlayerManager.Instance.Player.GetComponent<ThirdPersonCharacter>().onMovementChanged += EnableCameraCentering;
+        PlayerManager.Instance.Player.GetComponent<ThirdPersonCharacter>().onMovementChanged += SetCameraCentering;
         freeLookComponent.m_CommonLens = false;
         
-        InputManager.Instance.Controls.Camera.ChangeView.performed += ctx => ToggleView();
-        InputManager.Instance.Controls.Camera.Aim.started += ctx => Aim();
-        InputManager.Instance.Controls.Camera.Aim.canceled += ctx => UnAim();
+        InputManager.Instance.Controls.Camera.ChangeView.performed += _ => ToggleView();
+        InputManager.Instance.Controls.Camera.Aim.started += _ => Aim();
+        InputManager.Instance.Controls.Camera.Aim.canceled += _ => UnAim();
+        InputManager.Instance.Controls.Camera.EnablePlayerControl.started += ctx => SetPlayerControl(ctx.started);
+        InputManager.Instance.Controls.Camera.EnablePlayerControl.canceled += ctx => SetPlayerControl(false);
     }
 
     void Update()
+    {
+        if(playerControlled)
+        {
+            ControlCamera();
+        }
+    }
+
+    private void SetPlayerControl(bool enable)
+    {
+        playerControlled = enable;
+    }
+
+    private void ControlCamera()
     {
         float yRotation = InputManager.Instance.Controls.Camera.Pitch.ReadValue<float>();
         float xRotation = InputManager.Instance.Controls.Camera.Yaw.ReadValue<float>();
@@ -77,7 +93,7 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    private void EnableCameraCentering(bool enable)
+    private void SetCameraCentering(bool enable)
     {
         freeLookComponent.m_YAxisRecentering.m_enabled = enable;
         freeLookComponent.m_RecenterToTargetHeading.m_enabled = enable;
