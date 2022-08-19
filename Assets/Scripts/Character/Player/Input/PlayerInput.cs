@@ -533,6 +533,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Zoom"",
+                    ""type"": ""Value"",
+                    ""id"": ""8efaa165-3ed0-4026-bfbf-2ee2bb999447"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -689,6 +698,17 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""EnablePlayerControl"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""56bb44e8-ed7d-481d-ac72-0e51ec60e2ac"",
+                    ""path"": ""<Mouse>/scroll"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -748,6 +768,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Camera_ChangeView = m_Camera.FindAction("ChangeView", throwIfNotFound: true);
         m_Camera_Aim = m_Camera.FindAction("Aim", throwIfNotFound: true);
         m_Camera_EnablePlayerControl = m_Camera.FindAction("EnablePlayerControl", throwIfNotFound: true);
+        m_Camera_Zoom = m_Camera.FindAction("Zoom", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -976,6 +997,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Camera_ChangeView;
     private readonly InputAction m_Camera_Aim;
     private readonly InputAction m_Camera_EnablePlayerControl;
+    private readonly InputAction m_Camera_Zoom;
     public struct CameraActions
     {
         private @PlayerInput m_Wrapper;
@@ -986,6 +1008,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @ChangeView => m_Wrapper.m_Camera_ChangeView;
         public InputAction @Aim => m_Wrapper.m_Camera_Aim;
         public InputAction @EnablePlayerControl => m_Wrapper.m_Camera_EnablePlayerControl;
+        public InputAction @Zoom => m_Wrapper.m_Camera_Zoom;
         public InputActionMap Get() { return m_Wrapper.m_Camera; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1013,6 +1036,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @EnablePlayerControl.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnEnablePlayerControl;
                 @EnablePlayerControl.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnEnablePlayerControl;
                 @EnablePlayerControl.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnEnablePlayerControl;
+                @Zoom.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnZoom;
+                @Zoom.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnZoom;
+                @Zoom.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnZoom;
             }
             m_Wrapper.m_CameraActionsCallbackInterface = instance;
             if (instance != null)
@@ -1035,6 +1061,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @EnablePlayerControl.started += instance.OnEnablePlayerControl;
                 @EnablePlayerControl.performed += instance.OnEnablePlayerControl;
                 @EnablePlayerControl.canceled += instance.OnEnablePlayerControl;
+                @Zoom.started += instance.OnZoom;
+                @Zoom.performed += instance.OnZoom;
+                @Zoom.canceled += instance.OnZoom;
             }
         }
     }
@@ -1085,5 +1114,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnChangeView(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
         void OnEnablePlayerControl(InputAction.CallbackContext context);
+        void OnZoom(InputAction.CallbackContext context);
     }
 }
