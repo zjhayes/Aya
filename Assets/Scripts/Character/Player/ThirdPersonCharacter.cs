@@ -9,7 +9,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 	{
 		[SerializeField] float m_MovingTurnSpeed = 360;
 		[SerializeField] float m_StationaryTurnSpeed = 180;
-		[SerializeField] float m_JumpPower = 12f;
+		[SerializeField] float jumpPower = 8f;
 		[Range(1f, 4f)][SerializeField] float m_GravityMultiplier = 2f;
 		[SerializeField] float m_RunCycleLegOffset = 0.2f; //specific to the character in sample assets, will need to be modified to work with others
 		[SerializeField] float m_MoveSpeedMultiplier = 1f;
@@ -48,14 +48,14 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			isMoving = false;
 		}
 
-		private void Update()
+		/*private void Update()
 		{
 			if (!m_IsGrounded)
 			{
 				// Allow in-air movement.
-				transform.Translate(Vector3.forward * m_ForwardAmount * inAirSpeed * Time.deltaTime);
+				//transform.Translate(Vector3.forward * m_ForwardAmount * inAirSpeed * Time.deltaTime);
 			}
-		}
+		}*/
 
 		public void Move(Vector3 move, bool crouch, bool jump)
 		{
@@ -193,7 +193,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			if (jump && !crouch && m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Grounded"))
 			{
 				// jump!
-				m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x, m_JumpPower, m_Rigidbody.velocity.z);
+				m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x, jumpPower, m_Rigidbody.velocity.z);
 				m_IsGrounded = false;
 				m_Animator.applyRootMotion = false;
 				m_GroundCheckDistance = 0.1f;
