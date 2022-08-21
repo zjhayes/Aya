@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(CapsuleCollider))]
-public class CapsuleController : MonoBehaviour
+public class CapsuleManager : MonoBehaviour
 {
     CapsuleCollider capsule;
     float originalHeight;

@@ -11,9 +11,11 @@ GameObject:
   - component: {fileID: 5999669081402043092}
   - component: {fileID: 5999669081402043093}
   - component: {fileID: 5999669081402042666}
+  - component: {fileID: 8565796344540613564}
   - component: {fileID: 5999669081402042667}
   - component: {fileID: 5007773391751468715}
   - component: {fileID: 1846959587102968430}
+  - component: {fileID: 5075130875643653114}
   - component: {fileID: 2328122562948524949}
   - component: {fileID: 1070469330}
   - component: {fileID: 1070469335}
@@ -77,6 +79,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8565796344540613564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5999669081402042670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d1d9e8f1817e7440b4c3e59880a028b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &5999669081402042667
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -118,12 +132,23 @@ MonoBehaviour:
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
   jumpPower: 8
-  m_GravityMultiplier: 2
-  m_RunCycleLegOffset: 0.2
-  m_MoveSpeedMultiplier: 1
-  m_AnimSpeedMultiplier: 1
-  m_GroundCheckDistance: 0.5
+  gravityMultiplier: 2
+  groundCheckDistance: 0.5
   inAirSpeed: 10
+--- !u!114 &5075130875643653114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5999669081402042670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 007ac72d71422b5438292ff36d6a6b33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationSpeedMultiplier: 1
+  runCycleLegOffset: 0.2
 --- !u!114 &2328122562948524949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,7 +193,7 @@ MonoBehaviour:
   attunementFieldPrefab: {fileID: 7728316272543125870, guid: 40b48f2998d1b44fb80a6e824b33b29f,
     type: 3}
   fieldOffset: {x: 0, y: 1, z: 0}
-  chargeAmount: 2
+  chargeAmount: 1
   maxCharge: 4
   animationChangeRate: 0.25
 --- !u!114 &1070469329

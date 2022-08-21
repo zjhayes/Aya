@@ -12,6 +12,7 @@ public class PlayerControls : MonoBehaviour
     private float horizontalMovement = 0.0f;                     // the world-relative desired move direction, calculated from the camForward and user input.
     private CrouchHandler crouchHandler;
     private JumpHandler jumpHandler;
+    private AirborneHandler airborneHandler;
 
 
     void Start()
@@ -40,6 +41,7 @@ public class PlayerControls : MonoBehaviour
         // Set up handlers.
         crouchHandler = new CrouchHandler();
         jumpHandler = new JumpHandler();
+        airborneHandler = new AirborneHandler();
     }
 
     void Move(Vector2 direction)
@@ -95,9 +97,16 @@ public class PlayerControls : MonoBehaviour
         // walk speed multiplier
         if (controller.IsRunning) movement *= 2f;
 
+        airborneHandler.CheckGroundStatus();
+        if(!controller.IsGrounded)
+        {
+            airborneHandler.HandleAirborneMovement();
+        }
+
         // pass all parameters to the character control script
         controller.Move(movement);
-        controller.IsJumping = false;
+
+        PlayerManager.Instance.Player.GetComponent<PlayerAnimationController>().UpdateAnimator(movement);
     }
 }
 

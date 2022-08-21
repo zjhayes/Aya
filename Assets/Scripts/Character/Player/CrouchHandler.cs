@@ -3,17 +3,17 @@ using UnityEngine;
 public class CrouchHandler
 {
     PlayerController controller;
-    CapsuleController capsule;
     PlayerAnimationController animation;
-    Rigidbody rigidBody;
+    CapsuleManager capsule;
+    RigidbodyManager rigidbody;
     const float HALF = 0.5f;
 
     public CrouchHandler()
     {
         controller = PlayerManager.Instance.Player.GetComponent<PlayerController>();
-        capsule = PlayerManager.Instance.Player.GetComponent<CapsuleController>();
         animation = PlayerManager.Instance.Player.GetComponent<PlayerAnimationController>();
-        rigidBody = PlayerManager.Instance.Player.GetComponent<Rigidbody>();
+        rigidbody = PlayerManager.Instance.Player.GetComponent<RigidbodyManager>();
+        capsule = PlayerManager.Instance.Player.GetComponent<CapsuleManager>();
 
         controller.onCrouchChanged += UpdateCrouch;
     }
@@ -52,7 +52,7 @@ public class CrouchHandler
 
     private bool StandingHeadroom()
     {
-        Ray crouchRay = new Ray(rigidBody.position + Vector3.up * capsule.Radius * HALF, Vector3.up);
+        Ray crouchRay = new Ray(rigidbody.Position + Vector3.up * capsule.Radius * HALF, Vector3.up);
         float crouchRayLength = capsule.Height - capsule.Radius * HALF;
         if (Physics.SphereCast(crouchRay, capsule.Radius * HALF, crouchRayLength, Physics.AllLayers, QueryTriggerInteraction.Ignore))
         {
