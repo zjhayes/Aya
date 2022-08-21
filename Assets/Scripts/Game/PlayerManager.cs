@@ -10,20 +10,12 @@ public class PlayerManager : Singleton<PlayerManager>
     private PlayerStats stats;
     private Checkpoint previousCheckpoint;
 
-    public GameObject Player 
-    {
-        get { return player; }
-    }
-
-    public PlayerStats Stats
-    {
-        get { return stats; }
-    }
-
+    public GameObject Player { get { return player; } }
+    public PlayerStats Stats { get { return stats; } }
     public Checkpoint Checkpoint
     {
         get { return previousCheckpoint; }
-        set { this.previousCheckpoint = value;}
+        set { previousCheckpoint = value; }
     }
 
     void Start()
@@ -39,6 +31,7 @@ public class PlayerManager : Singleton<PlayerManager>
         }
         else
         {
+            ActionManager.Instance.CleanAll();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }

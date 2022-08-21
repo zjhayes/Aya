@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 5999669081402043093}
   - component: {fileID: 5999669081402042666}
   - component: {fileID: 5999669081402042667}
-  - component: {fileID: 5999669081402042664}
-  - component: {fileID: 5999669081402042665}
+  - component: {fileID: 5007773391751468715}
+  - component: {fileID: 1846959587102968430}
+  - component: {fileID: 2328122562948524949}
   - component: {fileID: 1070469330}
   - component: {fileID: 1070469335}
   - component: {fileID: 1070469329}
@@ -90,7 +91,7 @@ CapsuleCollider:
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
---- !u!114 &5999669081402042664
+--- !u!114 &5007773391751468715
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -99,10 +100,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5999669081402042670}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 521b611700410be45810047f0a74e899, type: 3}
+  m_Script: {fileID: 11500000, guid: 75c1886d4e065a14dbf31790d7062862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5999669081402042665
+--- !u!114 &1846959587102968430
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -111,18 +112,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 5999669081402042670}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce7a80d520cacc042b5fe14f373d8173, type: 3}
+  m_Script: {fileID: 11500000, guid: 79837c14bd302ed46bbe6a12bdf352cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
-  m_JumpPower: 8
-  m_GravityMultiplier: 1.5
+  jumpPower: 8
+  m_GravityMultiplier: 2
   m_RunCycleLegOffset: 0.2
   m_MoveSpeedMultiplier: 1
   m_AnimSpeedMultiplier: 1
   m_GroundCheckDistance: 0.5
-  inAirSpeed: 1
+  inAirSpeed: 10
+--- !u!114 &2328122562948524949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5999669081402042670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f1862e373b846b4aaf31d10adf8d329, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1070469330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,7 +170,6 @@ MonoBehaviour:
   fieldOffset: {x: 0, y: 1, z: 0}
   chargeAmount: 2
   maxCharge: 4
-  attunementDelay: 2
   animationChangeRate: 0.25
 --- !u!114 &1070469329
 MonoBehaviour:

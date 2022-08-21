@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityStandardAssets.Characters.ThirdPerson;
 
 [RequireComponent(typeof(CinemachineFreeLook))]
 public class CameraController : MonoBehaviour
@@ -26,7 +25,7 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     private List<float> defaultRigRadius;
     private CinemachineFreeLook freeLookComponent;
-    private ThirdPersonCharacter playerController;
+    private PlayerController playerController;
     const int NUMBER_OF_RIGS = 3;
     private float currentZoomOut;
     private bool playerControlled = false;
@@ -39,7 +38,7 @@ public class CameraController : MonoBehaviour
         freeLookComponent = GetComponent<CinemachineFreeLook>();
         
         // Listen for when player starts and stops moving.
-        PlayerManager.Instance.Player.GetComponent<ThirdPersonCharacter>().onMovementChanged += SetCameraCentering;
+        PlayerManager.Instance.Player.GetComponent<PlayerController>().onMovementChanged += SetCameraCentering;
         freeLookComponent.m_CommonLens = false;
         
         InputManager.Instance.Controls.Camera.Aim.started += _ => Aim();

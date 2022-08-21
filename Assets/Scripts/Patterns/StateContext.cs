@@ -27,6 +27,5 @@ public class StateContext<T> where T : IController
         }
         
         CurrentState = controller.gameObject.AddComponent<U>();
-        CurrentState.Handle(controller);
     }
 }
