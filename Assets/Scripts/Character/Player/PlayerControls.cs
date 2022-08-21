@@ -19,20 +19,9 @@ public class PlayerControls : MonoBehaviour
 
     void Start()
     {
-        // get the transform of the main camera
-        if (Camera.main != null)
-        {
-            camera = Camera.main.transform;
-        }
-        else
-        {
-            Debug.LogWarning(
-                "Warning: no main camera found. Third person character needs a Camera tagged \"MainCamera\", for camera-relative controls.", gameObject);
-            // we use self-relative controls in this case, which probably isn't what the user wants, but hey, we warned them!
-        }
-
         // get the third person character ( this should never be null due to require component )
         controller = GetComponent<PlayerController>();
+        camera = Camera.main.transform;//CameraManager.Instance.Camera;
 
         // Set player controls. 
         InputManager.Instance.Controls.Movement.Move.performed += ctx => Move(ctx.ReadValue<Vector2>());

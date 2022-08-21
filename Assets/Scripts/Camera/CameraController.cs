@@ -39,7 +39,6 @@ public class CameraController : MonoBehaviour
 
         // Listen for when player starts and stops moving.
         playerController = PlayerManager.Instance.Player.GetComponent<PlayerController>();
-        playerController.onMovementChanged += SetCameraCentering;
         freeLookComponent.m_CommonLens = false;
         
         InputManager.Instance.Controls.Camera.Aim.started += _ => Aim();
@@ -112,10 +111,10 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    private void SetCameraCentering()
+    public void SetCameraCentering(bool enable)
     {
-        freeLookComponent.m_YAxisRecentering.m_enabled = playerController.IsMoving;
-        freeLookComponent.m_RecenterToTargetHeading.m_enabled = playerController.IsMoving;
+        freeLookComponent.m_YAxisRecentering.m_enabled = enable;
+        freeLookComponent.m_RecenterToTargetHeading.m_enabled = enable;
     }
 
     private void Aim()

@@ -18,7 +18,6 @@ public class PlayerController : CharacterController
 	private const float HALF = 0.5f;
 
 	private bool isGrounded;
-	private bool isMoving;
 	private bool isRunning;
 	private bool isCrouching;
 	private bool isJumping;
@@ -89,7 +88,6 @@ public class PlayerController : CharacterController
 	}
 
 	public bool IsGrounded { get; set; }
-	public bool IsMoving { get; set; }
 	public bool IsRunning { get; set; }
 	public bool IsCrouching 
 	{
@@ -112,7 +110,6 @@ public class PlayerController : CharacterController
 
 	void Start()
 	{
-		isMoving = false;
 		isRunning = false;
 		isCrouching = false;
 		isJumping = false;

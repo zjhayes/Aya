@@ -10,8 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4015605619690953893}
   - component: {fileID: 4015605619690953895}
+  - component: {fileID: 9051874656053707165}
   - component: {fileID: 4015605619690953888}
   - component: {fileID: 1835682500}
+  - component: {fileID: 1584231554}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -47,6 +49,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+--- !u!114 &9051874656053707165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4015605619690953899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63020d36e22498f43a3011bf395abc65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraRig: {fileID: 0}
 --- !u!114 &4015605619690953888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71,3 +86,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52c758299fe534437a9f6f2db5dab64f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1584231554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4015605619690953899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2aef11cc2345a48369e0401fa2d9e52b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetMesh: {fileID: 0}
+  defaultEquipment: []
