@@ -38,6 +38,7 @@ public class PlayerAnimationController : MonoBehaviour
         animator = GetComponent<Animator>();
         rigidbody = PlayerManager.Instance.Player.GetComponent<RigidbodyManager>();
 
+        controller.onMovementChanged += UpdateAnimator;
         controller.onCrouchChanged += OnCrouchChanged;
     }
 
@@ -66,8 +67,10 @@ public class PlayerAnimationController : MonoBehaviour
         return animator.GetCurrentAnimatorStateInfo(0).IsName("Grounded");
     }
 
-    public void UpdateAnimator(Vector3 move)
+    public void UpdateAnimator()
     {
+        Vector3 move = controller.Movement;
+
         // update the animator parameters
         animator.SetFloat(FORWARD, controller.ForwardAmount, 0.1f, Time.deltaTime);
         animator.SetFloat(TURN, controller.TurnAmount, 0.1f, Time.deltaTime);

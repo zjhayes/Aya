@@ -108,8 +108,6 @@ public class PlayerControls : MonoBehaviour
 
         // pass all parameters to the character control script
         controller.Movement = movement;
-
-        PlayerManager.Instance.Player.GetComponent<PlayerAnimationController>().UpdateAnimator(movement);
     }
 }
 
