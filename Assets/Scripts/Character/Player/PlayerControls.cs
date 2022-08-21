@@ -4,15 +4,17 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerController))]
 public class PlayerControls : MonoBehaviour
 {
-    private PlayerController controller; // A reference to the ThirdPersonCharacter on the object
-    private Transform camera;                  // A reference to the main camera in the scenes transform
-    private Vector3 cameraForward;             // The current forward direction of the camera
-    private Vector3 movement;
-    private float verticleMovement = 0.0f;
-    private float horizontalMovement = 0.0f;                     // the world-relative desired move direction, calculated from the camForward and user input.
-    private CrouchHandler crouchHandler;
-    private JumpHandler jumpHandler;
-    private AirborneHandler airborneHandler;
+    PlayerController controller;        // A reference to the ThirdPersonCharacter on the object
+    Transform camera;                  // A reference to the main camera in the scenes transform
+    Vector3 cameraForward;             // The current forward direction of the camera
+    Vector3 movement;
+    float verticleMovement = 0.0f;
+    float horizontalMovement = 0.0f;                     // the world-relative desired move direction, calculated from the camForward and user input.
+
+    MovementHandler movementHandler;
+    CrouchHandler crouchHandler;
+    JumpHandler jumpHandler;
+    AirborneHandler airborneHandler;
 
 
     void Start()
@@ -39,6 +41,7 @@ public class PlayerControls : MonoBehaviour
         InputManager.Instance.Controls.Movement.Run.started += ctx => ToggleRun();
 
         // Set up handlers.
+        movementHandler = new MovementHandler();
         crouchHandler = new CrouchHandler();
         jumpHandler = new JumpHandler();
         airborneHandler = new AirborneHandler();
@@ -104,7 +107,7 @@ public class PlayerControls : MonoBehaviour
         }
 
         // pass all parameters to the character control script
-        controller.Move(movement);
+        controller.Movement = movement;
 
         PlayerManager.Instance.Player.GetComponent<PlayerAnimationController>().UpdateAnimator(movement);
     }

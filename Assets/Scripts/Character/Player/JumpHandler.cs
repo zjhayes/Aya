@@ -18,7 +18,7 @@ public class JumpHandler
 
     public void Jump()
     {
-        if (controller.IsJumping && controller.IsGrounded && animation.Animator.GetCurrentAnimatorStateInfo(0).IsName("Grounded"))
+        if (controller.IsJumping && controller.IsGrounded && animation.IsGrounded())
         {
             rigidbody.Velocity = new Vector3(rigidbody.Velocity.x, controller.JumpPower, rigidbody.Velocity.z);
             controller.IsGrounded = false;

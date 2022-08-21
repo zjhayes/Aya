@@ -61,6 +61,11 @@ public class PlayerAnimationController : MonoBehaviour
         animator.SetBool(ON_GROUND, grounded);
     }
 
+    public bool IsGrounded()
+    {
+        return animator.GetCurrentAnimatorStateInfo(0).IsName("Grounded");
+    }
+
     public void UpdateAnimator(Vector3 move)
     {
         // update the animator parameters

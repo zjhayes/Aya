@@ -11,8 +11,7 @@ public class PlayerController : CharacterController
 	[SerializeField] float groundCheckDistance = 0.5f;
 	[SerializeField] float inAirSpeed = 10.0f;
 
-	private Rigidbody rigidBody;
-	private Animator animator;
+	private Vector3 movement;
 	private float forwardAmount;
 	private float turnAmount;
 	private Vector3 groundNormal;
@@ -24,7 +23,7 @@ public class PlayerController : CharacterController
 	private bool isCrouching;
 	private bool isJumping;
 
-	public delegate void OnMovementChanged(bool isAlert);
+	public delegate void OnMovementChanged();
 	public OnMovementChanged onMovementChanged;
 
 	public delegate void OnCrouchChanged();
@@ -33,12 +32,21 @@ public class PlayerController : CharacterController
 	public delegate void OnJumpChanged();
 	public OnJumpChanged onJumpChanged;
 
+	public float MovingTurnSpeed
+    {
+		get { return movingTurnSpeed; }
+		set { movingTurnSpeed = value; }
+    }
+	public float StationaryTurnSpeed
+    {
+		get { return stationaryTurnSpeed; }
+		set { stationaryTurnSpeed = value; }
+    }
 	public float JumpPower 
 	{ 
 		get { return jumpPower; }
 		set { jumpPower = value; }
 	}
-
 	public float GravityMultiplier 
 	{ 
 		get { return gravityMultiplier; } 
@@ -54,6 +62,16 @@ public class PlayerController : CharacterController
 		get { return inAirSpeed; }
 		set { inAirSpeed = value; }
 	}
+
+	public Vector3 Movement
+    {
+		get { return movement; }
+		set 
+		{
+			movement = value;
+			onMovementChanged.Invoke();
+		}
+    }
 	public float ForwardAmount 
 	{ 
 		get { return forwardAmount; }
@@ -71,7 +89,7 @@ public class PlayerController : CharacterController
 	}
 
 	public bool IsGrounded { get; set; }
-	public bool IsMoving { get; }
+	public bool IsMoving { get; set; }
 	public bool IsRunning { get; set; }
 	public bool IsCrouching 
 	{
@@ -94,48 +112,10 @@ public class PlayerController : CharacterController
 
 	void Start()
 	{
-		animator = GetComponent<Animator>();
-		rigidBody = GetComponent<Rigidbody>();
-
-
 		isMoving = false;
 		isRunning = false;
 		isCrouching = false;
 		isJumping = false;
-	}
-
-	public void Move(Vector3 move)
-	{
-		// convert the world relative moveInput vector into a local-relative
-		// turn amount and forward amount required to head in the desired
-		// direction.
-		if (move.magnitude > 1f) move.Normalize();
-		move = transform.InverseTransformDirection(move);
-		// check ground status
-		move = Vector3.ProjectOnPlane(move, groundNormal);
-		turnAmount = Mathf.Atan2(move.x, move.z);
-		forwardAmount = move.z;
-
-		if (isMoving && forwardAmount == 0) // Stopped.
-		{
-			isMoving = false;
-			onMovementChanged.Invoke(false);
-		}
-		else if (!isMoving && forwardAmount > 0) // Started moving.
-		{
-			isMoving = true;
-			onMovementChanged.Invoke(true);
-		}
-
-		ApplyExtraTurnRotation();
-
-	}
-	
-	void ApplyExtraTurnRotation()
-	{
-		// help the character turn faster (this is in addition to root rotation in the animation)
-		float turnSpeed = Mathf.Lerp(stationaryTurnSpeed, movingTurnSpeed, forwardAmount);
-		transform.Rotate(0, turnAmount * turnSpeed * Time.deltaTime, 0);
 	}
 }
 
