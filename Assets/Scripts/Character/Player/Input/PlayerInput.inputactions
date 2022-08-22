@@ -486,7 +486,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "ChangeView",
+                    "name": "CenterView",
                     "type": "Button",
                     "id": "d8f10700-1d8e-44bc-847e-a302f6c26dcd",
                     "expectedControlType": "Button",
@@ -625,11 +625,11 @@
                 {
                     "name": "",
                     "id": "ca866210-0adf-446f-a26b-310919f14d76",
-                    "path": "<Keyboard>/v",
+                    "path": "<Mouse>/middleButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard & Mouse",
-                    "action": "ChangeView",
+                    "action": "CenterView",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -640,7 +640,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "ChangeView",
+                    "action": "CenterView",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

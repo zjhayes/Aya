@@ -508,7 +508,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""ChangeView"",
+                    ""name"": ""CenterView"",
                     ""type"": ""Button"",
                     ""id"": ""d8f10700-1d8e-44bc-847e-a302f6c26dcd"",
                     ""expectedControlType"": ""Button"",
@@ -647,11 +647,11 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""ca866210-0adf-446f-a26b-310919f14d76"",
-                    ""path"": ""<Keyboard>/v"",
+                    ""path"": ""<Mouse>/middleButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""ChangeView"",
+                    ""action"": ""CenterView"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -662,7 +662,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""ChangeView"",
+                    ""action"": ""CenterView"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -765,7 +765,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Camera_Look456 = m_Camera.FindAction("Look456", throwIfNotFound: true);
         m_Camera_Yaw = m_Camera.FindAction("Yaw", throwIfNotFound: true);
         m_Camera_Pitch = m_Camera.FindAction("Pitch", throwIfNotFound: true);
-        m_Camera_ChangeView = m_Camera.FindAction("ChangeView", throwIfNotFound: true);
+        m_Camera_CenterView = m_Camera.FindAction("CenterView", throwIfNotFound: true);
         m_Camera_Aim = m_Camera.FindAction("Aim", throwIfNotFound: true);
         m_Camera_EnablePlayerControl = m_Camera.FindAction("EnablePlayerControl", throwIfNotFound: true);
         m_Camera_Zoom = m_Camera.FindAction("Zoom", throwIfNotFound: true);
@@ -994,7 +994,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Camera_Look456;
     private readonly InputAction m_Camera_Yaw;
     private readonly InputAction m_Camera_Pitch;
-    private readonly InputAction m_Camera_ChangeView;
+    private readonly InputAction m_Camera_CenterView;
     private readonly InputAction m_Camera_Aim;
     private readonly InputAction m_Camera_EnablePlayerControl;
     private readonly InputAction m_Camera_Zoom;
@@ -1005,7 +1005,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Look456 => m_Wrapper.m_Camera_Look456;
         public InputAction @Yaw => m_Wrapper.m_Camera_Yaw;
         public InputAction @Pitch => m_Wrapper.m_Camera_Pitch;
-        public InputAction @ChangeView => m_Wrapper.m_Camera_ChangeView;
+        public InputAction @CenterView => m_Wrapper.m_Camera_CenterView;
         public InputAction @Aim => m_Wrapper.m_Camera_Aim;
         public InputAction @EnablePlayerControl => m_Wrapper.m_Camera_EnablePlayerControl;
         public InputAction @Zoom => m_Wrapper.m_Camera_Zoom;
@@ -1027,9 +1027,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Pitch.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnPitch;
                 @Pitch.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnPitch;
                 @Pitch.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnPitch;
-                @ChangeView.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnChangeView;
-                @ChangeView.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnChangeView;
-                @ChangeView.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnChangeView;
+                @CenterView.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnCenterView;
+                @CenterView.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnCenterView;
+                @CenterView.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnCenterView;
                 @Aim.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnAim;
                 @Aim.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnAim;
                 @Aim.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnAim;
@@ -1052,9 +1052,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Pitch.started += instance.OnPitch;
                 @Pitch.performed += instance.OnPitch;
                 @Pitch.canceled += instance.OnPitch;
-                @ChangeView.started += instance.OnChangeView;
-                @ChangeView.performed += instance.OnChangeView;
-                @ChangeView.canceled += instance.OnChangeView;
+                @CenterView.started += instance.OnCenterView;
+                @CenterView.performed += instance.OnCenterView;
+                @CenterView.canceled += instance.OnCenterView;
                 @Aim.started += instance.OnAim;
                 @Aim.performed += instance.OnAim;
                 @Aim.canceled += instance.OnAim;
@@ -1111,7 +1111,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnLook456(InputAction.CallbackContext context);
         void OnYaw(InputAction.CallbackContext context);
         void OnPitch(InputAction.CallbackContext context);
-        void OnChangeView(InputAction.CallbackContext context);
+        void OnCenterView(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
         void OnEnablePlayerControl(InputAction.CallbackContext context);
         void OnZoom(InputAction.CallbackContext context);

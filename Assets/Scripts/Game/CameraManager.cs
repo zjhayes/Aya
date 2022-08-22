@@ -4,11 +4,9 @@ public class CameraManager : Singleton<CameraManager>
 {
     [SerializeField]
     GameObject cameraRig;
-    CameraController controller;
 
     void Start()
     {
-        controller = cameraRig.GetComponent<CameraController>();
         // Set main camera transform.
         /*if (Camera.main != null)
         {
@@ -27,8 +25,9 @@ public class CameraManager : Singleton<CameraManager>
         get { return Camera.transform; }
     }
 
-    public CameraController CameraController
+    public GameObject CameraRig
     {
-        get { return controller; }
+        get { return cameraRig; }
+        private set { cameraRig = value; }
     }
 }

@@ -9,7 +9,7 @@ public class MovementHandler
 	public MovementHandler()
     {
 		controller = PlayerManager.Instance.Player.GetComponent<PlayerController>();
-		camera = CameraManager.Instance.CameraController;
+		camera = CameraManager.Instance.CameraRig.GetComponent<CameraController>();
 		controller.onMovementChanged += Move;
 	}
 
@@ -26,11 +26,11 @@ public class MovementHandler
 		controller.TurnAmount = Mathf.Atan2(move.x, move.z);
 		controller.ForwardAmount = move.z;
 
-		if (/*controller.IsMoving*//* &&*/ controller.ForwardAmount == 0) // Stopped.
+		if (controller.ForwardAmount == 0) // Stopped.
 		{
-			camera.SetCameraCentering(false);
+			//camera.SetCameraCentering(false);
 		}
-		else if (/*!controller.IsMoving*//* &&*/ controller.ForwardAmount > 0) // Started moving.
+		else if (controller.ForwardAmount > 0) // Moving.
 		{
 			camera.SetCameraCentering(true);
 		}

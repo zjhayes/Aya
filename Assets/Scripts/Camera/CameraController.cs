@@ -46,6 +46,7 @@ public class CameraController : MonoBehaviour
         InputManager.Instance.Controls.Camera.EnablePlayerControl.started += ctx => SetPlayerControl(true);
         InputManager.Instance.Controls.Camera.EnablePlayerControl.canceled += ctx => SetPlayerControl(false);
         InputManager.Instance.Controls.Camera.Zoom.performed += ctx => Zoom(ctx.ReadValue<Vector2>().normalized.y);
+        InputManager.Instance.Controls.Camera.CenterView.started += _ => SetCameraCentering(true);
 
         // Set default zoom.
         currentZoomOut = defaultZoom;

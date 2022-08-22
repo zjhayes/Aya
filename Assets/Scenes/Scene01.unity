@@ -2449,6 +2449,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 9051874656053707165, guid: a5c06b3ec3a214aa1a476b7c926f7fd6,
+        type: 3}
+      propertyPath: cameraRig
+      value: 
+      objectReference: {fileID: 922723885}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5c06b3ec3a214aa1a476b7c926f7fd6, type: 3}
 --- !u!1001 &863987563
@@ -2897,6 +2902,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4727892468099654, guid: d15996e92cb4c6b47bbc09309fe0ab5a,
     type: 3}
   m_PrefabInstance: {fileID: 920847643}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &922723885 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3001484945445844424, guid: 2c73e1e34d65c43ae8d1e64eeadb43b0,
+    type: 3}
+  m_PrefabInstance: {fileID: 857920210}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &952050479 stripped
 Transform:
