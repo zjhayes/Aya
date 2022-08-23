@@ -12,7 +12,8 @@ public class CameraManager : Singleton<CameraManager>
         {
             camera = Camera.main.transform;
         }
-        else
+        else-+
+
         {
             Debug.LogWarning(
                 "Warning: no main camera found. Third person character needs a Camera tagged \"MainCamera\", for camera-relative controls.", gameObject);

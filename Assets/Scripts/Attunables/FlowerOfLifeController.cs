@@ -35,6 +35,7 @@ public class FlowerOfLifeController : MonoBehaviour
             animator.SetTrigger(ATTUNE_ANIMATION_TRIGGER);
             // Heal player and set checkpoint. TODO: Release healing orbs instead.
             PlayerManager.Instance.Stats.Heal(healingAmount);
+            Debug.Log(PlayerManager.Instance.Stats.Health);
             SetAsCheckpoint();
         }
     }

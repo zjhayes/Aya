@@ -33,6 +33,7 @@ public class CorruptRootController : MonoBehaviour
     private DelayedAction previousAction;
     private TransformUtility objectScaler;
     private FaceTarget faceTarget;
+    private bool isDead = false;
 
     void Start()
     {
@@ -46,6 +47,7 @@ public class CorruptRootController : MonoBehaviour
         faceTarget = GetComponent<FaceTarget>();
 
         targetManager.SetToPlayer();
+        faceTarget.enabled = false;
 
         awareness.onAwarenessChanged += OnAwarenessChanged;
         attunable.onAttuned += Attune;
@@ -127,7 +129,7 @@ public class CorruptRootController : MonoBehaviour
     {
         // Cause damage on attunement.
         CharacterStats targetStats = targetManager.Target.GetComponent<CharacterStats>();
-        if(targetStats)
+        if(!isDead && targetStats)
         {
             stats.TakeDamage(targetStats.Damage.Value);
         }
@@ -135,9 +137,11 @@ public class CorruptRootController : MonoBehaviour
 
     private void Die()
     {
+        isDead = true;
         animator.SetTrigger("isDead");
         awareness.IsAlert = false;
         awareness.enabled = false;
+        faceTarget.enabled = false;
         combat.CancelAttack();
     }
 

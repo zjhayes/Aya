@@ -28,7 +28,7 @@ public class MovementHandler
 
 		if (controller.ForwardAmount == 0) // Stopped.
 		{
-			//camera.SetCameraCentering(false);
+			camera.SetCameraCentering(false);
 		}
 		else if (controller.ForwardAmount > 0) // Moving.
 		{
