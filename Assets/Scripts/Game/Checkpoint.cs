@@ -2,8 +2,8 @@
 
 public class Checkpoint : MonoBehaviour
 {
-    private Vector3 location;
-    private int healingAmount = 100;
+    Vector3 location;
+
     void Start()
     {
         location = transform.position;
@@ -11,7 +11,6 @@ public class Checkpoint : MonoBehaviour
 
     public void Restore()
     {
-        PlayerManager.instance.Stats.Heal(healingAmount);
-        PlayerManager.instance.Player.transform.position = location;
+        PlayerManager.Instance.Player.transform.position = location;
     }
 }

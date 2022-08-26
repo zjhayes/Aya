@@ -2,23 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputManager : MonoBehaviour
+public class InputManager : Singleton<InputManager>
 {
-    #region Singleton
-        public static InputManager instance;
-
-        void Awake() 
-        {
-            instance = this;
-            if(controls == null) { controls = new PlayerInput(); }
-        }
-    #endregion
-
     private PlayerInput controls;
 
     public PlayerInput Controls
     {
         get { return controls; }
+    }
+
+    void Awake()
+    {
+        if (controls == null) { controls = new PlayerInput(); }
     }
 
     void OnEnable()
