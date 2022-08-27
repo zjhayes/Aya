@@ -1,52 +1,54 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 [RequireComponent(typeof(TargetManager))]
+[RequireComponent(typeof(SphereCollider))]
 public class Awareness : MonoBehaviour
 {
     [SerializeField]
-    private float lookRadius = 10f;
+    private List<string> targetTags;
 
     private bool isAlert;
     private TargetManager targetManager;
 
-    public bool IsAlert 
-    { 
-        get { return isAlert; }
-        set { this.isAlert = value; }
-    }
-
     public delegate void OnAwarenessChanged();
     public OnAwarenessChanged onAwarenessChanged;
 
-    void Start()
-    {
-        targetManager = GetComponent<TargetManager>();
-        isAlert = false;
-    }
-
-    void Update()
-    {
-        if(targetManager.Target != null)
-        {
-            // Determine whether target is in look radius.
-            float distance = Vector3.Distance(targetManager.Target.position, transform.position);
-            bool targetInView = (distance <= lookRadius);
-            // Does alertness need to be updated?
-            if(targetInView != isAlert)
+    public bool IsAlert 
+    { 
+        get { return isAlert; }
+        set 
+        { 
+            this.isAlert = value;
+            if (onAwarenessChanged != null)
             {
-                isAlert = targetInView;
-                if(onAwarenessChanged != null)
-                {
-                    onAwarenessChanged.Invoke();
-                }
+                onAwarenessChanged.Invoke();
             }
         }
     }
 
-    private void OnDrawGizmosSelected() 
+    void Start()
     {
-        // Show look radius.
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, lookRadius);
+        targetManager = GetComponent<TargetManager>();
+        GetComponent<SphereCollider>().isTrigger = true;
+        isAlert = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (targetTags.Contains(other.gameObject.tag))
+        {
+            IsAlert = true;
+            targetManager.Target = other.gameObject.transform;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject == targetManager.Target)
+        {
+            IsAlert = false;
+            targetManager.Target = null;
+        }
     }
 }

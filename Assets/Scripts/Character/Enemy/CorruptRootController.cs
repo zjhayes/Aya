@@ -9,7 +9,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(Attunable))]
 [RequireComponent(typeof(TargetManager))]
 [RequireComponent(typeof(FaceTarget))]
-public class CorruptRootController : MonoBehaviour
+public class CorruptRootController : MonoBehaviour, IController
 {
     [SerializeField]
     private float lookSpeed = 5f;
@@ -35,6 +35,8 @@ public class CorruptRootController : MonoBehaviour
     private FaceTarget faceTarget;
     private bool isDead = false;
 
+    StateContext<CorruptRootController> stateContext;
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -46,7 +48,6 @@ public class CorruptRootController : MonoBehaviour
         objectScaler = new TransformUtility(transform);
         faceTarget = GetComponent<FaceTarget>();
 
-        targetManager.SetToPlayer();
         faceTarget.enabled = false;
 
         awareness.onAwarenessChanged += OnAwarenessChanged;
@@ -54,6 +55,8 @@ public class CorruptRootController : MonoBehaviour
         stats.onDeath += Die;
 
         objectScaler.UpdateLocalScale(idleSize);
+
+        stateContext = new StateContext<CorruptRootController>(this);
     }
 
     void Update()
@@ -79,7 +82,7 @@ public class CorruptRootController : MonoBehaviour
         }
         else
         {
-            DelayedAction idleAfterDelay = new DelayedAction(Idle, idleDelay);
+            DelayedAction idleAfterDelay = new DelayedAction(AfterIdle, idleDelay);
             ActionManager.Instance.Add(idleAfterDelay);
             previousAction = idleAfterDelay; // Store action, so it can be cancelled later.
         }
@@ -94,13 +97,10 @@ public class CorruptRootController : MonoBehaviour
         Grow();
     }
 
-    private void Idle()
+    private void AfterIdle()
     {
-        if(!awareness.IsAlert) // Double-check alertness after idle delay.
-        {
-            animator.SetBool("isAlert", false);
-            Shrink();
-        }
+        animator.SetBool("isAlert", false);
+        Shrink();
     }
 
     private void Shrink()

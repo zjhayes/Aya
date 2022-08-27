@@ -3,59 +3,147 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(CharacterCombat))]
+[RequireComponent(typeof(CharacterStats))]
+[RequireComponent(typeof(Awareness))]
+[RequireComponent(typeof(Attunable))]
+[RequireComponent(typeof(TargetManager))]
+[RequireComponent(typeof(FaceTarget))]
 public class EnemyController : MonoBehaviour
 {
     [SerializeField]
-    private float lookRadius = 10f;
-    [SerializeField]
     private float lookSpeed = 5f;
+    [SerializeField]
+    private float attackRadius = 2f;
+    [SerializeField]
+    private float idleDelay = 3f; // Time before returning to idle state.
+    [SerializeField]
+    private float idleSize = 0.5f;
+    [SerializeField]
+    private float alertSize = 1.0f;
+    [SerializeField]
+    private float sizeChangeRate = 3f; // Rate mesh changes size on state change.
 
-    Transform target;
-    NavMeshAgent agent;
-    CharacterCombat combat;
+    private Animator animator;
+    private CharacterCombat combat;
+    private CharacterStats stats;
+    private TargetManager targetManager;
+    private Awareness awareness;
+    private Attunable attunable;
+    private DelayedAction previousAction;
+    private TransformUtility objectScaler;
+    private FaceTarget faceTarget;
+    private bool isDead = false;
 
     void Start()
     {
-        target = PlayerManager.Instance.Player.transform; // Track player's location.
-        agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
         combat = GetComponent<CharacterCombat>();
+        stats = GetComponent<CharacterStats>();
+        awareness = GetComponent<Awareness>();
+        targetManager = GetComponent<TargetManager>();
+        attunable = GetComponent<Attunable>();
+        objectScaler = new TransformUtility(transform);
+        faceTarget = GetComponent<FaceTarget>();
+
+        faceTarget.enabled = false;
+
+        awareness.onAwarenessChanged += OnAwarenessChanged;
+        attunable.onAttuned += Attune;
+        stats.onDeath += Die;
+
+        objectScaler.UpdateLocalScale(idleSize);
     }
 
     void Update()
     {
-        float distance = Vector3.Distance(target.position, transform.position);
-
-        if(distance <= lookRadius)
+        if (!awareness.IsAlert || !TargetIsInRange())
         {
-            // Chase player.
-            agent.SetDestination(target.position);
-
-            // If enemy is in range...
-            if(distance <= agent.stoppingDistance)
-            {
-                FaceTarget();
-
-                // Attack target.
-                CharacterStats targetStats = target.GetComponent<CharacterStats>();
-                if(targetStats != null)
-                {
-                    combat.Attack(targetStats);
-                }
-            }
+            // Should not be able to attack,
+            // cancel current attacks.
+            combat.CancelAttack();
+        }
+        else
+        {
+            AttackTarget();
         }
     }
 
-    private void FaceTarget()
+    private void OnAwarenessChanged()
     {
-        Vector3 direction = (target.position - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * lookSpeed);
+        if (awareness.IsAlert)
+        {
+            if (previousAction != null) { previousAction.Cancel(); } // Stop previous action.
+            Alert();
+        }
+        else
+        {
+            DelayedAction idleAfterDelay = new DelayedAction(Idle, idleDelay);
+            ActionManager.Instance.Add(idleAfterDelay);
+            previousAction = idleAfterDelay; // Store action, so it can be cancelled later.
+        }
+
+        // Toggle whether character faces target.
+        faceTarget.enabled = awareness.IsAlert;
     }
 
-    private void OnDrawGizmosSelected() 
+    private void Alert()
+    {
+        animator.SetBool("isAlert", true);
+    }
+
+    private void Idle()
+    {
+        if (!awareness.IsAlert) // Double-check alertness after idle delay.
+        {
+            animator.SetBool("isAlert", false);
+        }
+    }
+
+    private void AttackTarget()
+    {
+        animator.SetTrigger("triggerAttack");
+        CharacterStats targetStats = targetManager.Target.GetComponent<CharacterStats>();
+        if (targetStats != null && TargetIsInRange())
+        {
+            combat.Attack(targetStats);
+        }
+    }
+
+    private void Attune()
+    {
+        // Cause damage on attunement.
+        CharacterStats targetStats = targetManager.Target.GetComponent<CharacterStats>();
+        if (!isDead && targetStats)
+        {
+            stats.TakeDamage(targetStats.Damage.Value);
+        }
+    }
+
+    private void Die()
+    {
+        isDead = true;
+        animator.SetTrigger("isDead");
+        awareness.IsAlert = false;
+        awareness.enabled = false;
+        faceTarget.enabled = false;
+        combat.CancelAttack();
+    }
+
+    private bool TargetIsInRange()
+    {
+        float distance = Vector3.Distance(targetManager.Target.position, transform.position);
+        if (distance <= attackRadius)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private void OnDrawGizmosSelected()
     {
         // Show enemy's visual radius in editor.
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, lookRadius);
+        Gizmos.DrawWireSphere(transform.position, attackRadius);
     }
 }

@@ -18,12 +18,6 @@ public class TargetManager : MonoBehaviour
         }
     }
 
-    public void SetToPlayer()
-    {
-        target = PlayerManager.Instance.Player.transform;
-        InvokeOnTargetChanged();
-    }
-
     private void InvokeOnTargetChanged()
     {
         if(onTargetChanged != null)
