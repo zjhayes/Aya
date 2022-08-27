@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(TargetManager))]
 public class Awareness : MonoBehaviour
 {
@@ -16,7 +15,7 @@ public class Awareness : MonoBehaviour
         set { this.isAlert = value; }
     }
 
-    public delegate void OnAwarenessChanged(bool isAlert);
+    public delegate void OnAwarenessChanged();
     public OnAwarenessChanged onAwarenessChanged;
 
     void Start()
@@ -38,7 +37,7 @@ public class Awareness : MonoBehaviour
                 isAlert = targetInView;
                 if(onAwarenessChanged != null)
                 {
-                    onAwarenessChanged.Invoke(isAlert);
+                    onAwarenessChanged.Invoke();
                 }
             }
         }

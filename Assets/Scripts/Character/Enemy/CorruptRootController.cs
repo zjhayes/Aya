@@ -70,9 +70,9 @@ public class CorruptRootController : MonoBehaviour
         }
     }
 
-    private void OnAwarenessChanged(bool isAlert)
+    private void OnAwarenessChanged()
     {
-        if(isAlert)
+        if(awareness.IsAlert)
         {
             if (previousAction != null) { previousAction.Cancel(); } // Stop previous action.
             Alert();
@@ -85,7 +85,7 @@ public class CorruptRootController : MonoBehaviour
         }
 
         // Toggle whether character faces target.
-        faceTarget.enabled = isAlert;
+        faceTarget.enabled = awareness.IsAlert;
     }
 
     private void Alert()
