@@ -54,7 +54,7 @@ public class BeeController : MonoBehaviour
 
         if(targetManager.Target != null)
         {
-            Vector3 targetPosition = targetManager.Target.position;
+            Vector3 targetPosition = targetManager.Target.transform.position;
             Vector3 destination = new Vector3(targetPosition.x + followOffset.x, targetPosition.y + followOffset.y, targetPosition.z + followOffset.z);
             if(destination != Vector3.zero)
             {
@@ -80,7 +80,7 @@ public class BeeController : MonoBehaviour
         if(beehive != null) 
         {
             // Send target to beehive.
-            targetManager.Target = beehive.transform;
+            targetManager.Target = beehive;
         }
     }
 

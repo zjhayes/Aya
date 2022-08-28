@@ -1,18 +1,21 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class TargetManager : MonoBehaviour
 {
     [SerializeField]
-    private Transform target;
+    private List<string> targetTags;
+    [SerializeField]
+    private GameObject target;
 
     public delegate void OnTargetChanged();
     public OnTargetChanged onTargetChanged;
 
-    public Transform Target
+    public GameObject Target
     {
         get { return target; }
         set 
-        { 
+        {
             this.target = value;
             InvokeOnTargetChanged();
         }
@@ -24,5 +27,19 @@ public class TargetManager : MonoBehaviour
         {
             onTargetChanged.Invoke();
         }
+    }
+
+    public bool IsTaggedAsTarget(GameObject other)
+    {
+        if (targetTags.Contains(other.tag))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public bool HasTarget()
+    {
+        return target != null;
     }
 }

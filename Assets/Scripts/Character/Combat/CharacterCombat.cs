@@ -29,7 +29,8 @@ public class CharacterCombat : MonoBehaviour
     public void Attack(CharacterStats targetStats)
     {
         this.targetStats = targetStats;
-
+        DoDamage();
+        /*
         if(cooldown.IsReady)
         {
             DelayedAction delayedAttack = new DelayedAction(DoDamage, attackDelay);
@@ -42,7 +43,7 @@ public class CharacterCombat : MonoBehaviour
 
             cooldown.Begin(); // Start cooldown.
             this.previousAttack = delayedAttack;
-        }
+        }*/
     }
 
     // Cancelling attack prevents target from taking damage

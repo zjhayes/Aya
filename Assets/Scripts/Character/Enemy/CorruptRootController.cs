@@ -9,12 +9,10 @@ using UnityEngine.AI;
 [RequireComponent(typeof(Attunable))]
 [RequireComponent(typeof(TargetManager))]
 [RequireComponent(typeof(FaceTarget))]
-public class CorruptRootController : MonoBehaviour, IController
+public class CorruptRootController : EnemyController
 {
     [SerializeField]
     private float lookSpeed = 5f;
-    [SerializeField]
-    private float attackRadius = 2f;
     [SerializeField]
     private float idleDelay = 3f; // Time before returning to idle state.
     [SerializeField]
@@ -23,11 +21,12 @@ public class CorruptRootController : MonoBehaviour, IController
     private float alertSize = 1.0f;
     [SerializeField]
     private float sizeChangeRate = 3f; // Rate mesh changes size on state change.
+    [SerializeField]
+    private List<CollisionPoint> damagePoints;
 
     private Animator animator;
     private CharacterCombat combat;
     private CharacterStats stats;
-    private TargetManager targetManager;
     private Awareness awareness;
     private Attunable attunable;
     private DelayedAction previousAction;
@@ -35,7 +34,12 @@ public class CorruptRootController : MonoBehaviour, IController
     private FaceTarget faceTarget;
     private bool isDead = false;
 
-    StateContext<CorruptRootController> stateContext;
+    StateContext<EnemyController> stateContext;
+
+    public Awareness Awareness { get; }
+    public CharacterCombat Combat { get; }
+    public CharacterStats Stats { get; }
+
 
     void Start()
     {
@@ -48,6 +52,8 @@ public class CorruptRootController : MonoBehaviour, IController
         objectScaler = new TransformUtility(transform);
         faceTarget = GetComponent<FaceTarget>();
 
+        Debug.Log(targetManager);
+
         faceTarget.enabled = false;
 
         awareness.onAwarenessChanged += OnAwarenessChanged;
@@ -56,9 +62,18 @@ public class CorruptRootController : MonoBehaviour, IController
 
         objectScaler.UpdateLocalScale(idleSize);
 
-        stateContext = new StateContext<CorruptRootController>(this);
+        stateContext = new StateContext<EnemyController>(this);
+        SetDamagePointListeners();
     }
 
+    private void SetDamagePointListeners()
+    {
+        foreach(CollisionPoint damagePoint in damagePoints)
+        {
+            damagePoint.onCollisionPointEnter += OnDamagePointEnter;
+        }
+    }
+    /*
     void Update()
     {
         if(!awareness.IsAlert || !TargetIsInRange())
@@ -71,14 +86,14 @@ public class CorruptRootController : MonoBehaviour, IController
         {
             AttackTarget();
         }
-    }
+    }*/
 
     private void OnAwarenessChanged()
     {
         if(awareness.IsAlert)
         {
             if (previousAction != null) { previousAction.Cancel(); } // Stop previous action.
-            Alert();
+            OnAlert();
         }
         else
         {
@@ -91,8 +106,9 @@ public class CorruptRootController : MonoBehaviour, IController
         faceTarget.enabled = awareness.IsAlert;
     }
 
-    private void Alert()
+    private void OnAlert()
     {
+        stateContext.Transition<CombatState>();
         animator.SetBool("isAlert", true);
         Grow();
     }
@@ -115,11 +131,23 @@ public class CorruptRootController : MonoBehaviour, IController
         ActionManager.Instance.Add(grow);
     }
 
-    private void AttackTarget()
+    public override void Attack()
     {
         animator.SetTrigger("triggerAttack");
+    }
+
+    private void OnDamagePointEnter(GameObject other)
+    {
+        if (targetManager.IsTaggedAsTarget(other))
+        {
+            DamageTarget();
+        }
+    }
+
+    private void DamageTarget()
+    {
         CharacterStats targetStats = targetManager.Target.GetComponent<CharacterStats>();
-        if(targetStats != null && TargetIsInRange())
+        if (targetStats != null)
         {
             combat.Attack(targetStats);
         }
@@ -143,22 +171,5 @@ public class CorruptRootController : MonoBehaviour, IController
         awareness.enabled = false;
         faceTarget.enabled = false;
         combat.CancelAttack();
-    }
-
-    private bool TargetIsInRange()
-    {
-        float distance = Vector3.Distance(targetManager.Target.position, transform.position);
-        if(distance <= attackRadius)
-        {
-            return true;
-        }
-        return false;
-    }
-
-    private void OnDrawGizmosSelected() 
-    {
-        // Show enemy's visual radius in editor.
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRadius);
     }
 }

@@ -1,13 +1,9 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(TargetManager))]
 [RequireComponent(typeof(SphereCollider))]
 public class Awareness : MonoBehaviour
 {
-    [SerializeField]
-    private List<string> targetTags;
-
     private bool isAlert;
     private TargetManager targetManager;
 
@@ -36,19 +32,19 @@ public class Awareness : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (targetTags.Contains(other.gameObject.tag))
+        if (targetManager.IsTaggedAsTarget(other.gameObject))
         {
+            targetManager.Target = other.gameObject;
             IsAlert = true;
-            targetManager.Target = other.gameObject.transform;
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    /*private void OnTriggerExit(Collider other)
     {
-        if(other.gameObject == targetManager.Target)
+        if(GameObject.ReferenceEquals(other.gameObject, targetManager.Target))
         {
             IsAlert = false;
             targetManager.Target = null;
         }
-    }
+    }*/
 }

@@ -14,11 +14,6 @@ public class StateContext<T> where T : IController
         controller = _controller;
     }
 
-    public void Transition()
-    {
-        CurrentState.Handle(controller);
-    }
-
     public void Transition<U>() where U : Component, IState<T>
     {
         if(CurrentState != null)
