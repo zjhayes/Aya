@@ -7,6 +7,8 @@ public class CombatState : MonoBehaviour, IState<EnemyController>
     void Start()
     {
         controller = GetComponent<EnemyController>();
+        controller.Animator.GetBehaviour<StateMachineEvent>().onStateEntered += OnAttackAnimationEnter;
+        controller.Animator.GetBehaviour<StateMachineEvent>().onStateExited += OnAttackAnimationExit;
     }
 
     void Update()
@@ -17,9 +19,14 @@ public class CombatState : MonoBehaviour, IState<EnemyController>
         }
     }
 
-    public void Destroy()
+    private void OnAttackAnimationEnter()
     {
-        Destroy(this);
+        controller.EnableDamage(true);
+    }
+
+    private void OnAttackAnimationExit()
+    {
+        controller.EnableDamage(false);
     }
 
     private bool TargetIsInRange()
@@ -37,5 +44,10 @@ public class CombatState : MonoBehaviour, IState<EnemyController>
         // Show enemy's visual radius in editor.
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, controller.AttackRadius);
+    }
+
+    public void Destroy()
+    {
+        Destroy(this);
     }
 }

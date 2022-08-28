@@ -21,10 +21,7 @@ public class CorruptRootController : EnemyController
     private float alertSize = 1.0f;
     [SerializeField]
     private float sizeChangeRate = 3f; // Rate mesh changes size on state change.
-    [SerializeField]
-    private List<CollisionPoint> damagePoints;
 
-    private Animator animator;
     private CharacterCombat combat;
     private CharacterStats stats;
     private Awareness awareness;
@@ -52,8 +49,6 @@ public class CorruptRootController : EnemyController
         objectScaler = new TransformUtility(transform);
         faceTarget = GetComponent<FaceTarget>();
 
-        Debug.Log(targetManager);
-
         faceTarget.enabled = false;
 
         awareness.onAwarenessChanged += OnAwarenessChanged;
@@ -72,7 +67,12 @@ public class CorruptRootController : EnemyController
         {
             damagePoint.onCollisionPointEnter += OnDamagePointEnter;
         }
+        EnableDamage(false);
     }
+
+
+
+
     /*
     void Update()
     {
@@ -171,5 +171,6 @@ public class CorruptRootController : EnemyController
         awareness.enabled = false;
         faceTarget.enabled = false;
         combat.CancelAttack();
+        EnableDamage(false);
     }
 }
