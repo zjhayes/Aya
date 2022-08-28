@@ -43,10 +43,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.003
-  m_Height: 0.02
+  m_Radius: 0.00075
+  m_Height: 0
   m_Direction: 1
-  m_Center: {x: 0, y: 0.005, z: 0}
+  m_Center: {x: 0, y: 0.014, z: 0}
 --- !u!114 &264592757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,6 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 874fc8311d503aa49beb89f1f19cdbcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  active: 0
 --- !u!1 &1560272390858346648
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,7 +163,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1885287454909730886}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 1
   m_Height: 3
@@ -209,14 +210,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef171c96fa4974065a06b882d0ce5264, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRadius: 2
-  lookSpeed: 5
-  idleDelay: 5
   idleSize: 0.3
   alertSize: 0.75
   sizeChangeRate: 1
-  damagePoints:
-  - {fileID: 264592757}
 --- !u!114 &1885287454909730892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,8 +242,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33492b6d726344cfea1eac27859981fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackSpeed: 0.4
-  attackDelay: 0.6
+  attackRadius: 2
+  idleDelay: 3
+  damagePoints: []
 --- !u!114 &6747453775121947883
 MonoBehaviour:
   m_ObjectHideFlags: 0

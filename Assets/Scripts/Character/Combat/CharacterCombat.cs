@@ -4,61 +4,69 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterStats))]
+[RequireComponent(typeof(TargetManager))]
 public class CharacterCombat : MonoBehaviour
 {
     [SerializeField]
-    private float attackSpeed = 0.4f;
+    protected float attackRadius = 2f; // Enemy will only attack when player is within this radius.
     [SerializeField]
-    private float attackDelay = 0.6f;
-
-    public event Action OnAttack;
+    private float idleDelay = 3f; // Time before returning to idle state.
+    [SerializeField]
+    protected List<CollisionPoint> damagePoints;
 
     private CharacterStats stats;
-    private CharacterStats targetStats;
-    private DelayedAction previousAttack;
-    private Cooldown cooldown;
+    private TargetManager targetManager;
 
-    void Start() 
+    public float AttackRadius { get { return attackRadius; } }
+    public float IdleDelay { get { return idleDelay; } }
+
+    void Start()
     {
         stats = GetComponent<CharacterStats>();
-
-        float attackCooldown = 1f / attackSpeed;
-        cooldown = new Cooldown(attackCooldown);
+        targetManager = GetComponent<TargetManager>();
+        DamagePointSetup();
     }
 
-    public void Attack(CharacterStats targetStats)
+    protected void OnDamagePointEnter(GameObject other)
     {
-        this.targetStats = targetStats;
-        DoDamage();
-        /*
-        if(cooldown.IsReady)
+        if (targetManager.IsTaggedAsTarget(other) && other.GetComponent<CharacterStats>())
         {
-            DelayedAction delayedAttack = new DelayedAction(DoDamage, attackDelay);
-            ActionManager.Instance.Add(delayedAttack);
+            CharacterStats targetStats = other.GetComponent<CharacterStats>();
 
-            if(OnAttack != null)
-            {
-                OnAttack();
-            }
-
-            cooldown.Begin(); // Start cooldown.
-            this.previousAttack = delayedAttack;
-        }*/
-    }
-
-    // Cancelling attack prevents target from taking damage
-    // if an attack is pending.
-    // Cancelling attack does not cancel the animation,
-    public void CancelAttack()
-    {
-        if(previousAttack != null)
-        {
-            previousAttack.Cancel();
+            DamageTarget(targetStats);
         }
     }
 
-    void DoDamage()
+    protected void DamageTarget(CharacterStats targetStats)
     {
-        targetStats.TakeDamage(stats.Damage.Value);
+        if (targetStats != null)
+        {
+            targetStats.TakeDamage(stats.Damage.Value);
+        }
+    }
+
+    public virtual void EnableDamage(bool enable)
+    {
+        // Enable colliders to cause damage.
+        foreach (CollisionPoint damagePoint in damagePoints)
+        {
+            damagePoint.Active = enable;
+        }
+    }
+
+    protected void DamagePointSetup()
+    {
+        // Set listeners for enemy damage points.
+        foreach (CollisionPoint damagePoint in damagePoints)
+        {
+            damagePoint.onCollisionPointEnter += OnDamagePointEnter;
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        // Show enemy's visual radius in editor.
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRadius);
     }
 }

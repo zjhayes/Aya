@@ -39,12 +39,13 @@ public class Awareness : MonoBehaviour
         }
     }
 
-    /*private void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         if(GameObject.ReferenceEquals(other.gameObject, targetManager.Target))
         {
+            Debug.Log("Target left");
             IsAlert = false;
             targetManager.Target = null;
         }
-    }*/
+    }
 }

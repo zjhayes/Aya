@@ -94,7 +94,7 @@ public class PlayerControls : MonoBehaviour
         {
             airborneHandler.HandleAirborneMovement();
         }
-
+        
         // pass all parameters to the character control script
         controller.Movement = movement;
     }
