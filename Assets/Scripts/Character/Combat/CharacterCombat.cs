@@ -16,7 +16,6 @@ public class CharacterCombat : MonoBehaviour
     private List<CollisionPoint> damagePoints;
 
     private CharacterStats stats;
-    private Cooldown cooldown;
 
     public TargetManager TargetManager { get { return targetManager; } }
     public float AttackRadius { get { return attackRadius; } }
@@ -25,19 +24,17 @@ public class CharacterCombat : MonoBehaviour
     void Start()
     {
         stats = GetComponent<CharacterStats>();
-        cooldown = new Cooldown(damageCooldown);
         DamagePointSetup();
     }
 
     protected void OnDamagePointEnter(GameObject other)
     {
-        // Cooldown prevents character from taking damage multiple times in a single hit.
-        if (cooldown.IsReady && targetManager.IsTaggedAsTarget(other) && other.GetComponent<CharacterStats>())
+        if (targetManager.IsTaggedAsTarget(other) && other.GetComponent<CharacterStats>())
         {
             CharacterStats targetStats = other.GetComponent<CharacterStats>();
 
             DamageTarget(targetStats);
-            cooldown.Begin();
+            EnableDamage(false); // Prevent continuous damage on this attack.
         }
     }
 
