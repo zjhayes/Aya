@@ -11,9 +11,12 @@ public class CharacterCombat : MonoBehaviour
     [SerializeField]
     private float idleDelay = 3f; // Time before returning to idle state.
     [SerializeField]
-    protected List<CollisionPoint> damagePoints;
+    private float damageCooldown = 1f; // Delay dealing additional damage after damage delt.
+    [SerializeField]
+    private List<CollisionPoint> damagePoints;
 
     private CharacterStats stats;
+    private Cooldown cooldown;
 
     public TargetManager TargetManager { get { return targetManager; } }
     public float AttackRadius { get { return attackRadius; } }
@@ -22,16 +25,19 @@ public class CharacterCombat : MonoBehaviour
     void Start()
     {
         stats = GetComponent<CharacterStats>();
+        cooldown = new Cooldown(damageCooldown);
         DamagePointSetup();
     }
 
     protected void OnDamagePointEnter(GameObject other)
     {
-        if (targetManager.IsTaggedAsTarget(other) && other.GetComponent<CharacterStats>())
+        // Cooldown prevents character from taking damage multiple times in a single hit.
+        if (cooldown.IsReady && targetManager.IsTaggedAsTarget(other) && other.GetComponent<CharacterStats>())
         {
             CharacterStats targetStats = other.GetComponent<CharacterStats>();
 
             DamageTarget(targetStats);
+            cooldown.Begin();
         }
     }
 
