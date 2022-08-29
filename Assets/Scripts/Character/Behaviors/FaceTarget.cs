@@ -1,24 +1,21 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(TargetManager))]
-public class FaceTarget : MonoBehaviour
+public class FaceTarget : MonoBehaviour /* DEPRECATED */
 {
     [SerializeField]
     private float lookSpeed = 5f;
-
+    
     private TargetManager targetManager;
 
     void Start()
     {
-        targetManager = GetComponent<TargetManager>();
+       targetManager = GetComponent<TargetManager>();
     }
 
     void Update()
     {
-        if(targetManager.Target != null)
-        {
-            Look();
-        }
+        Look();
     }
 
     public void Look()

@@ -18,7 +18,6 @@ public class IdleState : CharacterState
     void Idle()
     {
         controller.Animator.SetBool("isAlert", false);
-        controller.FaceTarget.enabled = false;
     }
 
     public override void Destroy()

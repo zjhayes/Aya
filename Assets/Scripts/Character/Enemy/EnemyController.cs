@@ -1,38 +1,30 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(CharacterCombat))]
 [RequireComponent(typeof(CharacterStats))]
-[RequireComponent(typeof(Awareness))]
-[RequireComponent(typeof(TargetManager))]
-[RequireComponent(typeof(FaceTarget))]
-public class EnemyController : MonoBehaviour, IController
-{ 
+public class EnemyController : CharacterController
+{
+    [SerializeField]
+    protected Awareness awareness;
+    [SerializeField]
+    private float lookSpeed = 5f;
+
     protected CharacterStats stats;
     protected CharacterCombat combat;
-    protected Awareness awareness;
-    protected TargetManager targetManager;
     protected Animator animator;
-    protected FaceTarget faceTarget;
     protected StateContext<EnemyController> stateContext;
 
     public CharacterStats Stats { get { return stats; } }
     public CharacterCombat Combat { get { return combat; } }
     public Awareness Awareness { get { return awareness; } }
-    public TargetManager TargetManager { get { return targetManager; } }
     public Animator Animator { get { return animator; } }
-    public FaceTarget FaceTarget { get { return faceTarget; } }
+    public float LookSpeed { get { return lookSpeed; } }
 
     public virtual void Start()
     {
         animator = GetComponent<Animator>();
         stats = GetComponent<CharacterStats>();
         combat = GetComponent<CharacterCombat>();
-        awareness = GetComponent<Awareness>();
-        targetManager = GetComponent<TargetManager>();
-        faceTarget = GetComponent<FaceTarget>();
-
-        faceTarget.enabled = false;
 
         awareness.onAwarenessChanged += OnAwarenessChanged;
         stats.onDeath += Die;

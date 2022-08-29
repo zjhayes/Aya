@@ -6,8 +6,6 @@ using UnityEngine.AI;
 [RequireComponent(typeof(Attunable))]
 public class CorruptRootController : EnemyController
 {
-    //[SerializeField]
-    //private float lookSpeed = 5f;
     [SerializeField]
     private float idleSize = 0.5f;
     [SerializeField]
@@ -16,18 +14,16 @@ public class CorruptRootController : EnemyController
     private float sizeChangeRate = 3f; // Rate mesh changes size on state change.
 
     private Attunable attunable;
-    private TransformUtility objectScaler;
     
     public override void Start()
     {
         base.Start();
 
         attunable = GetComponent<Attunable>();
-        objectScaler = new TransformUtility(transform);
         
         attunable.onAttuned += Attune;
 
-        objectScaler.UpdateLocalScale(idleSize);
+        TransformUtility.UpdateLocalScale(transform, idleSize);
     }
 
     protected override void Alert()
@@ -44,20 +40,25 @@ public class CorruptRootController : EnemyController
 
     private void Shrink()
     {
-        GradualAction shrink = new GradualAction(objectScaler.UpdateLocalScale, transform.localScale.y, idleSize, sizeChangeRate);
+        GradualAction shrink = new GradualAction(UpdateScale, transform.localScale.y, idleSize, sizeChangeRate);
         ActionManager.Instance.Add(shrink);
     }
 
     private void Grow()
     {
-        GradualAction grow = new GradualAction(objectScaler.UpdateLocalScale, transform.localScale.y, alertSize, sizeChangeRate);
+        GradualAction grow = new GradualAction(UpdateScale, transform.localScale.y, alertSize, sizeChangeRate);
         ActionManager.Instance.Add(grow);
+    }
+
+    private void UpdateScale(float newScale)
+    {
+        TransformUtility.UpdateLocalScale(transform, newScale);
     }
     
     private void Attune()
     {
         // Cause damage on attunement.
-        CharacterStats targetStats = targetManager.Target.GetComponent<CharacterStats>();
+        CharacterStats targetStats = combat.TargetManager.Target.GetComponent<CharacterStats>();
         if(targetStats)
         {
             stats.TakeDamage(targetStats.Damage.Value);

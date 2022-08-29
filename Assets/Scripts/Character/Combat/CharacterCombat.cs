@@ -1,29 +1,27 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterStats))]
-[RequireComponent(typeof(TargetManager))]
 public class CharacterCombat : MonoBehaviour
 {
     [SerializeField]
-    protected float attackRadius = 2f; // Enemy will only attack when player is within this radius.
+    private TargetManager targetManager;
+    [SerializeField]
+    private float attackRadius = 2f; // Enemy will only attack when player is within this radius.
     [SerializeField]
     private float idleDelay = 3f; // Time before returning to idle state.
     [SerializeField]
     protected List<CollisionPoint> damagePoints;
 
     private CharacterStats stats;
-    private TargetManager targetManager;
 
+    public TargetManager TargetManager { get { return targetManager; } }
     public float AttackRadius { get { return attackRadius; } }
     public float IdleDelay { get { return idleDelay; } }
 
     void Start()
     {
         stats = GetComponent<CharacterStats>();
-        targetManager = GetComponent<TargetManager>();
         DamagePointSetup();
     }
 

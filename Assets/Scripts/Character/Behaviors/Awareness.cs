@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(TargetManager))]
 [RequireComponent(typeof(SphereCollider))]
+[RequireComponent(typeof(TargetManager))]
 public class Awareness : MonoBehaviour
 {
     private bool isAlert;
@@ -42,8 +42,7 @@ public class Awareness : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if(GameObject.ReferenceEquals(other.gameObject, targetManager.Target))
-        {
-            Debug.Log("Target left");
+        {   // Collider is current target..
             IsAlert = false;
             targetManager.Target = null;
         }

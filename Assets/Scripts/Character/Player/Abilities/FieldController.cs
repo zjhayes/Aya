@@ -18,7 +18,6 @@ public class FieldController : MonoBehaviour
     [SerializeField]
     private float fadeRate = 0.5f;
 
-    private TransformUtility objectScaler;
     private RendererUtility fader;
     private GradualAction scale;
     private GradualAction fade;
@@ -34,7 +33,6 @@ public class FieldController : MonoBehaviour
 
     void Start()
     {
-        objectScaler = new TransformUtility(transform);
         fader = new RendererUtility();
         fader.AddMesh(GetComponent<Renderer>());
 
@@ -55,8 +53,13 @@ public class FieldController : MonoBehaviour
     private void Scale()
     {
         // Update size of object gradually based on scale rate.
-        scale = new GradualAction(objectScaler.UpdateLocalScale, startSize, endSize, scaleRate);
+        scale = new GradualAction(UpdateScale, startSize, endSize, scaleRate);
         ActionManager.Instance.Add(scale);
+    }
+
+    private void UpdateScale(float newScale)
+    {
+        TransformUtility.UpdateLocalScale(transform, newScale);
     }
 
     private void Fade()

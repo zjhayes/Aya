@@ -15,7 +15,6 @@ public class DeathState : CharacterState
         controller.Animator.SetTrigger("isDead");
         controller.Awareness.IsAlert = false;
         controller.Awareness.enabled = false;
-        controller.FaceTarget.enabled = false;
         controller.Combat.EnableDamage(false);
     }
 }
