@@ -48,6 +48,9 @@ GameObject:
   - component: {fileID: 8748046607513892016}
   - component: {fileID: 7055575303969308770}
   - component: {fileID: 3751695459676973650}
+  - component: {fileID: 1620101734}
+  - component: {fileID: 1620101735}
+  - component: {fileID: 1620101736}
   m_Layer: 0
   m_Name: CorruptRoot
   m_TagString: Untagged
@@ -136,9 +139,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   awareness: {fileID: 2762805871746123387}
   lookSpeed: 5
-  idleSize: 0.3
-  alertSize: 0.75
-  sizeChangeRate: 1
+  idleState: {fileID: 1620101736}
+  combatState: {fileID: 1620101735}
+  deathState: {fileID: 1620101734}
 --- !u!114 &8748046607513892016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,6 +189,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b4bee237b664f5ab660286213726ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1620101734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885287454909730886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67e8a1e7d5be098479ffa0d7d53b5af4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1620101735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885287454909730886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6705f39ecd37c74a8d25d60377b2345, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1620101736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885287454909730886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a4f630ff4d26de4f965e64f6df61859, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idleSize: 0.5
+  alertSize: 1
+  sizeChangeRate: 3
 --- !u!1 &2009284574434344883
 GameObject:
   m_ObjectHideFlags: 0

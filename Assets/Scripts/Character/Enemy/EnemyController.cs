@@ -34,15 +34,20 @@ public class EnemyController : CharacterController
         combat = GetComponent<CharacterCombat>();
 
         stateContext = new StateContext<EnemyController>(this);
+    }
 
+    public virtual void Start()
+    {
         awareness.onAwarenessChanged += OnAwarenessChanged;
         stats.onDeath += Die;
+        Idle();
     }
 
     private void OnAwarenessChanged()
     {
         if (awareness.IsAlert)
         {
+            Debug.Log("Alert!");
             Alert();
         }
         else

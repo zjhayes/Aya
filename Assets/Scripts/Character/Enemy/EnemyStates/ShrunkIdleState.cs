@@ -13,7 +13,7 @@ public class ShrunkIdleState : IdleState
     public float AlertSize { get { return alertSize; } }
     public float SizeChangeRate { get { return sizeChangeRate; } }
 
-    protected override void Idle()
+    public override void Idle()
     {
         controller.Animator.SetBool("isAlert", false);
         Shrink();

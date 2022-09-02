@@ -7,6 +7,7 @@ public class CharacterState<T> : MonoBehaviour, IState<T> where T : CharacterCon
     public virtual void Awake()
     {
         controller = GetComponent<T>();
+        enabled = false; // Disable component by default.
     }
 
     public virtual void Enable()

@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class DeathState : CharacterState<EnemyController>
 {
-    void Enable()
+    public override void Enable()
     {
+        base.Enable();
         Die();
     }
 

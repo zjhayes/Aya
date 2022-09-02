@@ -12,7 +12,7 @@ public class IdleState : CharacterState<EnemyController>
         previousAction = idleAfterDelay; // Store action, so it can be cancelled later.
     }
 
-    protected virtual void Idle()
+    public virtual void Idle()
     {
         // Set idle animation.
         controller.Animator.SetBool("isAlert", false);
