@@ -4,9 +4,13 @@ public class CombatState : CharacterState<EnemyController>
 {
     void Start()
     {
-        controller = GetComponent<EnemyController>();
         controller.Animator.GetBehaviour<StateMachineEvent>().onStateEntered += OnAttackAnimationEnter; // Listen to Attack state.
         controller.Animator.GetBehaviour<StateMachineEvent>().onStateExited += OnAttackAnimationExit;
+    }
+
+    public override void Enable()
+    {
+        base.Enable();
         controller.Animator.SetBool("isAlert", true);
     }
 

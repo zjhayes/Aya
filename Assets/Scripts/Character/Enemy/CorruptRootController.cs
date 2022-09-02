@@ -6,25 +6,13 @@ public class CorruptRootController : EnemyController
 {
     private Attunable attunable;
     
-    public override void Start()
+    public override void Awake()
     {
-        base.Start();
+        base.Awake();
 
         attunable = GetComponent<Attunable>();
         
         attunable.onAttuned += Attune;
-
-        Idle();
-    }
-
-    protected override void Idle()
-    {
-        stateContext.Transition<ShrunkIdleState>();
-    }
-
-    protected override void Alert()
-    {
-        base.Alert();
     }
     
     private void Attune()

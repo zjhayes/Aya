@@ -2,5 +2,6 @@
 
 public interface IState<T> where T : IController
 {
-    void Destroy();
+    void Enable();
+    void Disable();
 }

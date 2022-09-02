@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(CharacterCombat))]
 [RequireComponent(typeof(CharacterStats))]
 public class EnemyController : CharacterController
@@ -8,6 +9,12 @@ public class EnemyController : CharacterController
     protected Awareness awareness;
     [SerializeField]
     private float lookSpeed = 5f;
+    [SerializeField]
+    protected IdleState idleState;
+    [SerializeField]
+    protected CombatState combatState;
+    [SerializeField]
+    protected DeathState deathState;
 
     protected CharacterStats stats;
     protected CharacterCombat combat;
@@ -20,16 +27,16 @@ public class EnemyController : CharacterController
     public Animator Animator { get { return animator; } }
     public float LookSpeed { get { return lookSpeed; } }
 
-    public virtual void Start()
+    public virtual void Awake()
     {
         animator = GetComponent<Animator>();
         stats = GetComponent<CharacterStats>();
         combat = GetComponent<CharacterCombat>();
 
+        stateContext = new StateContext<EnemyController>(this);
+
         awareness.onAwarenessChanged += OnAwarenessChanged;
         stats.onDeath += Die;
-
-        stateContext = new StateContext<EnemyController>(this);
     }
 
     private void OnAwarenessChanged()
@@ -46,16 +53,16 @@ public class EnemyController : CharacterController
 
     protected virtual void Alert()
     {
-        stateContext.Transition<CombatState>();
+        stateContext.Transition(combatState);
     }
 
     protected virtual void Idle()
     {
-        stateContext.Transition<IdleState>();
+        stateContext.Transition(idleState);
     }
 
     protected virtual void Die()
     {
-        stateContext.Transition<DeathState>();
+        stateContext.Transition(deathState);
     }
 }

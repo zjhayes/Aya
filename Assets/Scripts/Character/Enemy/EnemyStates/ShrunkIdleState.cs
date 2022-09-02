@@ -31,15 +31,14 @@ public class ShrunkIdleState : IdleState
         ActionManager.Instance.Add(grow);
     }
 
-
     private void UpdateScale(float newScale)
     {
         TransformUtility.UpdateLocalScale(transform, newScale);
     }
 
-    public override void Destroy()
+    public override void Disable()
     {
         Grow();
-        base.Destroy();
+        base.Disable();
     }
 }

@@ -1,10 +1,9 @@
 using UnityEngine;
 
 public class DeathState : CharacterState<EnemyController>
-{ 
-    void Start()
+{
+    void Enable()
     {
-        controller = GetComponent<EnemyController>();
         Die();
     }
 

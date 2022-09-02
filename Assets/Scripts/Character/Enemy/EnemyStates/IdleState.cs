@@ -4,10 +4,8 @@ public class IdleState : CharacterState<EnemyController>
 {
     DelayedAction previousAction;
 
-    void Start()
+    public override void Enable()
     {
-        controller = GetComponent<EnemyController>();
-
         // Run delay before idle.
         DelayedAction idleAfterDelay = new DelayedAction(Idle, controller.Combat.IdleDelay);
         ActionManager.Instance.Add(idleAfterDelay);
@@ -20,10 +18,13 @@ public class IdleState : CharacterState<EnemyController>
         controller.Animator.SetBool("isAlert", false);
     }
 
-    public override void Destroy()
+    public override void Disable()
     {
         // Stop idle delay, if running.
-        previousAction.Cancel();
-        base.Destroy();
+        if(previousAction != null)
+        {
+            previousAction.Cancel();
+        }
+        base.Disable();
     }
 }

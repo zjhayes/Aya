@@ -4,8 +4,18 @@ public class CharacterState<T> : MonoBehaviour, IState<T> where T : CharacterCon
 {
     protected T controller;
 
-    public virtual void Destroy()
+    public virtual void Awake()
     {
-        Destroy(this);
+        controller = GetComponent<T>();
+    }
+
+    public virtual void Enable()
+    {
+        enabled = true;
+    }
+
+    public virtual void Disable()
+    {
+        enabled = false;
     }
 }

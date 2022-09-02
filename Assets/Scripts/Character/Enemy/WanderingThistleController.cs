@@ -5,9 +5,9 @@ public class WanderingThistleController : EnemyController
 {
     private Attunable attunable;
 
-    public override void Start()
+    public override void Awake()
     {
-        base.Start();
+        base.Awake();
 
         attunable = GetComponent<Attunable>();
 
