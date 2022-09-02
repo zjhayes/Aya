@@ -1,8 +1,7 @@
 using UnityEngine;
 
-public class IdleState : CharacterState
+public class IdleState : CharacterState<EnemyController>
 {
-    EnemyController controller;
     DelayedAction previousAction;
 
     void Start()
@@ -15,13 +14,15 @@ public class IdleState : CharacterState
         previousAction = idleAfterDelay; // Store action, so it can be cancelled later.
     }
 
-    void Idle()
+    protected virtual void Idle()
     {
+        // Set idle animation.
         controller.Animator.SetBool("isAlert", false);
     }
 
     public override void Destroy()
     {
+        // Stop idle delay, if running.
         previousAction.Cancel();
         base.Destroy();
     }

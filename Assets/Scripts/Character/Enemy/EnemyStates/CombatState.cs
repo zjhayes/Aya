@@ -1,9 +1,7 @@
 using UnityEngine;
 
-public class CombatState : CharacterState
+public class CombatState : CharacterState<EnemyController>
 {
-    EnemyController controller;
-
     void Start()
     {
         controller = GetComponent<EnemyController>();

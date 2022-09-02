@@ -54,7 +54,7 @@ public class EnemyController : CharacterController
         stateContext.Transition<IdleState>();
     }
 
-    private void Die()
+    protected virtual void Die()
     {
         stateContext.Transition<DeathState>();
     }
