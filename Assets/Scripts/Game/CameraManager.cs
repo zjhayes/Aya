@@ -5,7 +5,7 @@ public class CameraManager : Singleton<CameraManager>
     [SerializeField]
     GameObject cameraRig;
 
-    void Start()
+    /*void Start()
     {
         // Set main camera transform.
         /*if (Camera.main != null)
@@ -18,12 +18,12 @@ public class CameraManager : Singleton<CameraManager>
             Debug.LogWarning(
                 "Warning: no main camera found. Third person character needs a Camera tagged \"MainCamera\", for camera-relative controls.", gameObject);
             // we use self-relative controls in this case, which probably isn't what the user wants, but hey, we warned them!
-        }*/
-    }
+        }
+    }*/
 
     public Transform Camera
     {
-        get { return Camera.transform; }
+        get { return cameraRig.transform; }
     }
 
     public GameObject CameraRig

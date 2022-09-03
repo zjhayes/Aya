@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class PlayerStats : CharacterStats
 {
-    void Start()
+/*    void Start()
     {
         EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChanged;
-    }
+    }*/
 
     public override void Die() 
     {
         base.Die();
         PlayerManager.Instance.KillPlayer();
     }
-
-    void OnEquipmentChanged(Equipment newItem, Equipment oldItem)
+/*
+    void OnEquipmentChanged(Equipment newItem, Equipment oldItem) //** TODO: Investigate need for Equipment Manager.
     {
         if(newItem != null)
         {
@@ -28,5 +28,5 @@ public class PlayerStats : CharacterStats
             Armor.RemoveModifier(oldItem.ArmorModifier);
             Damage.RemoveModifier(oldItem.DamageModifier);
         }
-    }
+    }*/
 }

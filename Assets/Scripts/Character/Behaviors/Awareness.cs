@@ -1,53 +1,62 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(SphereCollider))]
 [RequireComponent(typeof(TargetManager))]
 public class Awareness : MonoBehaviour
 {
-    [SerializeField]
-    private float lookRadius = 10f;
-
     private bool isAlert;
     private TargetManager targetManager;
+    private SphereCollider fieldOfView;
+
+    public delegate void OnAwarenessChanged();
+    public OnAwarenessChanged onAwarenessChanged;
 
     public bool IsAlert 
     { 
         get { return isAlert; }
-        set { this.isAlert = value; }
-    }
-
-    public delegate void OnAwarenessChanged(bool isAlert);
-    public OnAwarenessChanged onAwarenessChanged;
-
-    void Start()
-    {
-        targetManager = GetComponent<TargetManager>();
-        isAlert = false;
-    }
-
-    void Update()
-    {
-        if(targetManager.Target != null)
-        {
-            // Determine whether target is in look radius.
-            float distance = Vector3.Distance(targetManager.Target.position, transform.position);
-            bool targetInView = (distance <= lookRadius);
-            // Does alertness need to be updated?
-            if(targetInView != isAlert)
+        set 
+        { 
+            this.isAlert = value;
+            if (onAwarenessChanged != null)
             {
-                isAlert = targetInView;
-                if(onAwarenessChanged != null)
-                {
-                    onAwarenessChanged.Invoke(isAlert);
-                }
+                onAwarenessChanged.Invoke();
             }
         }
     }
 
-    private void OnDrawGizmosSelected() 
+    void Awake()
     {
-        // Show look radius.
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, lookRadius);
+        targetManager = GetComponent<TargetManager>();
+        fieldOfView = GetComponent<SphereCollider>();
+        fieldOfView.isTrigger = true;
+        isAlert = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (targetManager.IsTaggedAsTarget(other.gameObject))
+        {
+            targetManager.Target = other.gameObject;
+            IsAlert = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(GameObject.ReferenceEquals(other.gameObject, targetManager.Target))
+        {   // Collider is current target..
+            IsAlert = false;
+            targetManager.Target = null;
+        }
+    }
+
+    void OnEnable()
+    {
+        fieldOfView.enabled = true;
+    }
+
+    void OnDisable()
+    {
+        fieldOfView.enabled = false;
     }
 }

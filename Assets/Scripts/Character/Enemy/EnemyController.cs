@@ -1,61 +1,64 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.AI;
+﻿using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+
+public class EnemyController : CharacterController
 {
     [SerializeField]
-    private float lookRadius = 10f;
+    protected Awareness awareness;
     [SerializeField]
     private float lookSpeed = 5f;
+    [SerializeField]
+    protected IdleState idleState;
+    [SerializeField]
+    protected CombatState combatState;
+    [SerializeField]
+    protected DeathState deathState;
 
-    Transform target;
-    NavMeshAgent agent;
-    CharacterCombat combat;
+    protected StateContext<EnemyController> stateContext;
 
-    void Start()
+    public Awareness Awareness { get { return awareness; } }
+    public float LookSpeed { get { return lookSpeed; } }
+
+    public virtual void Awake()
     {
-        target = PlayerManager.Instance.Player.transform; // Track player's location.
-        agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
+        stats = GetComponent<CharacterStats>();
         combat = GetComponent<CharacterCombat>();
+
+        stateContext = new StateContext<EnemyController>(this);
     }
 
-    void Update()
+    public virtual void Start()
     {
-        float distance = Vector3.Distance(target.position, transform.position);
+        awareness.onAwarenessChanged += OnAwarenessChanged;
+        stats.onDeath += Die;
+        Idle();
+    }
 
-        if(distance <= lookRadius)
+    private void OnAwarenessChanged()
+    {
+        if (awareness.IsAlert)
         {
-            // Chase player.
-            agent.SetDestination(target.position);
-
-            // If enemy is in range...
-            if(distance <= agent.stoppingDistance)
-            {
-                FaceTarget();
-
-                // Attack target.
-                CharacterStats targetStats = target.GetComponent<CharacterStats>();
-                if(targetStats != null)
-                {
-                    combat.Attack(targetStats);
-                }
-            }
+            Alert();
+        }
+        else
+        {
+            Idle();
         }
     }
 
-    private void FaceTarget()
+    protected virtual void Alert()
     {
-        Vector3 direction = (target.position - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * lookSpeed);
+        stateContext.Transition(combatState);
     }
 
-    private void OnDrawGizmosSelected() 
+    protected virtual void Idle()
     {
-        // Show enemy's visual radius in editor.
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, lookRadius);
+        stateContext.Transition(idleState);
+    }
+
+    protected virtual void Die()
+    {
+        stateContext.Transition(deathState);
     }
 }

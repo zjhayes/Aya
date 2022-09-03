@@ -20,7 +20,11 @@ public class CharacterStats : MonoBehaviour
     public int Health
     {
         get { return currentHealth; }
-        set { currentHealth = value; }
+        set 
+        { 
+            currentHealth = value;
+            InvokeOnHealthChanged();
+        }
     }
     
     public Stat Damage
@@ -35,8 +39,7 @@ public class CharacterStats : MonoBehaviour
 
     void Awake()
     {
-        currentHealth = maxHealth;
-        InvokeOnHealthChanged();
+        Health = maxHealth;
     }
     
     public virtual void TakeDamage(int damage)
@@ -45,10 +48,9 @@ public class CharacterStats : MonoBehaviour
         damage -= armor.Value;
         damage = Mathf.Clamp(damage, 0, int.MaxValue);
 
-        currentHealth -= damage;
-        InvokeOnHealthChanged();
+        Health -= damage;
         
-        if(currentHealth <= 0)
+        if(Health <= 0)
         {
             Die();
         }
@@ -56,16 +58,11 @@ public class CharacterStats : MonoBehaviour
 
     public virtual void Heal(int amount)
     {
-        currentHealth += amount;
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-        InvokeOnHealthChanged();
+        Health = Mathf.Clamp(Health + amount, 0, maxHealth);
     }
 
     public virtual void Die()
     {
-        // This method is meant to be overwritten.
-        Debug.Log(transform.name + " died.");
-
         if(onDeath != null)
         {
             onDeath.Invoke();

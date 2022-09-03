@@ -2,7 +2,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Animator))]
-public class PlayerController : CharacterController
+public class PlayerController : MonoBehaviour, IController
 {
 	[SerializeField] float movingTurnSpeed = 360;
 	[SerializeField] float stationaryTurnSpeed = 180;

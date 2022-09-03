@@ -18,13 +18,13 @@ public class InputManager : Singleton<InputManager>
 
     void OnEnable()
     {
-        // Turn controls on with this object.
+        // Turn controls on for this object.
         controls.Enable();
     }
 
     void OnDisable()
     {
-        // Turn controls off with this object.
+        // Turn controls off for this object.
         controls.Disable();
     }
 }

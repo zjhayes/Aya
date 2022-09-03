@@ -39,9 +39,16 @@ public class CrouchHandler
 
     private void Crouch()
     {
-        capsule.UpdateHeight(capsule.OriginalHeight * HALF);
         capsule.UpdateCenter(capsule.OriginalCenter * HALF);
+        capsule.UpdateHeight(capsule.OriginalHeight * HALF);
+        //MovePlayer();
         animation.Crouch(true);
+    }
+
+    private void MovePlayer()
+    {
+        Vector3 up = new Vector3(0, 0.5f, 0);
+        PlayerManager.Instance.Player.transform.position += up;
     }
 
     private void Stand()

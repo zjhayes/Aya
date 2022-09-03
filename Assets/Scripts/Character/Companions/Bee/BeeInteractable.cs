@@ -45,7 +45,7 @@ public class BeeInteractable : MonoBehaviour
         if(autoTarget)
         {
             // Set current object as bee's target.
-            bee.GetComponent<TargetManager>().Target = transform;
+            bee.GetComponent<TargetManager>().Target = gameObject;
         }
     }
 }

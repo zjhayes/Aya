@@ -9,23 +9,28 @@ public class MushroomController : MonoBehaviour
     private float idleDelay = 5.0f;
     [SerializeField]
     private float bounceForce = 800.0f;
-    private Animator animator;
-    private Attunable attunable;
-    private Collider collider;
-    private bool isAttuned = false;
-    private bool isCharged = false;
+
+    Animator animator;
+    Attunable attunable;
+    Collider collider;
+    bool isAttuned = false;
+    bool isCharged = false;
     DelayedAction previousAction;
 
     public delegate void OnChargeUpdated(bool isCharged);
     public OnChargeUpdated onChargeUpdated;
 
-    void Start()
+    void Awake()
     {
         animator = GetComponent<Animator>();
-        animator.SetBool("IsAttuned", false);
         attunable = GetComponent<Attunable>();
-        attunable.onAttuned += Attune;
         collider = GetComponent<BoxCollider>();
+    }
+
+    void Start()
+    {
+        animator.SetBool("IsAttuned", false);
+        attunable.onAttuned += Attune;
     }
 
     private void Attune()

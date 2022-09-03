@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PlayerManager : Singleton<PlayerManager>
@@ -18,7 +16,7 @@ public class PlayerManager : Singleton<PlayerManager>
         set { previousCheckpoint = value; }
     }
 
-    void Start()
+    void Awake()
     {
         stats = player.GetComponent<PlayerStats>();
     }

@@ -41,7 +41,7 @@ public class BeeKeeper : MonoBehaviour
     public void AddBee(GameObject bee)
     {
         // Set target to player, and add to keeper.
-        bee.GetComponent<TargetManager>().SetToPlayer();
+        bee.GetComponent<TargetManager>().Target = PlayerManager.Instance.Player;
         bee.GetComponent<NavMeshAgent>().stoppingDistance = 2.5f;
         bee.GetComponent<NavMeshAgent>().speed = 4f;
         bees.Enqueue(bee);
@@ -72,7 +72,7 @@ public class BeeKeeper : MonoBehaviour
             GameObject bee = bees.Dequeue();
             bee.GetComponent<NavMeshAgent>().stoppingDistance = 0.0f;
             bee.GetComponent<NavMeshAgent>().speed = 2.0f;
-            bee.GetComponent<TargetManager>().Target = target.transform;
+            bee.GetComponent<TargetManager>().Target = target;
             
             releaseCooldown.Begin();
         }

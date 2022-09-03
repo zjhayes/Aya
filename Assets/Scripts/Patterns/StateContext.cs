@@ -14,18 +14,14 @@ public class StateContext<T> where T : IController
         controller = _controller;
     }
 
-    public void Transition()
-    {
-        CurrentState.Handle(controller);
-    }
-
-    public void Transition<U>() where U : Component, IState<T>
+    public void Transition(IState<T> state)
     {
         if(CurrentState != null)
         {
-            CurrentState.Destroy();
+            CurrentState.Disable();
         }
-        
-        CurrentState = controller.gameObject.AddComponent<U>();
+
+        CurrentState = state;
+        CurrentState.Enable();
     }
 }
