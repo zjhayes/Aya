@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(CharacterCombat))]
-[RequireComponent(typeof(CharacterStats))]
+
 public class EnemyController : CharacterController
 {
     [SerializeField]
@@ -16,15 +14,9 @@ public class EnemyController : CharacterController
     [SerializeField]
     protected DeathState deathState;
 
-    protected CharacterStats stats;
-    protected CharacterCombat combat;
-    protected Animator animator;
     protected StateContext<EnemyController> stateContext;
 
-    public CharacterStats Stats { get { return stats; } }
-    public CharacterCombat Combat { get { return combat; } }
     public Awareness Awareness { get { return awareness; } }
-    public Animator Animator { get { return animator; } }
     public float LookSpeed { get { return lookSpeed; } }
 
     public virtual void Awake()
@@ -47,7 +39,6 @@ public class EnemyController : CharacterController
     {
         if (awareness.IsAlert)
         {
-            Debug.Log("Alert!");
             Alert();
         }
         else

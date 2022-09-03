@@ -6,13 +6,11 @@ public class CollisionPoint : MonoBehaviour
     public delegate void OnCollisionPointEnter(GameObject other);
     public OnCollisionPointEnter onCollisionPointEnter;
 
-    [SerializeField]
-    private bool active = true;
+    Collider collider;
 
-    public bool Active 
-    { 
-        get { return active; } 
-        set { active = value; }
+    void Awake()
+    {
+        collider = GetComponent<Collider>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -22,9 +20,19 @@ public class CollisionPoint : MonoBehaviour
 
     private void InvokeOnCollision(GameObject other)
     {
-        if (active && onCollisionPointEnter != null)
+        if (onCollisionPointEnter != null)
         {
             onCollisionPointEnter.Invoke(other);
         }
+    }
+
+    void OnEnable()
+    {
+        collider.enabled = true;
+    }
+
+    void OnDisable()
+    {
+        collider.enabled = false;
     }
 }

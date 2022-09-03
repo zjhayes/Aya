@@ -6,6 +6,7 @@ public class Awareness : MonoBehaviour
 {
     private bool isAlert;
     private TargetManager targetManager;
+    private SphereCollider fieldOfView;
 
     public delegate void OnAwarenessChanged();
     public OnAwarenessChanged onAwarenessChanged;
@@ -23,10 +24,11 @@ public class Awareness : MonoBehaviour
         }
     }
 
-    void Start()
+    void Awake()
     {
         targetManager = GetComponent<TargetManager>();
-        GetComponent<SphereCollider>().isTrigger = true;
+        fieldOfView = GetComponent<SphereCollider>();
+        fieldOfView.isTrigger = true;
         isAlert = false;
     }
 
@@ -46,5 +48,15 @@ public class Awareness : MonoBehaviour
             IsAlert = false;
             targetManager.Target = null;
         }
+    }
+
+    void OnEnable()
+    {
+        fieldOfView.enabled = true;
+    }
+
+    void OnDisable()
+    {
+        fieldOfView.enabled = false;
     }
 }

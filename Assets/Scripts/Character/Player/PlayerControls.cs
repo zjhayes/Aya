@@ -16,18 +16,11 @@ public class PlayerControls : MonoBehaviour
     JumpHandler jumpHandler;
     AirborneHandler airborneHandler;
 
-
-    void Start()
+    void Awake()
     {
         // get the third person character ( this should never be null due to require component )
         controller = GetComponent<PlayerController>();
         camera = Camera.main.transform;//CameraManager.Instance.Camera;
-
-        // Set player controls. 
-        InputManager.Instance.Controls.Movement.Move.performed += ctx => Move(ctx.ReadValue<Vector2>());
-        InputManager.Instance.Controls.Movement.Jump.started += ctx => Jump();
-        InputManager.Instance.Controls.Movement.Crouch.started += ctx => ToggleCrouch();
-        InputManager.Instance.Controls.Movement.Run.started += ctx => ToggleRun();
 
         // Set up handlers.
         movementHandler = new MovementHandler();
@@ -36,10 +29,26 @@ public class PlayerControls : MonoBehaviour
         airborneHandler = new AirborneHandler();
     }
 
+    void Start()
+    {
+        InputManager.Instance.Controls.Movement.Test.started += ctx => Test();
+
+        // Set player controls. 
+        InputManager.Instance.Controls.Movement.Move.performed += ctx => Move(ctx.ReadValue<Vector2>());
+        InputManager.Instance.Controls.Movement.Jump.started += ctx => Jump();
+        InputManager.Instance.Controls.Movement.Crouch.started += ctx => ToggleCrouch();
+        InputManager.Instance.Controls.Movement.Run.started += ctx => ToggleRun();
+    }
+
     void Move(Vector2 direction)
     {
         verticleMovement = direction.y;
         horizontalMovement = direction.x;
+    }
+
+    void Test()
+    {
+        Debug.Log("I worked.");
     }
 
     public void Jump()

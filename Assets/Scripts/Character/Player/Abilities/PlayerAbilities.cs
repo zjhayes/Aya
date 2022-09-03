@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 public class PlayerAbilities : MonoBehaviour
@@ -19,7 +17,6 @@ public class PlayerAbilities : MonoBehaviour
     private Animator animator;
     private float charge = 0.0f;
     private bool cooldownReady = true;
-    private Cooldown attunementCooldown;
 
     void Start()
     {

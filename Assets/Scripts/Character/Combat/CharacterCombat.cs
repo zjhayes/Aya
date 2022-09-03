@@ -48,10 +48,10 @@ public class CharacterCombat : MonoBehaviour
 
     public virtual void EnableDamage(bool enable)
     {
-        // Enable colliders to cause damage.
+        // Enable/disable colliders to cause/prevent damage.
         foreach (CollisionPoint damagePoint in damagePoints)
         {
-            damagePoint.Active = enable;
+            damagePoint.enabled = enable;
         }
     }
 
