@@ -14,7 +14,7 @@ public class CombatState : CharacterState<EnemyController>
         controller.Animator.SetBool("isAlert", true);
     }
 
-    void Update()
+    public virtual void Update()
     {
         FaceTarget();
         if (controller.Combat.TargetManager.HasTarget() && TargetIsInRange())
