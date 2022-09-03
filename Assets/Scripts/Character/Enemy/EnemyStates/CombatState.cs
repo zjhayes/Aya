@@ -58,7 +58,7 @@ public class CombatState : CharacterState<EnemyController>
         if (controller.Combat.TargetManager.Target != null)
         {
             Vector3 direction = (controller.Combat.TargetManager.Target.transform.position - transform.position).normalized;
-            Vector3 rotation = new Vector3(direction.x, 0, direction.z);
+            Vector3 rotation = CalculateRotation(direction);
             if (rotation != Vector3.zero)
             {
                 lookRotation = Quaternion.LookRotation(rotation);
@@ -70,5 +70,10 @@ public class CombatState : CharacterState<EnemyController>
         }
 
         return lookRotation;
+    }
+
+    protected virtual Vector3 CalculateRotation(Vector3 direction)
+    {
+        return new Vector3(direction.x, 0, direction.z);
     }
 }
