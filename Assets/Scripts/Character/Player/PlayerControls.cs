@@ -21,12 +21,6 @@ public class PlayerControls : MonoBehaviour
         // get the third person character ( this should never be null due to require component )
         controller = GetComponent<PlayerController>();
         camera = Camera.main.transform;//CameraManager.Instance.Camera;
-
-        // Set up handlers.
-        movementHandler = new MovementHandler();
-        crouchHandler = new CrouchHandler();
-        jumpHandler = new JumpHandler();
-        airborneHandler = new AirborneHandler();
     }
 
     void Start()
@@ -38,6 +32,12 @@ public class PlayerControls : MonoBehaviour
         InputManager.Instance.Controls.Movement.Jump.started += ctx => Jump();
         InputManager.Instance.Controls.Movement.Crouch.started += ctx => ToggleCrouch();
         InputManager.Instance.Controls.Movement.Run.started += ctx => ToggleRun();
+
+        // Set up handlers.
+        movementHandler = new MovementHandler();
+        crouchHandler = new CrouchHandler();
+        jumpHandler = new JumpHandler();
+        airborneHandler = new AirborneHandler();
     }
 
     void Move(Vector2 direction)
