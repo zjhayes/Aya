@@ -26,11 +26,12 @@ public class StemManager : MonoBehaviour
         }
     }
 
-    public void EnableGravity()
+    public void EnableGravity(bool enable)
     {
         foreach(GameObject stemPoint in stemPoints)
         {
-
+            stemPoint.GetComponent<Rigidbody>().useGravity = enable;
+            stemPoint.GetComponent<SphereCollider>().isTrigger = !enable;
         }
     }
 }
