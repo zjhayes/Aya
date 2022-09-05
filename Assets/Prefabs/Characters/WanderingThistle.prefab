@@ -53,7 +53,6 @@ GameObject:
   - component: {fileID: 4287229542244186419}
   - component: {fileID: 8941336525200626567}
   - component: {fileID: 3506305309446565133}
-  - component: {fileID: 8325783153214672957}
   - component: {fileID: 1967989224921357252}
   - component: {fileID: 8836645582236150176}
   - component: {fileID: 2431591437997830762}
@@ -139,11 +138,11 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5431969401046113795}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.1
-  m_Center: {x: 0, y: 0.18, z: 0}
+  m_Center: {x: 0, y: 0, z: 0.12}
 --- !u!114 &1971059006963496954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,7 +220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 0.5
-  followOffset: 0
+  followOffset: 0.7
   stemPointDelay: 3
 --- !u!114 &3506305309446565133
 MonoBehaviour:
@@ -235,19 +234,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d35fc0ccc1988de4da6af22b2a8c0c3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8325783153214672957
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5431969401046113795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86bc53831ce937547b8e9155743b2a5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controller: {fileID: 1971059006963496954}
 --- !u!114 &1967989224921357252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -284,7 +270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beca0e24edf6ec242b0ec8620756b5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  linePointPrefab: {fileID: 4619102072729718114, guid: ff8ae165bdc54a04785eda7e144acdfd,
+  linePointPrefab: {fileID: 4619102072729718114, guid: fa1756a91abf3c94e8bde5292cd4f635,
     type: 3}
   maxStemPoints: 10
 --- !u!1 &7485251704761677790
@@ -693,6 +679,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9215705204819809609, guid: ff8ae165bdc54a04785eda7e144acdfd,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff8ae165bdc54a04785eda7e144acdfd, type: 3}

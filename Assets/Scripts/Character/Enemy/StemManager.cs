@@ -10,6 +10,8 @@ public class StemManager : MonoBehaviour
 
     Stack<GameObject> stemPoints;
 
+    public Stack<GameObject> StemPoints { get { return stemPoints; } }
+
     void Awake()
     {
         stemPoints = new Stack<GameObject>();
@@ -19,7 +21,7 @@ public class StemManager : MonoBehaviour
     {
         if (stemPoints.Count <= maxStemPoints)
         {
-            GameObject stemPoint = (GameObject)Instantiate(linePointPrefab, transform.position, Quaternion.identity);
+            GameObject stemPoint = (GameObject)Instantiate(linePointPrefab, transform.position, transform.rotation);
             stemPoints.Push(stemPoint);
             stemPoint.transform.parent = transform.parent; // Make sibling of thistle head.
             stemPoint.transform.SetSiblingIndex(1);

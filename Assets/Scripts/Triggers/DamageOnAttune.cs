@@ -6,8 +6,8 @@ public class DamageOnAttune : MonoBehaviour
     [SerializeField]
     private CharacterController controller;
 
-    private CharacterStats playerStats;
-    private Attunable attunable;
+    CharacterStats playerStats;
+    Attunable attunable;
 
     void Awake()
     {

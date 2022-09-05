@@ -15,5 +15,6 @@ public class ThistleDeathState : DeathState
     {
         base.Die();
         stem.EnableGravity(true);
+        GetComponent<Rigidbody>().useGravity = true;
     }
 }
