@@ -64,9 +64,6 @@ public class Cooldown
 
     private void InvokeCooldownEvent()
     {
-        if(onCooldownReady != null)
-        {
-            onCooldownReady.Invoke();
-        }
+        onCooldownReady?.Invoke();
     }
 }

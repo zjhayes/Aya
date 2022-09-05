@@ -4,10 +4,10 @@ public class CharacterState<T> : MonoBehaviour, IState<T> where T : CharacterCon
 {
     protected T controller;
 
-    public virtual void Awake()
+    protected virtual void Awake()
     {
         controller = GetComponent<T>();
-        enabled = false; // Disable component by default.
+        enabled = false;
     }
 
     public virtual void Enable()

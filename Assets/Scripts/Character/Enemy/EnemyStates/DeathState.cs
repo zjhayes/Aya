@@ -8,7 +8,7 @@ public class DeathState : CharacterState<EnemyController>
         Die();
     }
 
-    private void Die()
+    protected virtual void Die()
     {
         controller.Animator.SetTrigger("isDead");
         controller.Awareness.IsAlert = false;

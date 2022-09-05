@@ -1,6 +1,6 @@
-using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(StemManager))]
 public class ThistleCombatState : CombatState
 {
     [SerializeField]
@@ -8,18 +8,20 @@ public class ThistleCombatState : CombatState
     [SerializeField]
     private float followOffset = 0.0f;
     [SerializeField]
-    private GameObject linePointPrefab;
-    [SerializeField]
     private float stemPointDelay = 3.0f;
-    [SerializeField]
-    private int maxStemPoints = 10;
 
-    Stack<GameObject> stemPoints;
+    StemManager stem;
     Cooldown stemPointGenerationCooldown;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        stem = GetComponent<StemManager>();
+    }
 
     void Start()
     {
-        stemPoints = new Stack<GameObject>();
+        base.Start();
         stemPointGenerationCooldown = new Cooldown(stemPointDelay);
         stemPointGenerationCooldown.Begin();
     }
@@ -28,24 +30,22 @@ public class ThistleCombatState : CombatState
     {
         base.Update();
 
-        if(stemPoints.Count <= maxStemPoints && stemPointGenerationCooldown.IsReady)
+        if(stemPointGenerationCooldown.IsReady)
         {
-            CreateStemPoint();
+            stem.CreateStemPoint();
             stemPointGenerationCooldown.Begin();
         }
         controller.transform.position += controller.transform.forward * Time.deltaTime * movementSpeed;
     }
 
-    private void CreateStemPoint()
-    {
-        GameObject stemPoint = (GameObject) Instantiate(linePointPrefab, transform.position, Quaternion.identity);
-        stemPoints.Push(stemPoint);
-        stemPoint.transform.parent = transform.parent; // Make sibling of thistle head.
-        stemPoint.transform.SetSiblingIndex(1);
-    }
-
     protected override Vector3 CalculateRotation(Vector3 direction)
     {
         return new Vector3(direction.x, direction.y + followOffset, direction.z);
+    }
+
+    public override void Disable()
+    {
+        base.Disable();
+        stemPointGenerationCooldown?.Cancel();
     }
 }

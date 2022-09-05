@@ -1239,6 +1239,12 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2431591437997830762, guid: 428506225a33f1e439c480e0644170bd,
+        type: 3}
+      propertyPath: linePointPrefab
+      value: 
+      objectReference: {fileID: 4619102072729718114, guid: ff8ae165bdc54a04785eda7e144acdfd,
+        type: 3}
     - target: {fileID: 6564306383096063517, guid: 428506225a33f1e439c480e0644170bd,
         type: 3}
       propertyPath: m_Enabled
@@ -1259,6 +1265,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9152209914174051030, guid: 428506225a33f1e439c480e0644170bd,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9152209914174051030, guid: 428506225a33f1e439c480e0644170bd,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9152209914174051030, guid: 428506225a33f1e439c480e0644170bd,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 0.12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 428506225a33f1e439c480e0644170bd, type: 3}

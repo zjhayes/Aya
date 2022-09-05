@@ -52,10 +52,11 @@ GameObject:
   - component: {fileID: 7914897424919758989}
   - component: {fileID: 4287229542244186419}
   - component: {fileID: 8941336525200626567}
-  - component: {fileID: 1068662181018867389}
+  - component: {fileID: 3506305309446565133}
   - component: {fileID: 8325783153214672957}
   - component: {fileID: 1967989224921357252}
   - component: {fileID: 8836645582236150176}
+  - component: {fileID: 2431591437997830762}
   m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
@@ -159,7 +160,7 @@ MonoBehaviour:
   lookSpeed: 5
   idleState: {fileID: 4287229542244186419}
   combatState: {fileID: 8941336525200626567}
-  deathState: {fileID: 1068662181018867389}
+  deathState: {fileID: 3506305309446565133}
 --- !u!114 &3038382482968623193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,7 +221,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 0.5
---- !u!114 &1068662181018867389
+  followOffset: 0
+  stemPointDelay: 3
+--- !u!114 &3506305309446565133
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -229,7 +232,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5431969401046113795}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67e8a1e7d5be098479ffa0d7d53b5af4, type: 3}
+  m_Script: {fileID: 11500000, guid: d35fc0ccc1988de4da6af22b2a8c0c3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &8325783153214672957
@@ -269,6 +272,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b4bee237b664f5ab660286213726ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2431591437997830762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5431969401046113795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beca0e24edf6ec242b0ec8620756b5be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  linePointPrefab: {fileID: 4619102072729718114, guid: ff8ae165bdc54a04785eda7e144acdfd,
+    type: 3}
+  maxStemPoints: 10
 --- !u!1 &7485251704761677790
 GameObject:
   m_ObjectHideFlags: 0
