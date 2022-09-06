@@ -3,15 +3,17 @@ using UnityEngine;
 
 public class MoveAction : IAction
 {
-    Transform movable;
+    Action<Vector3> action;
+    Vector3 currentPosition;
     Vector3 targetPosition;
     float rate;
     bool done;
     float currentTime = 0;
 
-    public MoveAction(Transform movable, Vector3 targetPosition, float rate)
+    public MoveAction(Action<Vector3> action, Vector3 originalPosition, Vector3 targetPosition, float rate)
     {
-        this.movable = movable;
+        this.action = action;
+        this.currentPosition = originalPosition;
         this.targetPosition = targetPosition;
         this.rate = rate;
         this.done = false;
@@ -19,9 +21,9 @@ public class MoveAction : IAction
 
     public void Run()
     {
-        currentTime += Time.deltaTime / rate;
-        movable.position = Vector3.MoveTowards(movable.position, targetPosition, currentTime);
-        if (currentTime >= 1) { done = true; }
+        currentPosition = Vector3.MoveTowards(currentPosition, targetPosition, rate);
+        action(currentPosition);
+        if (currentPosition == targetPosition) { done = true; }
     }
 
     public bool IsDone()

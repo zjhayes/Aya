@@ -3,15 +3,17 @@ using UnityEngine;
 
 public class RotateAction : IAction
 {
-    Transform rotatable;
+    Action<Quaternion> action;
+    Quaternion currentRotation;
     Quaternion targetRotation;
     float rate;
     bool done;
     float currentTime = 0;
 
-    public RotateAction(Transform movable, Quaternion targetRotation, float rate)
+    public RotateAction(Action<Quaternion> action, Quaternion originalRotation, Quaternion targetRotation, float rate)
     {
-        this.rotatable = movable;
+        this.action = action;
+        this.currentRotation = originalRotation;
         this.targetRotation = targetRotation;
         this.rate = rate;
         this.done = false;
@@ -19,9 +21,9 @@ public class RotateAction : IAction
 
     public void Run()
     {
-        currentTime += Time.deltaTime / rate;
-        rotatable.rotation = Quaternion.RotateTowards(rotatable.rotation, targetRotation, currentTime);
-        if (currentTime >= 1) { done = true; }
+        currentRotation = Quaternion.RotateTowards(currentRotation, targetRotation, rate);
+        action(currentRotation);
+        if (currentRotation == targetRotation) { done = true; }
     }
 
     public bool IsDone()
