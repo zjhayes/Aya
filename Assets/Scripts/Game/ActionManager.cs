@@ -7,8 +7,9 @@ public class ActionManager : Singleton<ActionManager>
     List<IAction> actions;
     List<IAction> pendingActions;
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         CleanAll();
     }
     

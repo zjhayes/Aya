@@ -16,8 +16,9 @@ public class PlayerManager : Singleton<PlayerManager>
         set { previousCheckpoint = value; }
     }
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         stats = player.GetComponent<PlayerStats>();
     }
 

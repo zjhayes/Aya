@@ -31,4 +31,9 @@ public class GradualAction : IAction
     {
         return done;
     }
+
+    public void Cancel()
+    {
+        done = true;
+    }
 }

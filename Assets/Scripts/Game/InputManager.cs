@@ -11,8 +11,9 @@ public class InputManager : Singleton<InputManager>
         get { return controls; }
     }
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         if (controls == null) { controls = new PlayerInput(); }
     }
 

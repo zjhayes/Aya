@@ -1,6 +1,7 @@
-using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(StemManager))]
+[RequireComponent(typeof(Attunable))]
 public class ThistleCombatState : CombatState
 {
     [SerializeField]
@@ -8,42 +9,48 @@ public class ThistleCombatState : CombatState
     [SerializeField]
     private float followOffset = 0.0f;
     [SerializeField]
-    private GameObject linePointPrefab;
+    private float stemPointDelay = 3.0f; // Time between setting line point.
     [SerializeField]
-    private float stemPointDelay = 3.0f;
-    [SerializeField]
-    private int maxStemPoints = 10;
+    private float retractSpeed = 1.0f; // Rate stem retracts when damaged.
 
-    Stack<GameObject> stemPoints;
+    StemManager stem;
+    Attunable attunable;
     Cooldown stemPointGenerationCooldown;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        stem = GetComponent<StemManager>();
+        attunable = GetComponent<Attunable>();
+    }
 
     void Start()
     {
-        stemPoints = new Stack<GameObject>();
+        base.Start();
         stemPointGenerationCooldown = new Cooldown(stemPointDelay);
         stemPointGenerationCooldown.Begin();
+        attunable.onAttuned += Attune;
     }
 
     public override void Update()
     {
         base.Update();
 
-        if(stemPoints.Count <= maxStemPoints && stemPointGenerationCooldown.IsReady)
+        if(stemPointGenerationCooldown.IsReady)
         {
-            CreateStemPoint();
+            stem.CreateStemPoint();
             stemPointGenerationCooldown.Begin();
         }
         controller.transform.position += controller.transform.forward * Time.deltaTime * movementSpeed;
     }
 
-    private void CreateStemPoint()
+    private void Attune()
     {
-        GameObject stemPoint = (GameObject) Instantiate(linePointPrefab, transform.position, Quaternion.identity);
-        stemPoints.Push(stemPoint);
-        stemPoint.transform.parent = transform.parent; // Make sibling of thistle head.
-        stemPoint.transform.SetSiblingIndex(1);
+        stem.RetractStem(retractSpeed);
+        stemPointGenerationCooldown.Begin();
     }
 
+    // Override FaceTarget calculation to enable Y axis movement.
     protected override Vector3 CalculateRotation(Vector3 direction)
     {
         return new Vector3(direction.x, direction.y + followOffset, direction.z);

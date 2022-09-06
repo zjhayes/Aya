@@ -89,7 +89,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.465
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7728316272543125841
 MonoBehaviour:
@@ -105,10 +105,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startSize: 0.1
   endSize: 3
-  scaleRate: 1
-  startAlpha: 0.75
+  scaleRate: 0.5
+  startAlpha: 1
   endAlpha: 0
-  fadeRate: 1
+  fadeRate: 0.5
+  sphereGfx:
+  - {fileID: 3388597938325314089}
+  - {fileID: 3675388500067026755}
 --- !u!114 &4449756846561394283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -260,6 +263,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d476f7826e0ba784c9bc4a344f8c12a9, type: 3}
+--- !u!23 &3388597938325314089 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -2571118854743697038, guid: d476f7826e0ba784c9bc4a344f8c12a9,
+    type: 3}
+  m_PrefabInstance: {fileID: 8311176341876704091}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &3675388500067026755 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -4587302668392987624, guid: d476f7826e0ba784c9bc4a344f8c12a9,
+    type: 3}
+  m_PrefabInstance: {fileID: 8311176341876704091}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8421031619951617200 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d476f7826e0ba784c9bc4a344f8c12a9,

@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
-[RequireComponent(typeof(Renderer))]
 public class FieldController : MonoBehaviour
 {
     [SerializeField]
@@ -15,10 +15,15 @@ public class FieldController : MonoBehaviour
     private float endAlpha = 0.0f;
     [SerializeField]
     private float fadeRate = 0.5f;
+    [SerializeField]
+    private List<Renderer> sphereGfx;
 
-    private RendererUtility fader;
     private GradualAction scale;
     private GradualAction fade;
+
+    // Variable names in field shader.
+    const string FILL_REFERENCE = "_Fill";
+    const string TRANSPARENCY_REFERENCE = "_Transparency";
 
     public delegate void OnFieldDestroyed();
     public OnFieldDestroyed onFieldDestroyed;
@@ -31,9 +36,6 @@ public class FieldController : MonoBehaviour
 
     void Start()
     {
-        fader = new RendererUtility();
-        fader.AddMesh(GetComponent<Renderer>());
-
         Scale();
         Fade();
     }
@@ -63,8 +65,16 @@ public class FieldController : MonoBehaviour
     private void Fade()
     {
         // Update alpha of object gradually based on fade rate.
-        fade = new GradualAction(fader.UpdateAlpha, startAlpha, endAlpha, fadeRate);
+        fade = new GradualAction(UpdateAlpha, startAlpha, endAlpha, fadeRate);
         ActionManager.Instance.Add(fade);
+    }
+
+    private void UpdateAlpha(float newAlpha)
+    {
+        foreach(Renderer gfx in sphereGfx)
+        {
+            gfx.material.SetFloat(TRANSPARENCY_REFERENCE, newAlpha);
+        }
     }
 
     private void InvokeFieldDestroyedListener()

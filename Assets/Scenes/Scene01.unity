@@ -1177,7 +1177,7 @@ PrefabInstance:
     - target: {fileID: 1334470402941200984, guid: 428506225a33f1e439c480e0644170bd,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1334470402941200984, guid: 428506225a33f1e439c480e0644170bd,
         type: 3}
@@ -1233,32 +1233,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WanderingThistle
-      objectReference: {fileID: 0}
-    - target: {fileID: 1334470402941200987, guid: 428506225a33f1e439c480e0644170bd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6564306383096063517, guid: 428506225a33f1e439c480e0644170bd,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8941336525200626567, guid: 428506225a33f1e439c480e0644170bd,
-        type: 3}
-      propertyPath: followOffset
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8941336525200626567, guid: 428506225a33f1e439c480e0644170bd,
-        type: 3}
-      propertyPath: linePointPrefab
-      value: 
-      objectReference: {fileID: 4619102072729718114, guid: ff8ae165bdc54a04785eda7e144acdfd,
-        type: 3}
-    - target: {fileID: 9152209914174051030, guid: 428506225a33f1e439c480e0644170bd,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 428506225a33f1e439c480e0644170bd, type: 3}
@@ -3428,7 +3402,7 @@ Transform:
   - {fileID: 395514240}
   - {fileID: 1054586294}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1167871638
 PrefabInstance:

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CombatState : CharacterState<EnemyController>
 {
-    void Start()
+    protected virtual void Start()
     {
         controller.Animator.GetBehaviour<StateMachineEvent>().onStateEntered += OnAttackAnimationEnter; // Listen to Attack state.
         controller.Animator.GetBehaviour<StateMachineEvent>().onStateExited += OnAttackAnimationExit;

@@ -50,12 +50,12 @@ GameObject:
   - component: {fileID: 1971059006963496954}
   - component: {fileID: 3038382482968623193}
   - component: {fileID: 7914897424919758989}
-  - component: {fileID: 4287229542244186419}
+  - component: {fileID: 950540521791104213}
   - component: {fileID: 8941336525200626567}
-  - component: {fileID: 1068662181018867389}
-  - component: {fileID: 8325783153214672957}
+  - component: {fileID: 3506305309446565133}
   - component: {fileID: 1967989224921357252}
   - component: {fileID: 8836645582236150176}
+  - component: {fileID: 2431591437997830762}
   m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
@@ -126,7 +126,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -138,11 +138,11 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5431969401046113795}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.1
-  m_Center: {x: 0, y: 0.18, z: 0}
+  m_Center: {x: 0, y: 0, z: 0.12}
 --- !u!114 &1971059006963496954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,9 +157,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   awareness: {fileID: 5059297599899569127}
   lookSpeed: 5
-  idleState: {fileID: 4287229542244186419}
+  idleState: {fileID: 950540521791104213}
   combatState: {fileID: 8941336525200626567}
-  deathState: {fileID: 1068662181018867389}
+  deathState: {fileID: 3506305309446565133}
 --- !u!114 &3038382482968623193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,7 +195,7 @@ MonoBehaviour:
   damageCooldown: 1
   damagePoints:
   - {fileID: 1967989224921357252}
---- !u!114 &4287229542244186419
+--- !u!114 &950540521791104213
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -204,7 +204,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5431969401046113795}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2f8a996b2080c444b07c945f9696d5f, type: 3}
+  m_Script: {fileID: 11500000, guid: 48193d0d551ebb648979f9644ece2404, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &8941336525200626567
@@ -220,7 +220,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 0.5
---- !u!114 &1068662181018867389
+  followOffset: 0.7
+  stemPointDelay: 3
+--- !u!114 &3506305309446565133
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -229,22 +231,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5431969401046113795}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67e8a1e7d5be098479ffa0d7d53b5af4, type: 3}
+  m_Script: {fileID: 11500000, guid: d35fc0ccc1988de4da6af22b2a8c0c3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8325783153214672957
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5431969401046113795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86bc53831ce937547b8e9155743b2a5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controller: {fileID: 1971059006963496954}
 --- !u!114 &1967989224921357252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,6 +258,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b4bee237b664f5ab660286213726ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2431591437997830762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5431969401046113795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beca0e24edf6ec242b0ec8620756b5be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  linePointPrefab: {fileID: 4619102072729718114, guid: ff8ae165bdc54a04785eda7e144acdfd,
+    type: 3}
+  maxStemPoints: 10
+  retractSpeed: 1
 --- !u!1 &7485251704761677790
 GameObject:
   m_ObjectHideFlags: 0
@@ -674,6 +679,11 @@ PrefabInstance:
     - target: {fileID: 6792995661951444133, guid: ff8ae165bdc54a04785eda7e144acdfd,
         type: 3}
       propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9215705204819809609, guid: ff8ae165bdc54a04785eda7e144acdfd,
+        type: 3}
+      propertyPath: m_Mass
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
