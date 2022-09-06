@@ -25,6 +25,7 @@ public class RendererUtility
 
     private void UpdateAlpha(float newAlpha, Renderer renderer)
     {
+        Debug.Log(newAlpha);
         Color objectColor = new Color(0.0f, 0.0f, 0.0f, newAlpha); // Default to no color.
 
         if(renderer.material.HasProperty("_Color"))
