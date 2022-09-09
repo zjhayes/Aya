@@ -44,7 +44,7 @@ public class PlayerAbilities : MonoBehaviour
             cooldownReady = false; // Cooldown lasts until current field is destroyed.
             charge = 0.0f;
             animator.SetBool("IsCharging", true);
-            animator.SetBool("IsCharging", false);
+            animator.SetBool("IsCharging", false); // TODO: This needs to be fixed to animate Aya.
         }
     }
 
