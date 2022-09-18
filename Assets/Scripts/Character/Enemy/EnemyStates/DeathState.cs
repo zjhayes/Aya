@@ -14,5 +14,9 @@ public class DeathState : CharacterState<EnemyController>
         controller.Awareness.IsAlert = false;
         controller.Awareness.enabled = false;
         controller.Combat.EnableDamage(false);
+        if(GetComponent<Collider>() != null)
+        {
+            GetComponent<Collider>().enabled = false;
+        }
     }
 }

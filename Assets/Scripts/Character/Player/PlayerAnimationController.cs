@@ -64,7 +64,7 @@ public class PlayerAnimationController : MonoBehaviour
 
     public bool IsGrounded()
     {
-        return animator.GetCurrentAnimatorStateInfo(0).IsName("Grounded");
+        return animator.GetCurrentAnimatorStateInfo(0).IsName("Grounded"); // TODO: Consider using OnGround animator parameter.
     }
 
     public void UpdateAnimator()
